@@ -1,0 +1,310 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: rgba(13, 13, 13, 0.9);
+    color: #e5e5e5;
+}
+
+h1, h2 {
+    color: #00eaff; /* Maintained color */
+    text-shadow: 0 0 5px #00eaff;
+    animation: none;
+}
+
+a {
+    color: #00eaff; /* Maintained color */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+    a:hover {
+        color: #ff007f; /* Maintained color */
+    }
+
+.container {
+    width: 80%;
+    max-width: 1200px; /* Set a maximum width */
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.6); /* More translucent background */
+    padding: 1rem;
+    border-radius: 10px;
+    backdrop-filter: blur(10px); /* Add blur effect for container background */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 234, 255, 0.5); /* Add border for futuristic look */
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.7); /* More translucent background */
+    color: #e5e5e5;
+    padding: 1rem 0;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(0, 234, 255, 0.5); /* Add border for futuristic look */
+}
+
+    header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        text-shadow: 0 0 5px #00eaff;
+    }
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+    nav ul li {
+        margin-left: 2rem;
+    }
+
+        nav ul li a {
+            color: #00eaff;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+            nav ul li a:hover {
+                color: #ff007f;
+            }
+
+main {
+    margin-top: 5rem;
+    padding: 2rem 0;
+    background: rgba(0, 0, 0, 0.6); /* More translucent background */
+    border-top: 1px solid rgba(0, 234, 255, 0.5); /* Add border for futuristic look */
+    backdrop-filter: blur(10px); /* Add blur effect */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+section {
+    width: 90%; /* Increased width */
+    max-width: 1200px; /* Set a maximum width */
+    margin: 0 auto; /* Center the section */
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.6); /* More translucent background */
+    border-top: 1px solid rgba(0, 234, 255, 0.5); /* Add border for futuristic look */
+    backdrop-filter: blur(10px); /* Add blur effect */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.project-card, .tool-card {
+    perspective: 1000px;
+    margin-bottom: 5rem;
+}
+
+.project-card-inner, .tool-card-inner {
+    position: relative;
+    width: 96%; /* Ensuring cards fit well within the container */
+    height: 250px;
+    text-align: center;
+    transition: transform 0.3s, opacity 0.3s;
+    transform-style: preserve-3d;
+}
+
+.project-card:hover .project-card-inner, .tool-card:hover .tool-card-inner {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.project-card-front, .tool-card-front, .project-card-back, .tool-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.project-card-front, .tool-card-front {
+    background-color: rgba(0, 0, 0, 0.6); /* More translucent background */
+    background-size: cover; /* Ensure background images cover the card */
+    background-position: center;
+    color: #e5e5e5;
+    border: 1px solid rgba(0, 234, 255, 0.5); /* Add border for futuristic look */
+    z-index: 2;
+}
+
+.project-card-back, .tool-card-back {
+    background-color: rgba(0, 0, 0, 0.6); /* More translucent background */
+    color: #e5e5e5;
+    border: 1px solid rgba(255, 0, 127, 0.5); /* Add border for futuristic look */
+    opacity: 0;
+    transform: scale(0.9);
+    z-index: 1;
+}
+
+.project-card:hover .project-card-back, .tool-card:hover .tool-card-back {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 3;
+}
+
+.project-card:hover .project-card-front, .tool-card:hover .tool-card-front {
+    opacity: 0;
+    transform: scale(0.9);
+    z-index: 1;
+}
+
+footer {
+    background-color: rgba(0, 0, 0, 0.7); /* More translucent background */
+    color: #e5e5e5;
+    text-align: center;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(0, 234, 255, 0.5); /* Add border for futuristic look */
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
+}
+
+    footer a {
+        color: #00eaff;
+    }
+
+        footer a:hover {
+            color: #ff007f;
+        }
+
+#contact a {
+    color: #00eaff;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+    ul li {
+        margin-bottom: 0.5rem;
+    }
+
+.hud-menu {
+    background-color: rgba(0, 0, 0, 0.7); /* More translucent background */
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s;
+    border: 1px solid rgba(0, 234, 255, 0.5); /* Add border for futuristic look */
+}
+
+    .hud-menu ul {
+        display: flex;
+        gap: 1rem;
+    }
+
+        .hud-menu ul li a {
+            color: #00eaff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+            .hud-menu ul li a:hover {
+                color: #ff007f;
+            }
+
+.parallax {
+    background-image: url('your-image-path.jpg');
+    height: 400px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@keyframes neon-glow {
+    0%, 100% {
+        text-shadow: 0 0 5px #00eaff, 0 0 10px #00eaff, 0 0 20px #00eaff, 0 0 40px #00eaff, 0 0 80px #00eaff, 0 0 90px #00eaff, 0 0 100px #00eaff, 0 0 150px #00eaff;
+    }
+
+    50% {
+        text-shadow: 0 0 2px #00eaff, 0 0 5px #00eaff, 0 0 10px #00eaff, 0 0 20px #00eaff, 0 0 40px #00eaff, 0 0 50px #00eaff, 0 0 75px #00eaff, 0 0 100px #00eaff;
+    }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(13, 13, 13, 0.9);
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+    .modal.show {
+        display: flex;
+    }
+
+    .modal img {
+        max-width: 80%;
+        max-height: 80%;
+        border: 2px solid #00eaff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #00eaff;
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+        nav ul li {
+            margin-left: 0;
+            margin-bottom: 1rem;
+        }
+
+    .hud-menu ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .container {
+        width: 100%;
+        padding: 0.5rem;
+    }
+
+    main {
+        margin-top: 7rem;
+        padding: 1rem 0;
+    }
+
+    section {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .project-card-inner, .tool-card-inner {
+        height: auto;
+        padding: 1rem 0;
+    }
+
+    .project-card-front, .tool-card-front, .project-card-back, .tool-card-back {
+        height: auto;
+        padding: 1rem;
+    }
+}
