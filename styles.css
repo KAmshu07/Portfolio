@@ -1,3 +1,4 @@
+/* Base styles */
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -8,35 +9,35 @@ body {
 }
 
 h1, h2 {
-    color: #00eaff; /* Maintained color */
+    color: #00eaff;
     text-shadow: 0 0 5px #00eaff;
     animation: none;
 }
 
 a {
-    color: #00eaff; /* Maintained color */
+    color: #00eaff;
     text-decoration: none;
     transition: color 0.3s;
 }
 
     a:hover {
-        color: #ff007f; /* Maintained color */
+        color: #ff007f;
     }
 
 .container {
     width: 80%;
-    max-width: 1200px; /* Set a maximum width */
+    max-width: 1200px;
     margin: 0 auto;
-    background: rgba(0, 0, 0, 0.6); /* More translucent background */
+    background: rgba(0, 0, 0, 0.6);
     padding: 1rem;
     border-radius: 10px;
-    backdrop-filter: blur(10px); /* Add blur effect for container background */
+    backdrop-filter: blur(10px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(0, 234, 255, 0.5); /* Add border for futuristic look */
+    border: 1px solid rgba(0, 234, 255, 0.5);
 }
 
 header {
-    background-color: rgba(0, 0, 0, 0.7); /* More translucent background */
+    background-color: rgba(0, 0, 0, 0.7);
     color: #e5e5e5;
     padding: 1rem 0;
     text-align: center;
@@ -45,7 +46,7 @@ header {
     top: 0;
     z-index: 1000;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    border-bottom: 1px solid rgba(0, 234, 255, 0.5); /* Add border for futuristic look */
+    border-bottom: 1px solid rgba(0, 234, 255, 0.5);
 }
 
     header .container {
@@ -84,22 +85,22 @@ nav ul {
 main {
     margin-top: 5rem;
     padding: 2rem 0;
-    background: rgba(0, 0, 0, 0.6); /* More translucent background */
-    border-top: 1px solid rgba(0, 234, 255, 0.5); /* Add border for futuristic look */
-    backdrop-filter: blur(10px); /* Add blur effect */
+    background: rgba(0, 0, 0, 0.6);
+    border-top: 1px solid rgba(0, 234, 255, 0.5);
+    backdrop-filter: blur(10px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
 }
 
 section {
-    width: 90%; /* Increased width */
-    max-width: 1200px; /* Set a maximum width */
-    margin: 0 auto; /* Center the section */
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
     margin-bottom: 2rem;
     padding: 2rem;
-    background: rgba(0, 0, 0, 0.6); /* More translucent background */
-    border-top: 1px solid rgba(0, 234, 255, 0.5); /* Add border for futuristic look */
-    backdrop-filter: blur(10px); /* Add blur effect */
+    background: rgba(0, 0, 0, 0.6);
+    border-top: 1px solid rgba(0, 234, 255, 0.5);
+    backdrop-filter: blur(10px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
 }
@@ -111,7 +112,7 @@ section {
 
 .project-card-inner, .tool-card-inner {
     position: relative;
-    width: 96%; /* Ensuring cards fit well within the container */
+    width: 96%;
     height: 250px;
     text-align: center;
     transition: transform 0.3s, opacity 0.3s;
@@ -135,18 +136,18 @@ section {
 }
 
 .project-card-front, .tool-card-front {
-    background-color: rgba(0, 0, 0, 0.6); /* More translucent background */
-    background-size: cover; /* Ensure background images cover the card */
+    background-color: rgba(0, 0, 0, 0.6);
+    background-size: cover;
     background-position: center;
     color: #e5e5e5;
-    border: 1px solid rgba(0, 234, 255, 0.5); /* Add border for futuristic look */
+    border: 1px solid rgba(0, 234, 255, 0.5);
     z-index: 2;
 }
 
 .project-card-back, .tool-card-back {
-    background-color: rgba(0, 0, 0, 0.6); /* More translucent background */
+    background-color: rgba(0, 0, 0, 0.6);
     color: #e5e5e5;
-    border: 1px solid rgba(255, 0, 127, 0.5); /* Add border for futuristic look */
+    border: 1px solid rgba(255, 0, 127, 0.5);
     opacity: 0;
     transform: scale(0.9);
     z-index: 1;
@@ -165,11 +166,11 @@ section {
 }
 
 footer {
-    background-color: rgba(0, 0, 0, 0.7); /* More translucent background */
+    background-color: rgba(0, 0, 0, 0.7);
     color: #e5e5e5;
     text-align: center;
     padding: 1rem 0;
-    border-top: 1px solid rgba(0, 234, 255, 0.5); /* Add border for futuristic look */
+    border-top: 1px solid rgba(0, 234, 255, 0.5);
     box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
 }
 
@@ -194,12 +195,12 @@ ul {
     }
 
 .hud-menu {
-    background-color: rgba(0, 0, 0, 0.7); /* More translucent background */
+    background-color: rgba(0, 0, 0, 0.7);
     padding: 0.5rem 1rem;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s;
-    border: 1px solid rgba(0, 234, 255, 0.5); /* Add border for futuristic look */
+    border: 1px solid rgba(0, 234, 255, 0.5);
 }
 
     .hud-menu ul {
@@ -306,5 +307,9 @@ ul {
     .project-card-front, .tool-card-front, .project-card-back, .tool-card-back {
         height: auto;
         padding: 1rem;
+    }
+
+    .project-card, .tool-card {
+        margin-bottom: 2rem;
     }
 }
