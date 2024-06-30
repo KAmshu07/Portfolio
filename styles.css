@@ -61,6 +61,16 @@ header {
         text-shadow: 0 0 5px #00eaff;
     }
 
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+    .menu-toggle i {
+        color: #00eaff;
+    }
+
 nav ul {
     list-style: none;
     padding: 0;
@@ -269,10 +279,19 @@ ul {
         flex-direction: column;
     }
 
+    .menu-toggle {
+        display: block;
+    }
+
     nav ul {
         flex-direction: column;
         align-items: center;
+        display: none;
     }
+
+        nav ul.active {
+            display: flex;
+        }
 
         nav ul li {
             margin-left: 0;

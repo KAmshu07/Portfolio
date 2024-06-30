@@ -36,6 +36,14 @@ document.addEventListener('DOMContentLoaded', function () {
     modal.addEventListener('click', function () {
         modal.classList.remove('show');
     });
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('mobile-menu');
+    const navMenu = document.querySelector('nav ul');
+
+    menuToggle.addEventListener('click', function () {
+        navMenu.classList.toggle('active');
+    });
 });
 
 // CSS for modal in the same file for quick reference
