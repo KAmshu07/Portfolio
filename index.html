@@ -1,317 +1,620 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amritanshu Kumar - Unity Game Developer</title>
+    <meta name="description" content="Amritanshu Kumar's portfolio website" />
+    <title>Amritanshu Kumar | Website</title>
+    <!--favicon-img-->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <!--favicon-img-->
+    <!--main css file should not be removed -->
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
+    <!--main css file-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
 </head>
+
 <body>
-    <header>
-        <div class="container">
-            <h1><i class="fas fa-gamepad"></i> Amritanshu Kumar</h1>
-            <div class="menu-toggle" id="mobile-menu">
-                <i class="fas fa-bars"></i>
+    <!--contains all the div-->
+    <div id="all">
+        <!--mouse  follower-->
+        <div class="cursor"></div>
+        <!--mouse  follower-->
+        <!--loader-->
+        <div id="loader">
+            <span class="color">Amritanshu</span>Kumar
+        </div>
+        <!--loader-end-->
+        <!--link-screen-->
+        <div id="breaker">
+        </div>
+        <div id="breaker-two">
+        </div>
+        <!--link-screen-->
+        <!--Main-Section-->
+        <!--Navigator-fullscreen-->
+        <div id="navigation-content">
+            <div class="logo">
+                <img src="images/willy wonka logo.png" alt="logo">
             </div>
-            <nav class="hud-menu">
-                <ul>
-                    <li><a href="#about">About Me</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#tools">Tools</a></li>
-                    <li><a href="#contact">Contact</a></li>
+            <div class="navigation-close">
+                <span class="close-first"></span>
+                <span class="close-second"></span>
+            </div>
+            <div class="navigation-links">
+                <a href="#" data-text="HOME" id="home-link">HOME</a>
+                <a href="#" data-text="ABOUT" id="about-link">ABOUT</a>
+                <a href="#" data-text="PORTFOLIO" id="portfolio-link">PORTFOLIO</a>
+                <a href="#" data-text="CONTACT" id="contact-link">CONTACT</a>
+            </div>
+        </div>
+        <!--Navigator-Fullscreen END-->
+        <!--Home Page-->
+        <!--Menubar-->
+        <div id="navigation-bar">
+            <img src="images/willy wonka logo.png" alt="logo">
+            <div class="menubar">
+                <span class="first-span"></span>
+                <span class="second-span"></span>
+                <span class="third-span"></span>
+            </div>
+        </div>
+        <!--Menubar End-->
+        <!--Header-->
+        <div id="header">
+            <div id="particles"></div>
+            <!--Social Media Links-->
+            <div class="social-media-links">
+                <!-- <a href="#"><img src="images/git.png" class="social-media" alt="github-logo"></a> -->
+                <a target="_blank" href="https://www.linkedin.com/in/amritanshu-kumar-/"><img src="images/linkedin logo.png" class="social-media" alt="linkedin-logo"></a>
+                <a target="_blank" href="https://github.com/KAmshu07"><img src="images/youtube.png" class="social-media" alt="youtube-logo"></a>
+            </div>
+            <!--Social Media Links end-->
+            <div class="header-content">
+                <div class="header-content-box">
+                    <div class="firstline"><span class="color">Amritanshu </span>Kumar</div>
+                    <div class="secondline">
+                        I'm a
+                        <span class="txt-rotate color" data-period="1200"
+                              data-rotate='[ "Unity Game Developer.", "Unity Tool Developer.", "Game Mechanics Optimizer.", "Junior UE5 Game Developer."]'></span>
+                        <span class="slash">|</span>
+                    </div>
+                    <div class="contact">
+                        <a href="Mailto:kamshu00@gmail.com">
+                            <img src="images/mail.png" alt="email-pic"
+                                 class="contactpic">
+                        </a><!--Your email Id write in place of "#"-->
+                        <a href="Tel:+91 7903734532">
+                            <img src="images/call.png" alt="phone-pic"
+                                 class="contactpic">
+                        </a><!--Your telephone number Id write in place of "#"-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Header End-->
+        <!--HomePage End-->
+        <!--Main-Section End-->
+        <!--about-->
+        <div id="about">
+            <!--about content-->
+            <div id="about-content">
+                <div class="about-header">
+                    About <span class="color">Me</span>
+                    <span class="header-caption">Get to Know <span class="color"> me.</span></span>
+                </div>
+                <div class="about-main">
+                    <div class="about-first-paragraph wow">
+                        <!--about description-->
+                        <span class="about-first-line">
+                            I'm a Junior
+                            <span class="color">Game Developer</span>
+                            based in Patna, Bihar, India.
+                        </span>
+                        <br>
+                        <span class="about-second-line">
+                            I am a passionate game developer with over one and half years of experience in writing clean code which bring robust automation. I am familiar with various kind of game genres such as FPS, TPS, casual, MMORPG games. Handling your project professionally, I will deliver your product in superior quality because your success is also mine.
+                        </span>
+                        <div class="cv">
+                            <a href="Resume_Update_20240302_V10.pdf" target="_blank" download><button>Download <span class="colors">CV</span></button></a>
+                        </div>
+                    </div>
+                    <!--about picture-->
+                    <!-- <div class="about-img">
+                    <img src="images/images.jpg" alt="Image">
+                </div> -->
+                </div>
+
+            </div>
+            <!--services start-->
+            <div id="services">
+                <!--services header-->
+                <div class="services-heading wow">
+                    <span class="color">My</span> Services
+                </div>
+                <!--services header end-->
+                <!--services content-->
+                <div class="services-content">
+                    <div class="service-one service wow">
+                        <div class="service-img">
+                            <img src="images/unity.png" alt="service-one">
+                        </div>
+                        <div class="service-description">
+                            <h2>Unity3D Game</h2>
+                            <p>I am pretty confident in my ability to create immersive and enjoyable games with Unity3D.</p>
+                        </div>
+                    </div>
+                    <div class="service-two service wow">
+                        <div class="service-img">
+                            <img src="images/unreal.png" alt="service-two">
+                        </div>
+                        <div class="service-description">
+                            <h2>Unreal Engine Game</h2>
+                            <p>I have about 4 year of experience in creating stunning console, mobile, and PC games via Unreal Engine.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--services content end-->
+            <!--services end-->
+
+            <div id="skills-section">
+                <div class="services-heading wow">
+                    Unity <span class="color">Skills</span>
+                </div>
+                <ul class="description">
+                    <li>Proficient in Unity, C# scripting, and gaming physics engines</li>
+                    <li>Skilled in optimizing performance, coding, debugging, and testing games</li>
+                    <li>Developing AI for various types of games, (Horror, FPS, TPS, top down RPG's and a lot more)</li>
+                    <li>3D & 2D games</li>
+                    <li>Strong communication and interpersonal skills</li>
+                    <li>Adaptable and able to work well under pressure</li>
                 </ul>
-            </nav>
+            </div>
+
+            <div id="skills-section">
+                <div class="services-heading wow">
+                    Unreal Engine <span class="color">Skills</span>
+                </div>
+                <ul class="description">
+                    <li>Proficient in Unreal Engine 5, with a solid understanding of game development using Blueprints and C++.</li>
+                    <li>Experienced with creating and implementing game mechanics, artificial intelligence, and user interface elements.</li>
+                    <li>Familiarity with various features of Unreal Engine 5, including physics systems, animation, particle systems, and audio implementation.</li>
+                </ul>
+            </div>
+
+            <div id="skills">
+                <div class="skills-header">
+                    Overall <span class="color"> Skills</span>
+                </div>
+                <div class="skills-content " style="text-align: center;">
+                    <div class="skill-html skill">
+                        <div class="skill-text">
+                            <div class="html">
+                                <ul><li>Unity</li></ul>
+                            </div>
+                        </div>
+                        <div class="html-prog wow prog">
+                            <div class="unity-progress wow">80%</div>
+                        </div>
+                    </div>
+                    <div class="skill-html skill">
+                        <div class="skill-text">
+                            <div class="html">
+                                <ul><li>C# programming language</li></ul>
+                            </div>
+                        </div>
+                        <div class="html-prog wow prog">
+                            <div class="Csharp-progress wow">80%</div>
+                        </div>
+                    </div>
+                    <div class="skill-html skill">
+                        <div class="skill-text">
+                            <div class="html">
+                                <ul><li>Python</li></ul>
+                            </div>
+                        </div>
+                        <div class="html-prog wow prog">
+                            <div class="adobe-progress wow">50%</div>
+                        </div>
+                    </div>
+                    <div class="skill-html skill">
+                        <div class="skill-text">
+                            <div class="html">
+                                <ul><li>Unreal Engine</li></ul>
+                            </div>
+                        </div>
+                        <div class="html-prog wow prog">
+                            <div class="ue-progress wow">40%</div>
+                        </div>
+                    </div>
+                    <div class="skill-html skill">
+                        <div class="skill-text">
+                            <div class="html">
+                                C++
+                            </div>
+                        </div>
+                        <div class="html-prog wow prog">
+                            <div class="C-progress wow">40%</div>
+                        </div>
+                    </div>
+                    <div class="skill-html skill">
+                        <div class="skill-text">
+                            <div class="html">
+                                Blueprints
+                            </div>
+                        </div>
+                        <div class="html-prog wow prog">
+                            <div class="seo-progress wow">40%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--copyright-section You Can Remove After Downloading-->
+            <div class="footer">
+                <div class="footer-text">
+                    <img src="./images/copyright.png" alt="copyright-img" class="images" height="14px"> Amritanshu Kumar
+                </div>
+            </div>
+            <!--copyright-section-->
         </div>
-    </header>
-    <div class="parallax"></div>
-    <main>
-        <section id="about">
-            <div class="container">
-                <h2>About Me</h2>
-                <p>Welcome to my portfolio! I am Amritanshu Kumar, a Unity Game Developer with expertise in Unity Tool Development and Game Mechanics Optimization. Here are some of the projects and tools I've worked on.</p>
+        <!--about end-->
+        <!--portfolio-->
+        <div id="portfolio">
+            <div class="portfolio-header">
+                <span class="color"> My </span> Portfolio
+                <span class="header-caption"> Some Of My <span class="color"> Works</span></span>
             </div>
-        </section>
-        <section id="projects">
-            <div class="container">
-                <h2>Projects</h2>
-                <div class="project-card">
-                    <div class="project-card-inner">
-                        <div class="project-card-front" style="background-image: url('E:/Portfolio/Portfolio-Website/images/infinite-runner.jpg');">
-                            <h3>Recurve 28 (Arrow Game)</h3>
-                            <p>A complex game that integrates a camera, Arduino sensor, and projector to deliver a unique gameplay experience. The game employs OpenCV to detect arrows and determine their impact point with pixel-perfect accuracy.</p>
-                        </div>
-                        <div class="project-card-back">
-                            <p>Technologies Used: Unity, OpenCV, Arduino</p>
-                            <ul>
-                                <li>Hardware integration with camera, Arduino, and projector</li>
-                                <li>Precise arrow impact detection using OpenCV</li>
-                                <li>Multiple gameplay modes utilizing the detection system</li>
-                            </ul>
-                            <a href="#" class="project-link">Learn More</a>
-                        </div>
+            <div id="portfolio-content">
+                <!-- Project 1 -->
+                <div class="portfolio portfolio-first">
+                    <div class="portfolio-image">
+                        <video controls autoplay muted>
+                            <source src="./video/arrow-game.webm" type="video/webm" />
+                        </video>
+                    </div>
+                    <div class="portfolio-text">
+                        <h2>Recurve 28 (Arrow Game)</h2>
+                        <p>A complex game that integrates a camera, Arduino sensor, and projector to deliver a unique gameplay experience. The game employs OpenCV to detect arrows and determine their impact point with pixel-perfect accuracy.</p>
+                        <ul>
+                            <li>Hardware integration with camera, Arduino, and projector</li>
+                            <li>Precise arrow impact detection using OpenCV</li>
+                            <li>Multiple gameplay modes utilizing the detection system</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-card-inner">
-                        <div class="project-card-front" style="background-image: url('E:/Portfolio/Portfolio-Website/images/setup-tool.jpg');">
-                            <h3>Project Setup Tool</h3>
-                            <p>A powerful tool designed to set up projects with predefined settings and structures, enabling developers to start working within seconds and maintain consistent architecture across projects.</p>
-                        </div>
-                        <div class="project-card-back">
-                            <p>Technologies Used: Unity, C#</p>
-                            <ul>
-                                <li>Customizable project setup</li>
-                                <li>Automation of repetitive setup tasks</li>
-                                <li>Ensures consistency and efficiency across projects</li>
-                            </ul>
-                            <a href="#" class="project-link">Learn More</a>
-                        </div>
+                <!-- Project 2 -->
+                <div class="portfolio portfolio-first">
+                    <div class="portfolio-image">
+                        <video controls autoplay muted>
+                            <source src="./video/setup-tool.webm" type="video/webm" />
+                        </video>
+                    </div>
+                    <div class="portfolio-text">
+                        <h2>Project Setup Tool</h2>
+                        <p>A powerful tool designed to set up projects with predefined settings and structures, enabling developers to start working within seconds and maintain consistent architecture across projects.</p>
+                        <ul>
+                            <li>Customizable project setup</li>
+                            <li>Automation of repetitive setup tasks</li>
+                            <li>Ensures consistency and efficiency across projects</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-card-inner">
-                        <div class="project-card-front" style="background-image: url('E:/Portfolio/Portfolio-Website/images/finger-royale.jpg');">
-                            <h3>Finger Royale</h3>
-                            <p>A replica of the "Finger on the App" challenge by Mr. Beast. This game tests players' endurance by requiring them to keep their finger on the screen for as long as possible. The last person remaining wins.</p>
-                        </div>
-                        <div class="project-card-back">
-                            <p>Technologies Used: Unity, C#</p>
-                            <ul>
-                                <li>Real-time multiplayer functionality</li>
-                                <li>Accurate touch detection</li>
-                                <li>User-friendly interface with dynamic updates</li>
-                            </ul>
-                            <a href="#" class="project-link">Learn More</a>
-                        </div>
+                <!-- Project 3 -->
+                <div class="portfolio portfolio-second">
+                    <div class="portfolio-image">
+                        <video controls autoplay muted>
+                            <source src="./video/finger-royale.webm" type="video/webm" />
+                        </video>
+                    </div>
+                    <div class="portfolio-text">
+                        <h2>Finger Royale</h2>
+                        <p>A replica of the "Finger on the App" challenge by Mr. Beast. This game tests players' endurance by requiring them to keep their finger on the screen for as long as possible. The last person remaining wins.</p>
+                        <ul>
+                            <li>Real-time multiplayer functionality</li>
+                            <li>Accurate touch detection</li>
+                            <li>User-friendly interface with dynamic updates</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-card-inner">
-                        <div class="project-card-front" style="background-image: url('E:/Portfolio/Portfolio-Website/images/deft-runner.jpg');">
-                            <h3>Deft Runner</h3>
-                            <p>A reskin of Twisco Run with improved features and optimization. This project highlights the learning curve and ability to enhance existing games.</p>
-                        </div>
-                        <div class="project-card-back">
-                            <p>Technologies Used: Unity, C#</p>
-                            <ul>
-                                <li>Enhanced optimization for smoother gameplay</li>
-                                <li>Continuous swipe feature for seamless player control</li>
-                                <li>Improved object pooling and state management</li>
-                            </ul>
-                            <a href="#" class="project-link">Learn More</a>
-                        </div>
+                <!-- Project 4 -->
+                <div class="portfolio portfolio-second">
+                    <div class="portfolio-image">
+                        <video controls autoplay muted>
+                            <source src="./video/deft-runner.webm" type="video/webm" />
+                        </video>
+                    </div>
+                    <div class="portfolio-text">
+                        <h2>Deft Runner</h2>
+                        <p>A reskin of Twisco Run with improved features and optimization. This project highlights the learning curve and ability to enhance existing games.</p>
+                        <ul>
+                            <li>Enhanced optimization for smoother gameplay</li>
+                            <li>Continuous swipe feature for seamless player control</li>
+                            <li>Improved object pooling and state management</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-card-inner">
-                        <div class="project-card-front" style="background-image: url('E:/Portfolio/Portfolio-Website/images/twisco-run.jpg');">
-                            <h3>Twisco Run</h3>
-                            <p>A runner game where players navigate through obstacles. This project was a learning ground for implementing advanced Unity features.</p>
-                        </div>
-                        <div class="project-card-back">
-                            <p>Technologies Used: Unity, C#</p>
-                            <ul>
-                                <li>Origin Shifting to handle large game worlds</li>
-                                <li>Addressables for efficient asset management</li>
-                                <li>State Pattern for organized game state management</li>
-                                <li>Object Pooling for performance optimization</li>
-                            </ul>
-                            <a href="#" class="project-link">Learn More</a>
-                        </div>
+                <!-- Project 5 -->
+                <div class="portfolio portfolio-first">
+                    <div class="portfolio-image">
+                        <video controls autoplay muted>
+                            <source src="./video/twisco-run.webm" type="video/webm" />
+                        </video>
+                    </div>
+                    <div class="portfolio-text">
+                        <h2>Twisco Run</h2>
+                        <p>A runner game where players navigate through obstacles. This project was a learning ground for implementing advanced Unity features.</p>
+                        <ul>
+                            <li>Origin Shifting to handle large game worlds</li>
+                            <li>Addressables for efficient asset management</li>
+                            <li>State Pattern for organized game state management</li>
+                            <li>Object Pooling for performance optimization</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-card-inner">
-                        <div class="project-card-front" style="background-image: url('E:/Portfolio/Portfolio-Website/images/hangman-game.jpg');">
-                            <h3>Hangman Game</h3>
-                            <p>A simple hangman game developed to practice and demonstrate the SOLID principles.</p>
-                        </div>
-                        <div class="project-card-back">
-                            <p>Technologies Used: Unity, C#</p>
-                            <ul>
-                                <li>Clean code architecture adhering to SOLID principles</li>
-                                <li>Simple, intuitive gameplay</li>
-                                <li>Well-documented code for educational purposes</li>
-                            </ul>
-                            <a href="#" class="project-link">Learn More</a>
-                        </div>
+                <!-- Project 6 -->
+                <div class="portfolio portfolio-first">
+                    <div class="portfolio-image">
+                        <video controls autoplay muted>
+                            <source src="./video/hangman-game.webm" type="video/webm" />
+                        </video>
+                    </div>
+                    <div class="portfolio-text">
+                        <h2>Hangman Game</h2>
+                        <p>A simple hangman game developed to practice and demonstrate the SOLID principles.</p>
+                        <ul>
+                            <li>Clean code architecture adhering to SOLID principles</li>
+                            <li>Simple, intuitive gameplay</li>
+                            <li>Well-documented code for educational purposes</li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-        </section>
-        <section id="tools">
-            <div class="container">
-                <h2>Tools</h2>
-                <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-card-front" style="background-image: url('E:/Portfolio/Portfolio-Website/images/object-pooler.jpg');">
-                            <h3>Comprehensive Object Pooler</h3>
-                            <p>Description: A versatile object pooler designed to enhance performance by reusing objects efficiently.</p>
-                        </div>
-                        <div class="tool-card-back">
-                            <ul>
-                                <li>Dynamic object pooling</li>
-                                <li>Easy integration with existing projects</li>
-                                <li>Detailed documentation and examples</li>
-                            </ul>
-                            <p>Technologies Used: Unity, C#</p>
-                            <a href="#" class="tool-link">Watch Video</a>
-                        </div>
+                <!-- Tool 1 -->
+                <div class="portfolio portfolio-second">
+                    <div class="portfolio-image">
+                        <video controls autoplay muted>
+                            <source src="./video/object-pooler.webm" type="video/webm" />
+                        </video>
+                    </div>
+                    <div class="portfolio-text">
+                        <h2>Comprehensive Object Pooler</h2>
+                        <p>A versatile object pooler designed to enhance performance by reusing objects efficiently.</p>
+                        <ul>
+                            <li>Dynamic object pooling</li>
+                            <li>Easy integration with existing projects</li>
+                            <li>Detailed documentation and examples</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-card-front" style="background-image: url('E:/Portfolio/Portfolio-Website/images/timer-tool.jpg');">
-                            <h3>Timer Tool</h3>
-                            <p>Description: A versatile tool for implementing various timers in a game, with advanced scheduling features for complex timing requirements.</p>
-                        </div>
-                        <div class="tool-card-back">
-                            <ul>
-                                <li>Support for multiple timer types</li>
-                                <li>Advanced scheduling and management features</li>
-                                <li>Custom editor window for real-time management</li>
-                            </ul>
-                            <p>Technologies Used: Unity, C#</p>
-                            <a href="#" class="tool-link">Watch Video</a>
-                        </div>
+                <!-- Tool 2 -->
+                <div class="portfolio portfolio-second">
+                    <div class="portfolio-image">
+                        <video controls autoplay muted>
+                            <source src="./video/timer-tool.webm" type="video/webm" />
+                        </video>
+                    </div>
+                    <div class="portfolio-text">
+                        <h2>Timer Tool</h2>
+                        <p>A versatile tool for implementing various timers in a game, with advanced scheduling features for complex timing requirements.</p>
+                        <ul>
+                            <li>Support for multiple timer types</li>
+                            <li>Advanced scheduling and management features</li>
+                            <li>Custom editor window for real-time management</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-card-front" style="background-image: url('E:/Portfolio/Portfolio-Website/images/ui-manager.jpg');">
-                            <h3>UI Manager Tool</h3>
-                            <p>Description: A tool to streamline UI element references in large and complex UIs. It also served as a learning project for editor scripting.</p>
-                        </div>
-                        <div class="tool-card-back">
-                            <ul>
-                                <li>Easy reference management for UI elements</li>
-                                <li>Custom editor windows for streamlined development</li>
-                                <li>Improves development efficiency in large projects</li>
-                            </ul>
-                            <p>Technologies Used: Unity, C#</p>
-                            <a href="#" class="tool-link">Watch Video</a>
-                        </div>
+                <!-- Tool 3 -->
+                <div class="portfolio portfolio-first">
+                    <div class="portfolio-image">
+                        <video controls autoplay muted>
+                            <source src="./video/ui-manager.webm" type="video/webm" />
+                        </video>
+                    </div>
+                    <div class="portfolio-text">
+                        <h2>UI Manager Tool</h2>
+                        <p>A tool to streamline UI element references in large and complex UIs. It also served as a learning project for editor scripting.</p>
+                        <ul>
+                            <li>Easy reference management for UI elements</li>
+                            <li>Custom editor windows for streamlined development</li>
+                            <li>Improves development efficiency in large projects</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-card-front" style="background-image: url('E:/Portfolio/Portfolio-Website/images/internet-manager.jpg');">
-                            <h3>Internet Manager Tool</h3>
-                            <p>Description: A tool to manage internet connectivity within the game, allowing other components to perform internet-based tasks without handling connectivity issues directly.</p>
-                        </div>
-                        <div class="tool-card-back">
-                            <ul>
-                                <li>Robust internet connectivity management</li>
-                                <li>Easy integration with other game components</li>
-                                <li>Provides a unified interface for internet-related tasks</li>
-                            </ul>
-                            <p>Technologies Used: Unity, C#</p>
-                            <a href="#" class="tool-link">Watch Video</a>
-                        </div>
+                <!-- Tool 4 -->
+                <div class="portfolio portfolio-first">
+                    <div class="portfolio-image">
+                        <video controls autoplay muted>
+                            <source src="./video/internet-manager.webm" type="video/webm" />
+                        </video>
+                    </div>
+                    <div class="portfolio-text">
+                        <h2>Internet Manager Tool</h2>
+                        <p>A tool to manage internet connectivity within the game, allowing other components to perform internet-based tasks without handling connectivity issues directly.</p>
+                        <ul>
+                            <li>Robust internet connectivity management</li>
+                            <li>Easy integration with other game components</li>
+                            <li>Provides a unified interface for internet-related tasks</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-card-front" style="background-image: url('E:/Portfolio/Portfolio-Website/images/scene-switch.jpg');">
-                            <h3>Scene Switch Tool</h3>
-                            <p>Description: A simple yet effective tool to quickly switch between and locate scenes using a custom editor window.</p>
-                        </div>
-                        <div class="tool-card-back">
-                            <ul>
-                                <li>Fast scene switching</li>
-                                <li>Easy navigation in the editor</li>
-                                <li>Enhances productivity during development</li>
-                            </ul>
-                            <p>Technologies Used: Unity, C#</p>
-                            <a href="#" class="tool-link">Watch Video</a>
-                        </div>
+                <!-- Tool 5 -->
+                <div class="portfolio portfolio-second">
+                    <div class="portfolio-image">
+                        <video controls autoplay muted>
+                            <source src="./video/scene-switch.webm" type="video/webm" />
+                        </video>
+                    </div>
+                    <div class="portfolio-text">
+                        <h2>Scene Switch Tool</h2>
+                        <p>A simple yet effective tool to quickly switch between and locate scenes using a custom editor window.</p>
+                        <ul>
+                            <li>Fast scene switching</li>
+                            <li>Easy navigation in the editor</li>
+                            <li>Enhances productivity during development</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-card-front" style="background-image: url('E:/Portfolio/Portfolio-Website/images/observer-pattern.jpg');">
-                            <h3>Architecture to Implement Observer Pattern</h3>
-                            <p>Description: Implemented both through Scriptable Objects and code, this architecture ensures efficient event handling and communication between game objects.</p>
-                        </div>
-                        <div class="tool-card-back">
-                            <ul>
-                                <li>Decoupled event management</li>
-                                <li>Scalable and maintainable design</li>
-                                <li>Enhances modularity and reusability of code</li>
-                            </ul>
-                            <p>Technologies Used: Unity, C#</p>
-                            <a href="#" class="tool-link">Watch Video</a>
-                        </div>
+                <!-- Tool 6 -->
+                <div class="portfolio portfolio-second">
+                    <div class="portfolio-image">
+                        <video controls autoplay muted>
+                            <source src="./video/observer-pattern.webm" type="video/webm" />
+                        </video>
+                    </div>
+                    <div class="portfolio-text">
+                        <h2>Architecture to Implement Observer Pattern</h2>
+                        <p>Implemented both through Scriptable Objects and code, this architecture ensures efficient event handling and communication between game objects.</p>
+                        <ul>
+                            <li>Decoupled event management</li>
+                            <li>Scalable and maintainable design</li>
+                            <li>Enhances modularity and reusability of code</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-card-front" style="background-image: url('E:/Portfolio/Portfolio-Website/images/socket-architecture.jpg');">
-                            <h3>Architecture to Use Sockets in Projects</h3>
-                            <p>Description: An architecture designed for real-time multiplayer functionality using Socket.IO.</p>
-                        </div>
-                        <div class="tool-card-back">
-                            <ul>
-                                <li>Real-time data synchronization</li>
-                                <li>Scalable multiplayer game design</li>
-                                <li>Efficient network communication</li>
-                            </ul>
-                            <p>Technologies Used: Unity, Socket.IO</p>
-                            <a href="#" class="tool-link">Watch Video</a>
-                        </div>
+                <!-- Tool 7 -->
+                <div class="portfolio portfolio-first">
+                    <div class="portfolio-image">
+                        <video controls autoplay muted>
+                            <source src="./video/socket-architecture.webm" type="video/webm" />
+                        </video>
+                    </div>
+                    <div class="portfolio-text">
+                        <h2>Architecture to Use Sockets in Projects</h2>
+                        <p>An architecture designed for real-time multiplayer functionality using Socket.IO.</p>
+                        <ul>
+                            <li>Real-time data synchronization</li>
+                            <li>Scalable multiplayer game design</li>
+                            <li>Efficient network communication</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-card-front" style="background-image: url('E:/Portfolio/Portfolio-Website/images/api-architecture.jpg');">
-                            <h3>Architecture to Use API in Projects</h3>
-                            <p>Description: A robust architecture for integrating APIs into Unity projects, ensuring efficient and secure data communication.</p>
-                        </div>
-                        <div class="tool-card-back">
-                            <ul>
-                                <li>Easy integration of various APIs</li>
-                                <li>Secure and efficient data handling</li>
-                                <li>Scalable to accommodate different API requirements</li>
-                            </ul>
-                            <p>Technologies Used: Unity, C#</p>
-                            <a href="#" class="tool-link">Watch Video</a>
-                        </div>
+                <!-- Tool 8 -->
+                <div class="portfolio portfolio-first">
+                    <div class="portfolio-image">
+                        <video controls autoplay muted>
+                            <source src="./video/api-architecture.webm" type="video/webm" />
+                        </video>
+                    </div>
+                    <div class="portfolio-text">
+                        <h2>Architecture to Use API in Projects</h2>
+                        <p>A robust architecture for integrating APIs into Unity projects, ensuring efficient and secure data communication.</p>
+                        <ul>
+                            <li>Easy integration of various APIs</li>
+                            <li>Secure and efficient data handling</li>
+                            <li>Scalable to accommodate different API requirements</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-card-front" style="background-image: url('E:/Portfolio/Portfolio-Website/images/sign-up-notifications.jpg');">
-                            <h3>All Types of Sign-Up and Notifications</h3>
-                            <p>Description: Implemented comprehensive sign-up and notification systems using various platforms.</p>
-                        </div>
-                        <div class="tool-card-back">
-                            <ul>
-                                <li>Google, Google Play, Email, Facebook, Apple, Game Centre sign-ups</li>
-                                <li>Firebase notifications for real-time updates</li>
-                                <li>Secure and user-friendly authentication processes</li>
-                            </ul>
-                            <p>Technologies Used: Unity, Firebase, Various APIs</p>
-                            <a href="#" class="tool-link">Watch Video</a>
-                        </div>
+                <!-- Tool 9 -->
+                <div class="portfolio portfolio-first">
+                    <div class="portfolio-image">
+                        <video controls autoplay muted>
+                            <source src="./video/sign-up-notifications.webm" type="video/webm" />
+                        </video>
+                    </div>
+                    <div class="portfolio-text">
+                        <h2>All Types of Sign-Up and Notifications</h2>
+                        <p>Implemented comprehensive sign-up and notification systems using various platforms.</p>
+                        <ul>
+                            <li>Google, Google Play, Email, Facebook, Apple, Game Centre sign-ups</li>
+                            <li>Firebase notifications for real-time updates</li>
+                            <li>Secure and user-friendly authentication processes</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
-    <footer>
-        <div class="container">
-            <section id="contact">
-                <h2>Contact</h2>
-                <p>Email: <a href="mailto:kamshu00@gmail.com">kamshu00@gmail.com</a></p>
-                <p>LinkedIn: <a href="https://www.linkedin.com/in/amritanshu-kumar-">Amritanshu Kumar</a></p>
-                <p>GitHub: <a href="https://github.com/KAmshu07">KAmshu07</a></p>
-                <p>Phone: <a href="tel:+917903734532">+91 7903734532</a></p>
-            </section>
-            <p>&copy; 2024 Amritanshu Kumar. All rights reserved.</p>
+            <!--copyright-section-->
+            <div class="footer">
+                <div class="footer-text">
+                    <img src="./images/copyright.png" alt="copyright-img" class="images" height="14px"> Amritanshu Kumar
+                </div>
+            </div>
+            <!--copyright-section-->
         </div>
-    </footer>
+        <!--portfolio end-->
+        <!--contact-->
+        <div id="contact">
+            <div class="contact-header">
+                Contact <span class="color"> Me</span>
+                <div class="contact-header-caption"> <span class="color"> Get</span> In Touch.</div>
+            </div>
+            <div class="contact-content">
+                <!--Contact form-->
+                <div class="contact-form">
+                    <div class="form-header">
+                        <strong>Message me</strong>
+                    </div>
+                    <form id="myForm" action="#">
+                        <div class="input-line">
+                            <input id="name" type="text" placeholder="Name" class="input-name">
+                            <input id="email" type="email" placeholder="Email" class="input-name">
+                        </div>
+                        <textarea id="body" class="input-textarea" placeholder="message"></textarea>
+                        <button type="button" id="submit" value="send">Submit</button>
+                    </form>
+
+                </div>
+                <!--Contact form-->
+                <!--Contact information-->
+                <div class="contact-info">
+                    <div class="contact-info-header">
+                        <strong>Contact Info</strong>
+                    </div>
+                    <div class="contact-info-content">
+                        <div class="contect-info-content-line">
+                            <img src="./images/icon-name.png" class="icon" alt="name-icon">
+                            <div class="contact-info-icon-text">
+                                <h6>Name</h6>
+                                <p>Amritanshu Kumar</p>
+                            </div>
+                        </div>
+                        <div class="contect-info-content-line">
+                            <img src="./images/icon-location.png" class="icon" alt="location-icon">
+                            <div class="contact-info-icon-text">
+                                <h6>Location</h6>
+                                <p> Patna, Bihar, India</p>
+                            </div>
+                        </div>
+                        <div class="contect-info-content-line">
+                            <img src="./images/icon-phone.png" class="icon" alt="phone-icon">
+                            <div class="contact-info-icon-text">
+                                <h6>Call</h6>
+                                <p>+91 7903734532</p>
+                            </div>
+                        </div>
+
+                        <div class="contect-info-content-line">
+                            <img src="./images/icon-email.png" class="icon" alt="email-icon">
+                            <div class="contact-info-icon-text">
+                                <h6>Email</h6>
+                                <p>kamshu00@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Contact information end-->
+                </div>
+            </div>
+            <!--copyright-section You Can Remove After Downloading-->
+            <div class="footer">
+                <div class="footer-text">
+                    <img src="./images/copyright.png" alt="copyright-img" class="images" height="14px"> Amritanshu Kumar
+                </div>
+            </div>
+            <!--copyright-section-->
+        </div>
+        <!--contact end-->
+    </div>
+    <!--all the divisions-->
+    <script src="jquery.min.js"></script>
+    <script src="particles.js"></script>
+    <script src="particles.min.js"></script>
     <script src="scripts.js"></script>
+    <!--particles script-->
+    <script>
+        particlesJS("particles", { "particles": { "number": { "value": 60, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#fff" }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 }, "image": { "src": "img/github.svg", "width": 100, "height": 100 } }, "opacity": { "value": 0.5, "random": true, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 7, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false, "distance": 500, "color": "#ffffff", "opacity": 0.4, "width": 2 }, "move": { "enable": true, "speed": 3, "direction": "bottom", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } }, "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "bubble" }, "onclick": { "enable": true, "mode": "repulse" }, "resize": true }, "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 0.5 } }, "bubble": { "distance": 400, "size": 4, "duration": 0.3, "opacity": 1, "speed": 3 }, "repulse": { "distance": 200, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } } }, "retina_detect": true });
+    </script>
+
 </body>
+
 </html>
