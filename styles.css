@@ -809,9 +809,9 @@ body {
     align-items: center;
     justify-content: center;
     transition: all .4s ease;
-    width: 95%;
+    width: 90%; /* Adjust based on Unity proficiency */
     border-radius: 10px;
-    background: #c70039;
+    background: #c70039; /* Red color for Unity */
 }
 
 .Csharp-progress {
@@ -821,15 +821,14 @@ body {
     height: 80%;
     display: flex;
     align-items: center;
-    font-family: Arial, Helvetica, sans-serif;
     justify-content: center;
     transition: all .4s ease;
-    width: 90%;
+    width: 85%; /* Adjust based on C# proficiency */
     border-radius: 10px;
-    background: #c70039;
+    background: #c70039; /* Red color for C# */
 }
 
-.adobe-progress {
+.python-progress {
     position: absolute;
     top: 10%;
     left: 1%;
@@ -838,9 +837,9 @@ body {
     align-items: center;
     justify-content: center;
     transition: all .4s ease;
-    width: 83%;
+    width: 50%; /* Adjust based on Python proficiency */
     border-radius: 10px;
-    background: #c70039;
+    background: #c70039; /* Red color for Python */
 }
 
 .ue-progress {
@@ -851,9 +850,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 85%;
+    width: 40%; /* Adjust based on Unreal Engine proficiency */
     border-radius: 10px;
-    background: #c70039;
+    background: #c70039; /* Red color for Unreal Engine */
     transition: all .4s ease;
 }
 
@@ -866,12 +865,12 @@ body {
     align-items: center;
     justify-content: center;
     transition: all .4s ease;
-    width: 94%;
+    width: 40%; /* Adjust based on C++ proficiency */
     border-radius: 10px;
-    background: #c70039;
+    background: #c70039; /* Red color for C++ */
 }
 
-.seo-progress {
+.blueprint-progress {
     position: absolute;
     top: 10%;
     left: 1%;
@@ -879,10 +878,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 84%;
+    width: 70%; /* Adjust based on Blueprint proficiency */
     border-radius: 10px;
+    background: #c70039; /* Red color for Blueprints */
     transition: all .4s ease;
-    background: #c70039;
 }
 
 .portfolio-header {
