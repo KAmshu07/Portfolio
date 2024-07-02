@@ -828,7 +828,7 @@ body {
     background: #c70039; /* Red color for C# */
 }
 
-.python-progress {
+.editor-progress {
     position: absolute;
     top: 10%;
     left: 1%;
