@@ -925,17 +925,31 @@ body {
 }
 
 .portfolio-text {
-    width: 40%;
+    width: 40%; /* Adjust width if necessary */
     padding-left: 1%;
     margin: 1%;
     margin-left: -40px;
     margin-top: -40px;
     z-index: 3;
     opacity: 1;
-    background: #080808;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    background: #080808; /* Ensure the background is consistent */
+    color: whitesmoke; /* Ensure the text color is consistent */
+    padding: 10px 20px; /* Adjust padding for overall text box */
+    font-family: Arial, Helvetica, sans-serif; /* Maintain font consistency */
+    font-size: 16px; /* Standardize font size */
+    line-height: 1.6; /* Improve readability */
 }
+
+    /* Unordered List and List Items Styling within Portfolio Text */
+    .portfolio-text ul {
+        padding-left: 35px; /* Adjust padding to align bullets */
+        list-style-type: disc; /* Ensures bullets are visible */
+        margin: 10px 0; /* Adds space above and below the list */
+    }
+
+    .portfolio-text li {
+        padding-bottom: 5px; /* Space between list items */
+    }
 
     .portfolio-text a {
         color: red;
