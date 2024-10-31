@@ -290,6 +290,29 @@
             <span class="header-caption"> Some Of My <span class="color"> Works</span></span>
         </div>
         <div id="portfolio-content">
+            <style>
+                /* Smooth animated gradient background for text */
+                .animated-downloads {
+                    font-weight: bold;
+                    background: linear-gradient(45deg, #ff00cc, #ff3366, #ff6633, #ffcc33, #ccff33, #33ff66, #33ffcc, #33ccff, #3366ff, #6633ff, #cc33ff, #ff33cc, #ff00cc );
+                    -webkit-background-clip: text;
+                    color: transparent;
+                    animation: gradientMove 5s infinite linear;
+                    background-size: 500%; /* Larger background size for smoother flow */
+                }
+
+                /* Animation for moving gradient */
+                @keyframes gradientMove {
+                    0% {
+                        background-position: 0% 50%;
+                    }
+
+                    100% {
+                        background-position: 100% 50%;
+                    }
+                }
+            </style>
+
             <!-- Alnahsha Run -->
             <div class="portfolio portfolio-first">
                 <div class="portfolio-image">
@@ -298,7 +321,7 @@
                     </video>
                 </div>
                 <div class="portfolio-text">
-                    <h2>Alnahsha Run</h2>
+                    <h2>Alnahsha Run <span class="animated-downloads">(1M+ downloads)</span></h2>
                     <p>An engaging endless runner game set in culturally themed cities like Riyadh, Cairo, and Dubai. The game reached over 1M downloads and holds a 4.6-star rating on Google Play.</p>
                     <ul>
                         <li>Immersive environments based on iconic cities</li>
@@ -319,7 +342,7 @@
                     </video>
                 </div>
                 <div class="portfolio-text">
-                    <h2>Twisco Run</h2>
+                    <h2>Twisco Run <span class="animated-downloads">(10K+ downloads)</span></h2>
                     <p>A narrative-driven runner game where players navigate obstacles, with unique characters and storyline. The game surpassed 10K downloads with high user engagement.</p>
                     <ul>
                         <li>Storyline and mission objectives that drive player engagement</li>
@@ -331,6 +354,7 @@
                     </a>
                 </div>
             </div>
+
 
             <!-- Project 1 -->
             <div class="portfolio portfolio-first">
