@@ -2951,3 +2951,8 @@ for tabs and large phones
         transition: all .4s ease;
     }
 }
+.menu-label {
+    font-size: 12px;
+    margin-left: 10px;
+    color: #ffffff; /* Adjust the color to suit your design */
+}
