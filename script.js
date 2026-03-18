@@ -158,16 +158,8 @@ for (let i = 0; i < 12; i++) {
     const x = 100+Math.random()*2500, y = 100+Math.random()*1400;
     decos.push({ x, y, asset:Math.random()>0.5?'rock1':'rock2', frame:0, timer:0, isStatic:true, scale:0.7 });
 }
-// Gold stones near castle
-[[1600,550],[1750,500],[1900,600],[1650,800],[2000,550]].forEach(([x,y]) => {
-    decos.push({ x, y, asset:'gold1', frame:0, timer:0, isStatic:true, scale:0.5 });
-});
-// Gems/chest near spawn
-decos.push({ x:1150, y:850, asset:'deco05', frame:0, timer:0, isStatic:true, scale:1.0 });
 // Monument at spawn
 const monument = { x: 1200, y: 820 };
-// Gold mine near projects
-const goldmine = { x: 1500, y: 500 };
 // Fire torches near castle (animated)
 const fires = [
     { x:1630, y:680, frame:0, timer:0 },
@@ -176,13 +168,13 @@ const fires = [
 ];
 // Sheep
 const sheep = { x:500, y:480, frame:0, timer:0 };
-// Bridge over river
-const bridgePos = { x: 900, y: WATER_Y - 40 };
-// Water rocks
-const waterRocks = [
-    { x:300, y:WATER_Y+30, asset:'wrocks1' },
-    { x:1200, y:WATER_Y+50, asset:'wrocks2' },
-    { x:2100, y:WATER_Y+20, asset:'wrocks1' },
+// Bridge over river (horizontal piece: src 0,0,192,64 from Bridge_All)
+const bridgePos = { x: 880, y: WATER_Y - 20 };
+// Foam spots along shore (individual blobs, not a strip)
+const foamSpots = [
+    { x:200, y:WATER_Y-30 }, { x:500, y:WATER_Y-25 }, { x:1100, y:WATER_Y-28 },
+    { x:1500, y:WATER_Y-32 }, { x:1900, y:WATER_Y-26 }, { x:2300, y:WATER_Y-30 },
+    { x:2600, y:WATER_Y-28 },
 ];
 
 /* ═══ INTERACTABLES ═══ */
@@ -285,34 +277,24 @@ function render() {
         }
     }
 
-    // Water foam edge (where grass meets water)
+    // Shore foam — individual blobs at specific spots
     if (IMG.foam) {
-        const foamY = WATER_Y + oy;
-        if (foamY > -64 && foamY < h+64) {
-            const t = Date.now()*0.001;
-            const foamFrame = Math.floor(t*4) % 8;
-            for (let fx = -(camera.x%192); fx < w+192; fx += 192) {
-                ctx.drawImage(IMG.foam, foamFrame*192, 0, 192, 192, fx, foamY-48, 192, 96);
+        const foamFrame = Math.floor(Date.now()*0.002) % 8;
+        for (const fs of foamSpots) {
+            const fx = fs.x+ox, fy = fs.y+oy;
+            if (fx>-200&&fx<w+200&&fy>-200&&fy<h+200) {
+                drawFrame(IMG.foam, foamFrame, 192, 192, fx, fy, 0.5, false);
             }
         }
     }
 
-    // Water rocks
-    for (const wr of waterRocks) {
-        const rx = wr.x+ox, ry = wr.y+oy;
-        if (rx>-200&&rx<w+200&&ry>-100&&ry<h+100 && IMG[wr.asset]) {
-            // wrocks are spritesheets 1024x128, 8 frames of 128x128
-            const t = Math.floor(Date.now()*0.001*2) % 8;
-            drawFrame(IMG[wr.asset], t, 128, 128, rx, ry, 0.8, false);
-        }
-    }
-
-    // Bridge
+    // Bridge — horizontal plank piece spanning the river
     if (IMG.bridge) {
         const bx = bridgePos.x+ox, by = bridgePos.y+oy;
         if (bx>-200&&bx<w+200&&by>-200&&by<h+200) {
-            // Bridge_All is 192x256, horizontal bridge piece is top portion
-            ctx.drawImage(IMG.bridge, 0, 0, 192, 64, bx-30, by, 150, 50);
+            // Top row of Bridge_All (0,0,192,64) is the horizontal bridge
+            ctx.drawImage(IMG.bridge, 0, 0, 192, 64, bx, by, 192, 64);
+            ctx.drawImage(IMG.bridge, 0, 0, 192, 64, bx, by+60, 192, 64);
         }
     }
 
@@ -337,9 +319,6 @@ function render() {
     // Monument
     { const sx=monument.x+ox, sy=monument.y+oy;
       if (sx>-200&&sx<w+200&&sy>-200&&sy<h+200) drawList.push({ y:monument.y+150, type:'monument', sx, sy }); }
-    // Gold mine
-    { const sx=goldmine.x+ox, sy=goldmine.y+oy;
-      if (sx>-200&&sx<w+200&&sy>-200&&sy<h+200) drawList.push({ y:goldmine.y+100, type:'goldmine', sx, sy }); }
     // Fires
     for (const f of fires) {
         const sx=f.x+ox, sy=f.y+oy;
@@ -385,9 +364,6 @@ function render() {
             }
             case 'monument':
                 if (IMG.deco18) drawImg(IMG.deco18, item.sx, item.sy, 1.0);
-                break;
-            case 'goldmine':
-                if (IMG.goldmine) drawImg(IMG.goldmine, item.sx, item.sy, 1.0);
                 break;
             case 'fire': {
                 const f = item.data;
