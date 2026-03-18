@@ -371,15 +371,17 @@ function render() {
             case 'tree': {
                 const tr = item.data;
                 if (!IMG[tr.asset]) break;
-                // Fade when player sprite overlaps tree sprite AND tree draws on top of player
-                // Tree visual rect in world: (tr.x, tr.y-56) size (192, 256)
-                // Player visual rect in world: (player.x-28, player.y-38) size (96, 96)
-                // Tree draws on top when: tree Y-sort (tr.y+240) > player Y-sort (player.y+player.h)
-                const tX = tr.x, tY = tr.y - 56;
-                const pX = player.x - 28, pY = player.y - 38;
-                const overlaps = pX < tX + 192 && pX + 96 > tX && pY < tY + 256 && pY + 96 > tY;
-                const treeOnTop = tr.y + 240 > player.y + player.h;
-                const behindTree = overlaps && treeOnTop;
+                // Standard 2D game approach: check player feet vs tree trunk base
+                // Tree trunk base (ground contact): center-bottom of sprite
+                const trunkX = tr.x + 96;
+                const trunkY = tr.y + 200;
+                // Player feet (ground contact)
+                const feetX = player.x + player.w / 2;
+                const feetY = player.y + player.h;
+                // Behind = feet ABOVE trunk base (lower Y = further back in depth)
+                // and horizontally under the canopy (~60px radius from trunk center)
+                const behindTree = feetY < trunkY && feetY > trunkY - 160
+                    && Math.abs(feetX - trunkX) < 65;
                 if (behindTree) ctx.globalAlpha = 0.4;
                 drawFrame(IMG[tr.asset], tr.frame, 192, 256, item.sx, item.sy-56, 1.0, false);
                 if (behindTree) ctx.globalAlpha = 1;
