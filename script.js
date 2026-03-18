@@ -137,12 +137,12 @@ const treeSpots = [
     // Near water
     [300,1400],[1500,1350],[2000,1350],[2400,1400],
 ];
-// Fade zone per tree type: { xRadius, yDepth } — tweak these per tree shape
+// Per-tree config: xR=canopy X radius, yD=canopy depth, base=trunk foot Y offset from tr.y
 const TREE_FADE = {
-    tree1: { xR: 75, yD: 160 },  // wide deciduous
-    tree2: { xR: 70, yD: 200 },  // medium deciduous
-    tree3: { xR: 55, yD: 180 },  // tall pine (narrow but tall)
-    tree4: { xR: 50, yD: 170 },  // small pine
+    tree1: { xR: 75, yD: 160, base: 210 },  // wide deciduous, trunk lower
+    tree2: { xR: 70, yD: 200, base: 200 },  // medium deciduous
+    tree3: { xR: 55, yD: 180, base: 220 },  // tall pine, trunk sits lower
+    tree4: { xR: 50, yD: 170, base: 190 },  // small pine, shorter
 };
 for (const [tx,ty] of treeSpots) {
     const asset = 'tree'+(Math.floor(Math.random()*4)+1);
@@ -379,16 +379,15 @@ function render() {
             case 'tree': {
                 const tr = item.data;
                 if (!IMG[tr.asset]) break;
-                // Standard 2D game approach: check player feet vs tree trunk base
-                // Tree trunk base (ground contact): center-bottom of sprite
+                // Check player feet vs this tree's trunk base
+                const fade = tr.fade || { xR: 70, yD: 160, base: 200 };
                 const trunkX = tr.x + 96;
-                const trunkY = tr.y + 200;
+                const trunkY = tr.y + fade.base;
                 // Player feet (ground contact)
                 const feetX = player.x + player.w / 2;
                 const feetY = player.y + player.h;
                 // Behind = feet ABOVE trunk base (lower Y = further back in depth)
                 // and horizontally under the canopy (~60px radius from trunk center)
-                const fade = tr.fade || { xR: 70, yD: 160 };
                 const behindTree = feetY < trunkY && feetY > trunkY - fade.yD
                     && Math.abs(feetX - trunkX) < fade.xR;
                 if (behindTree) ctx.globalAlpha = 0.4;
