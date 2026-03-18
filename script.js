@@ -326,16 +326,16 @@ function render() {
     for (const tr of trees) {
         const sx=tr.x+ox, sy=tr.y+oy;
         if (sx<-200||sx>w+200||sy<-300||sy>h+100) continue;
-        drawList.push({ y:tr.y+200, type:'tree', data:tr, sx, sy });
+        drawList.push({ y:tr.y+240, type:'tree', data:tr, sx, sy });
     }
     for (const d of decos) {
         const sx=d.x+ox, sy=d.y+oy;
         if (sx<-100||sx>w+100||sy<-100||sy>h+100) continue;
-        drawList.push({ y:d.y+50, type:'deco', data:d, sx, sy });
+        drawList.push({ y:d.y+30, type:'deco', data:d, sx, sy });
     }
     // Monument
     { const sx=monument.x+ox, sy=monument.y+oy;
-      if (sx>-200&&sx<w+200&&sy>-200&&sy<h+200) drawList.push({ y:monument.y+150, type:'monument', sx, sy }); }
+      if (sx>-200&&sx<w+200&&sy>-200&&sy<h+200) drawList.push({ y:monument.y+180, type:'monument', sx, sy }); }
     // Fires
     for (const f of fires) {
         const sx=f.x+ox, sy=f.y+oy;
