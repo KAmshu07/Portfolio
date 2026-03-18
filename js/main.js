@@ -167,6 +167,7 @@ function update() {
         return;
     }
     if (mode !== 'PLAYING') return;
+    if (scrollOpen) return;
 
     updatePlayer();
     updateParticles();

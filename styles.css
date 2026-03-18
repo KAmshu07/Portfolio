@@ -472,6 +472,7 @@ a { color: inherit; text-decoration: none; }
     scrollbar-width: none;
     padding: 32px 36px;
     background: #f0e2c8;
+    color: #4a3a2a;
     border: 4px solid #3a2a1a;
     border-radius: 4px;
     box-shadow: inset 0 0 0 2px #d8c8a8, 0 6px 0 #2a1a0a, 0 8px 24px rgba(0,0,0,0.4);
@@ -533,10 +534,36 @@ a { color: inherit; text-decoration: none; }
     color: #5a4a3a;
     line-height: 1.5;
 }
-.scroll-skills {
+.scroll-entry ul {
+    padding-left: 16px;
+    margin: 4px 0 0;
+}
+.scroll-entry li {
+    font-size: 11px;
+    color: #5a4a3a;
+    line-height: 1.5;
+    padding-bottom: 2px;
+}
+.scroll-entry li strong {
+    color: #3a2a1a;
+}
+.scroll-summary {
     font-size: 12px;
     color: #5a4a3a;
-    line-height: 1.8;
+    line-height: 1.6;
+}
+.scroll-summary strong {
+    color: #3a2a1a;
+}
+.scroll-skills {
+    font-size: 11px;
+    color: #5a4a3a;
+    line-height: 1.6;
+    margin-bottom: 4px;
+}
+.scroll-skills strong {
+    color: #6a5a3a;
+    font-size: 10px;
 }
 .scroll-footer {
     text-align: center;
