@@ -16,3 +16,13 @@ export function resize() {
     viewport.h = canvas.height = innerHeight;
     ctx.imageSmoothingEnabled = false;
 }
+
+// Wind wayfinding bias (0 = pure random, 1 = direct line)
+export const WIND_BIAS = 0.3;
+
+// Zone boundaries for Dark Souls announcements
+export const ZONES = [
+    { name: 'The Archives',       test: (x, y) => x < 900 && y < 800 },
+    { name: 'Projects District',  test: (x, y) => x > 1400 && y < 1200 },
+    { name: 'The Crossing',       test: (x, y) => y > 1200 },
+];
