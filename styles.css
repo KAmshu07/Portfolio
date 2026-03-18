@@ -131,81 +131,90 @@ a { color: inherit; text-decoration: none; }
 }
 .intro-content {
     max-width: 500px;
-    padding: 20px;
+    padding: 32px 36px;
+    border: 32px solid transparent;
+    border-image-source: url('Assets/Tiny Swords (Free Pack)/UI Elements/UI Elements/Papers/RegularPaper.png');
+    border-image-slice: 64 fill;
+    border-image-width: 32px;
+    border-image-repeat: stretch;
+    image-rendering: pixelated;
 }
 .intro-title {
     font-family: var(--font-pixel);
     font-size: clamp(16px, 3vw, 24px);
-    color: #ffe8a0;
+    color: #3a2a1a;
     margin-bottom: 12px;
     line-height: 1.6;
-    text-shadow: 2px 2px 0 rgba(0,0,0,0.4);
+    text-shadow: 1px 1px 0 rgba(240,220,180,0.5);
 }
 .intro-sub {
     font-size: 16px;
-    font-weight: 400;
-    color: rgba(255,255,255,0.9);
-    margin-bottom: 32px;
+    font-weight: 500;
+    color: #5a4a3a;
+    margin-bottom: 24px;
 }
 .intro-divider {
     width: 40px;
     height: 2px;
-    background: var(--accent);
-    margin: 0 auto 32px;
+    background: #b8956a;
+    margin: 0 auto 24px;
 }
 .intro-hint {
-    font-size: 14px;
-    font-weight: 300;
-    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    font-weight: 400;
+    color: #6a5a4a;
     line-height: 1.8;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
 }
 .intro-controls {
     display: flex;
     justify-content: center;
     gap: 24px;
-    margin-bottom: 40px;
+    margin-bottom: 28px;
 }
 .intro-controls span {
     font-family: var(--font-pixel);
     font-size: 9px;
-    color: var(--gold);
+    color: #8a6a40;
     letter-spacing: 0.5px;
 }
 .intro-start {
     display: inline-block;
     font-family: var(--font-pixel);
     font-size: 10px;
-    color: var(--bg);
-    background: var(--teal);
-    border: none;
-    padding: 14px 28px;
-    border-radius: 4px;
+    color: #fff;
+    background: transparent;
+    border: 24px solid transparent;
+    border-image-source: url('Assets/Tiny Swords (Free Pack)/UI Elements/UI Elements/Buttons/BigBlueButton_Regular.png');
+    border-image-slice: 64 fill;
+    border-image-width: 24px;
+    border-image-repeat: stretch;
+    image-rendering: pixelated;
+    padding: 4px 16px;
     cursor: pointer;
     letter-spacing: 1px;
-    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
-    box-shadow: 0 0 20px rgba(117,240,200,0.2);
-    animation: pulse 2s ease-in-out infinite;
+    transition: transform 0.15s;
+    animation: none;
+    border-radius: 0;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
 }
 .intro-start:hover {
-    background: #5dd4ad;
     transform: scale(1.05);
-    box-shadow: 0 0 30px rgba(117,240,200,0.4);
 }
-@keyframes pulse {
-    0%, 100% { box-shadow: 0 0 20px rgba(117,240,200,0.2); }
-    50% { box-shadow: 0 0 30px rgba(117,240,200,0.4); }
+.intro-start:active {
+    border-image-source: url('Assets/Tiny Swords (Free Pack)/UI Elements/UI Elements/Buttons/BigBlueButton_Pressed.png');
+    transform: scale(0.98);
 }
 .intro-skip {
     display: block;
-    margin-top: 20px;
+    margin-top: 16px;
     font-size: 12px;
-    color: var(--text-muted);
+    color: #8a7a6a;
     text-decoration: underline;
-    opacity: 0.6;
+    opacity: 0.7;
     transition: opacity 0.3s;
 }
-.intro-skip:hover { opacity: 1; }
+.intro-skip:hover { opacity: 1; color: #5a4a3a; }
 
 /* ─── Game Dialogue Box ─── */
 .info-panel {
@@ -225,52 +234,40 @@ a { color: inherit; text-decoration: none; }
     overflow-x: hidden;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding: 18px 22px;
-    background: rgba(14, 14, 36, 0.95);
-    border: 3px solid rgba(117, 240, 200, 0.3);
-    border-radius: 6px;
+    padding: 20px 24px;
+    background: transparent;
+    border: 36px solid transparent;
+    border-image-source: url('Assets/Tiny Swords (Free Pack)/UI Elements/UI Elements/Wood Table/WoodTable.png');
+    border-image-slice: 128 fill;
+    border-image-width: 36px;
+    border-image-repeat: stretch;
+    image-rendering: pixelated;
+    border-radius: 0;
     pointer-events: auto;
     transform: translateY(30px);
     opacity: 0;
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
                 opacity 0.25s ease;
-    /* Pixel-art styled corners */
-    box-shadow:
-        inset 0 0 0 1px rgba(117, 240, 200, 0.06),
-        0 8px 32px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 .info-panel.visible .info-panel-inner {
     transform: translateY(0);
     opacity: 1;
 }
-/* Corner decorations */
+/* Remove old corner decorations — wood table has its own */
 .info-panel-inner::before,
 .info-panel-inner::after {
-    content: '';
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-color: rgba(117, 240, 200, 0.5);
-    border-style: solid;
-}
-.info-panel-inner::before {
-    top: 4px;
-    left: 4px;
-    border-width: 2px 0 0 2px;
-}
-.info-panel-inner::after {
-    bottom: 4px;
-    right: 4px;
-    border-width: 0 2px 2px 0;
+    display: none;
 }
 
 /* Popup content styling */
 .info-panel-inner h2 {
     font-family: var(--font-pixel);
     font-size: 11px;
-    color: var(--teal);
+    color: #ffe8a0;
     margin-bottom: 4px;
     line-height: 1.5;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
 }
 .info-panel-inner .popup-badge {
     display: inline-block;
@@ -292,8 +289,8 @@ a { color: inherit; text-decoration: none; }
 }
 .info-panel-inner p {
     font-size: 12px;
-    font-weight: 300;
-    color: var(--text-muted);
+    font-weight: 400;
+    color: #e8e0d0;
     line-height: 1.55;
     margin-bottom: 8px;
 }
@@ -303,7 +300,7 @@ a { color: inherit; text-decoration: none; }
 }
 .info-panel-inner li {
     font-size: 11px;
-    color: var(--text-muted);
+    color: #d8d0c0;
     line-height: 1.5;
     padding-bottom: 2px;
     list-style: disc;
@@ -327,11 +324,12 @@ a { color: inherit; text-decoration: none; }
     display: inline-block;
     font-size: 13px;
     font-weight: 500;
-    color: var(--accent);
+    color: #eec941;
     margin-top: 8px;
     transition: color 0.3s;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
 }
-.info-panel-inner .popup-link:hover { color: var(--teal); }
+.info-panel-inner .popup-link:hover { color: #ffe8a0; }
 .info-panel-inner .popup-tags {
     display: flex;
     flex-wrap: wrap;
@@ -373,27 +371,28 @@ a { color: inherit; text-decoration: none; }
 }
 .info-panel-inner .contact-card {
     padding: 10px;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 5px;
-    transition: border-color 0.3s;
+    background: rgba(0,0,0,0.15);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 3px;
+    transition: border-color 0.3s, background 0.3s;
     text-decoration: none;
     display: block;
 }
 .info-panel-inner .contact-card:hover {
-    border-color: var(--teal);
+    border-color: #ffe8a0;
+    background: rgba(0,0,0,0.25);
 }
 .info-panel-inner .contact-card small {
     display: block;
     font-family: var(--font-pixel);
     font-size: 6px;
-    color: var(--accent);
+    color: #eec941;
     margin-bottom: 3px;
     letter-spacing: 1px;
 }
 .info-panel-inner .contact-card span {
     font-size: 11px;
-    color: var(--text);
+    color: #e8e0d0;
 }
 
 /* ─── Mobile Warning ─── */
