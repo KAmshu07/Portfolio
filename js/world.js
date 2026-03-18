@@ -142,6 +142,39 @@ export const foamSpots = [
     { x: 1800, y: WATER_Y + 160 }, { x: 2400, y: WATER_Y + 110 },
 ];
 
+// NPC villagers (decorative, non-collidable)
+export const npcs = [
+    {
+        x: 1700, y: 580, patrolA: 1650, patrolB: 1800,
+        idleAsset: 'archerIdle', runAsset: 'archerRun',
+        frame: 0, timer: 0, facing: 1, speed: 0.8,
+        state: 'walk', idleTimer: 0,
+    },
+    {
+        x: 2250, y: 1100, patrolA: 2200, patrolB: 2350,
+        idleAsset: 'monkIdle', runAsset: 'monkRun',
+        frame: 0, timer: 0, facing: 1, speed: 0.6,
+        state: 'walk', idleTimer: 0,
+    },
+];
+
+export function updateNPCs() {
+    for (const npc of npcs) {
+        if (npc.state === 'idle') {
+            npc.idleTimer++;
+            npc.timer++; if (npc.timer >= 10) { npc.timer = 0; npc.frame = (npc.frame + 1) % 8; }
+            if (npc.idleTimer > 120) { npc.state = 'walk'; npc.idleTimer = 0; }
+        } else {
+            const target = npc.facing === 1 ? npc.patrolB : npc.patrolA;
+            npc.x += npc.speed * npc.facing;
+            npc.timer++; if (npc.timer >= 6) { npc.timer = 0; npc.frame = (npc.frame + 1) % 6; }
+            if ((npc.facing === 1 && npc.x >= target) || (npc.facing === -1 && npc.x <= target)) {
+                npc.state = 'idle'; npc.facing *= -1; npc.frame = 0;
+            }
+        }
+    }
+}
+
 // Animate all world objects (trees, decos, fires, sheep)
 export function animateWorld() {
     for (const tr of trees) { tr.timer++; if (tr.timer >= 10) { tr.timer = 0; tr.frame = (tr.frame + 1) % 8; } }
@@ -149,3 +182,12 @@ export function animateWorld() {
     for (const f of fires) { f.timer++; if (f.timer >= 6) { f.timer = 0; f.frame = (f.frame + 1) % 8; } }
     sheep.timer++; if (sheep.timer >= 10) { sheep.timer = 0; sheep.frame = (sheep.frame + 1) % 6; }
 }
+
+// Parallax clouds (rendered above entities)
+export const clouds = [
+    { x: 200,  y: 100,  asset: 'cloud1', speed: 0.15 },
+    { x: 900,  y: 300,  asset: 'cloud2', speed: 0.2 },
+    { x: 1600, y: 50,   asset: 'cloud3', speed: 0.12 },
+    { x: 2300, y: 250,  asset: 'cloud4', speed: 0.18 },
+    { x: 500,  y: 500,  asset: 'cloud5', speed: 0.22 },
+];

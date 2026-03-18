@@ -3,7 +3,7 @@ import { canvas, WORLD_W, WORLD_H, viewport, resize } from './config.js';
 import { mode, setMode, camera, keys } from './state.js';
 import { loadAssets } from './assets.js';
 import { player, updatePlayer } from './player.js';
-import { animateWorld } from './world.js';
+import { animateWorld, updateNPCs } from './world.js';
 import { updatePanel } from './ui.js';
 import { render } from './render.js';
 
@@ -41,6 +41,7 @@ function update() {
         camera.x = WORLD_W * 0.3 + Math.sin(t) * 400;
         camera.y = WORLD_H * 0.25 + Math.cos(t * 0.7) * 300;
         animateWorld();
+        updateNPCs();
         return;
     }
     if (mode !== 'PLAYING') return;
@@ -54,6 +55,7 @@ function update() {
     camera.y = Math.max(0, Math.min(WORLD_H - h, camera.y));
 
     animateWorld();
+    updateNPCs();
     updatePanel();
 }
 

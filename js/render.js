@@ -3,7 +3,7 @@ import { ctx, TILE, WATER_Y, viewport } from './config.js';
 import { mode, camera } from './state.js';
 import { IMG } from './assets.js';
 import { player, drawPlayer } from './player.js';
-import { buildings, trees, decos, monument, fires, sheep, waterRocks, foamSpots } from './world.js';
+import { buildings, trees, decos, monument, fires, sheep, npcs, waterRocks, foamSpots } from './world.js';
 import { drawFrame, drawImg } from './sprites.js';
 import { getNearBuilding } from './ui.js';
 
@@ -120,6 +120,16 @@ const renderers = {
     sheep(item) {
         if (IMG.sheep) drawFrame(IMG.sheep, item.data.frame, 128, 128, item.sx, item.sy, 0.7, false);
     },
+    npc(item) {
+        const n = item.data;
+        const img = n.state === 'walk' ? IMG[n.runAsset] : IMG[n.idleAsset];
+        if (!img) return;
+        ctx.fillStyle = 'rgba(0,0,0,0.15)';
+        ctx.beginPath();
+        ctx.ellipse(item.sx + 48, item.sy + 88, 14, 4, 0, 0, Math.PI * 2);
+        ctx.fill();
+        drawFrame(img, n.frame, 192, 192, item.sx, item.sy, 0.5, n.facing === -1);
+    },
     player(item) {
         drawPlayer(item.sx, item.sy);
     },
@@ -188,6 +198,10 @@ export function render() {
     for (const f of fires) {
         const sx = f.x + ox, sy = f.y + oy;
         if (inView(sx, sy, 100)) drawList.push({ y: f.y + 30, type: 'fire', data: f, sx, sy });
+    }
+    for (const n of npcs) {
+        const sx = n.x + ox, sy = n.y + oy;
+        if (inView(sx, sy, 150)) drawList.push({ y: n.y + 90, type: 'npc', data: n, sx, sy });
     }
     {
         const sx = sheep.x + ox, sy = sheep.y + oy;
