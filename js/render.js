@@ -1,6 +1,6 @@
 /* Main render pipeline — ground, water, Y-sorted entities, HUD */
 import { ctx, TILE, WATER_Y, WORLD_W, viewport } from './config.js';
-import { mode, camera } from './state.js';
+import { mode, camera, isAllVisited } from './state.js';
 import { IMG } from './assets.js';
 import { player, drawPlayer } from './player.js';
 import { buildings, trees, decos, monument, fires, sheep, npcs, waterRocks, foamSpots, clouds } from './world.js';
@@ -106,11 +106,17 @@ const renderers = {
     },
     deco(item) {
         const d = item.data;
+        // Glowing flowers when unvisited buildings remain
+        if (!isAllVisited() && (d.asset === 'deco01' || d.asset === 'deco04') && d.scale === 1.0) {
+            const pulse = 0.5 + 0.5 * Math.sin(Date.now() * 0.003);
+            ctx.globalAlpha = 0.5 + pulse * 0.5;
+        }
         if (d.isStatic) {
             if (IMG[d.asset]) drawImg(IMG[d.asset], item.sx, item.sy, d.scale || 0.8);
         } else {
             if (IMG[d.asset]) drawFrame(IMG[d.asset], d.frame, 128, 128, item.sx, item.sy, d.scale || 0.6, false);
         }
+        ctx.globalAlpha = 1;
     },
     monument(item) {
         if (IMG.deco18) drawImg(IMG.deco18, item.sx, item.sy, 1.0);

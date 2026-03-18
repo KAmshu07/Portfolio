@@ -2,6 +2,7 @@
 import { player } from './player.js';
 import { buildings } from './world.js';
 import { interactables } from './content.js';
+import { visitedBuildings } from './state.js';
 
 const infoPanel = document.getElementById('infoPanel');
 const infoPanelInner = document.getElementById('infoPanelInner');
@@ -30,7 +31,10 @@ export function updatePanel() {
         if (cachedNearB.label !== activeLabel) {
             activeLabel = cachedNearB.label;
             const data = interactables.find(i => i.label === cachedNearB.label);
-            if (data) infoPanelInner.innerHTML = data.content;
+            if (data) {
+                infoPanelInner.innerHTML = data.content;
+                visitedBuildings.add(cachedNearB.label);
+            }
             else console.warn('No content for building label:', cachedNearB.label);
         }
         infoPanel.classList.add('visible');

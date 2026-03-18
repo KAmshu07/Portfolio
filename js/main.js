@@ -1,12 +1,48 @@
 /* Entry point — init, input, update loop, game loop */
-import { canvas, WORLD_W, WORLD_H, viewport, resize } from './config.js';
-import { mode, setMode, camera, keys } from './state.js';
+import { canvas, WORLD_W, WORLD_H, viewport, resize, WIND_BIAS } from './config.js';
+import { mode, setMode, camera, keys, visitedBuildings, isAllVisited } from './state.js';
 import { loadAssets } from './assets.js';
 import { player, updatePlayer } from './player.js';
-import { animateWorld, updateNPCs } from './world.js';
+import { animateWorld, updateNPCs, buildings } from './world.js';
 import { updatePanel } from './ui.js';
-import { updateParticles } from './particles.js';
+import { updateParticles, spawnParticle } from './particles.js';
 import { render } from './render.js';
+
+// Wind wayfinding
+let windTimer = 0;
+function spawnWindLeaves() {
+    windTimer++;
+    if (windTimer < 10) return;
+    windTimer = 0;
+
+    // Find nearest unvisited building
+    let target = null;
+    if (!isAllVisited()) {
+        let minDist = Infinity;
+        for (const b of buildings) {
+            if (visitedBuildings.has(b.label)) continue;
+            const dx = (b.x + b.w / 2) - player.x;
+            const dy = (b.y + b.h / 2) - player.y;
+            const d = dx * dx + dy * dy;
+            if (d < minDist) { minDist = d; target = { x: b.x + b.w / 2, y: b.y + b.h / 2 }; }
+        }
+    }
+
+    // Spawn 1-2 leaves near player
+    for (let i = 0; i < 2; i++) {
+        const sx = player.x + (Math.random() - 0.5) * 400;
+        const sy = player.y + (Math.random() - 0.5) * 300;
+        let vx = (Math.random() - 0.5) * 1.5;
+        let vy = (Math.random() - 0.5) * 1.0;
+        if (target) {
+            const dx = target.x - sx, dy = target.y - sy;
+            const len = Math.sqrt(dx * dx + dy * dy) || 1;
+            vx += (dx / len) * WIND_BIAS * 1.5;
+            vy += (dy / len) * WIND_BIAS * 1.0;
+        }
+        spawnParticle('leaf', sx, sy, { vx, vy, life: 90, scale: 1 + Math.random(), alpha: 0.6 });
+    }
+}
 
 // State
 let loadFailed = false;
@@ -59,6 +95,7 @@ function update() {
     animateWorld();
     updateNPCs();
     updatePanel();
+    spawnWindLeaves();
 }
 
 // Game loop — starts immediately so intro camera pan shows terrain loading in
