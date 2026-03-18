@@ -371,15 +371,15 @@ function render() {
             case 'tree': {
                 const tr = item.data;
                 if (!IMG[tr.asset]) break;
-                // Fade when player sprite overlaps tree sprite AND player is behind (feet above tree base)
-                // Tree rendered rect: (tr.x, tr.y-56, 192, 256)
-                // Player rendered rect: (player.x-28, player.y-38, 96, 96)
-                const treeRX = tr.x, treeRY = tr.y - 56, treRW = 192, treeRH = 256;
-                const plRX = player.x - 28, plRY = player.y - 38, plRW = 96, plRH = 96;
-                const overlapsX = plRX < treeRX + treRW && plRX + plRW > treeRX;
-                const overlapsY = plRY < treeRY + treeRH && plRY + plRH > treeRY;
-                const playerBehind = player.y + player.h < tr.y + 200; // feet above tree base
-                const behindTree = overlapsX && overlapsY && playerBehind;
+                // Fade when player sprite overlaps tree sprite AND tree draws on top of player
+                // Tree visual rect in world: (tr.x, tr.y-56) size (192, 256)
+                // Player visual rect in world: (player.x-28, player.y-38) size (96, 96)
+                // Tree draws on top when: tree Y-sort (tr.y+240) > player Y-sort (player.y+player.h)
+                const tX = tr.x, tY = tr.y - 56;
+                const pX = player.x - 28, pY = player.y - 38;
+                const overlaps = pX < tX + 192 && pX + 96 > tX && pY < tY + 256 && pY + 96 > tY;
+                const treeOnTop = tr.y + 240 > player.y + player.h;
+                const behindTree = overlaps && treeOnTop;
                 if (behindTree) ctx.globalAlpha = 0.4;
                 drawFrame(IMG[tr.asset], tr.frame, 192, 256, item.sx, item.sy-56, 1.0, false);
                 if (behindTree) ctx.globalAlpha = 1;
