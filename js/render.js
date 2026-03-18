@@ -1,9 +1,9 @@
 /* Main render pipeline — ground, water, Y-sorted entities, HUD */
-import { ctx, TILE, WATER_Y, viewport } from './config.js';
+import { ctx, TILE, WATER_Y, WORLD_W, viewport } from './config.js';
 import { mode, camera } from './state.js';
 import { IMG } from './assets.js';
 import { player, drawPlayer } from './player.js';
-import { buildings, trees, decos, monument, fires, sheep, npcs, waterRocks, foamSpots } from './world.js';
+import { buildings, trees, decos, monument, fires, sheep, npcs, waterRocks, foamSpots, clouds } from './world.js';
 import { drawFrame, drawImg } from './sprites.js';
 import { getNearBuilding } from './ui.js';
 
@@ -135,6 +135,19 @@ const renderers = {
     },
 };
 
+/* ─── Parallax clouds ─── */
+function drawClouds(ox, oy, now) {
+    ctx.globalAlpha = 0.35;
+    for (const c of clouds) {
+        const drift = (now * 0.003 * c.speed) % (WORLD_W + 400);
+        const cx = (c.x + drift) % (WORLD_W + 400) - 200;
+        const sx = cx + ox * 0.3;
+        const sy = c.y + oy * 0.3;
+        if (IMG[c.asset]) drawImg(IMG[c.asset], sx, sy, 1.0);
+    }
+    ctx.globalAlpha = 1;
+}
+
 /* ─── Main render ─── */
 export function render() {
     const { w, h } = viewport;
@@ -216,6 +229,9 @@ export function render() {
         if (fn) fn(item);
         else console.warn('Unknown entity type:', item.type);
     }
+
+    // Cloud layer (above entities, below HUD)
+    drawClouds(ox, oy, now);
 
     // Overlays (only during gameplay)
     const nearB = getNearBuilding();
