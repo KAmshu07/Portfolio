@@ -102,7 +102,7 @@ function startGame() {
 }
 
 /* ═══ PLAYER ═══ */
-const player = { x: 1200, y: 900, w: 40, h: 30, vx:0, vy:0, facing:1, walking:false, frame:0, ft:0 };
+const player = { x: 500, y: 500, w: 40, h: 30, vx:0, vy:0, facing:1, walking:false, frame:0, ft:0 };
 
 /* ═══ WORLD DATA ═══ */
 // Buildings — intentional placement following the design
