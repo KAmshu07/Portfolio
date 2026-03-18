@@ -171,6 +171,17 @@ function drawImg(img, x, y, scale) {
 
 /* ═══ SECTION 9 — UPDATE ═══ */
 function update() {
+    if (state === 'INTRO') {
+        // Slow pan around village during intro
+        const t = Date.now() * 0.0003;
+        camera.x = WORLD_W * 0.25 + Math.sin(t) * 300;
+        camera.y = WORLD_H * 0.25 + Math.cos(t * 0.7) * 200;
+        // Still animate trees/decos
+        for (const tr of trees) { tr.timer++; if (tr.timer >= 10) { tr.timer = 0; tr.frame = (tr.frame + 1) % 8; } }
+        for (const d of decos) { if (!d.isStatic) { d.timer++; if (d.timer >= 12) { d.timer = 0; d.frame = (d.frame + 1) % 8; } } }
+        sheep.timer++; if (sheep.timer >= 10) { sheep.timer = 0; sheep.frame = (sheep.frame + 1) % 6; }
+        return;
+    }
     if (state !== 'PLAYING') return;
 
     // Movement — 4 directional, no gravity

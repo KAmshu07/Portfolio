@@ -117,7 +117,8 @@ a { color: inherit; text-decoration: none; }
     position: fixed;
     inset: 0;
     z-index: 300;
-    background: linear-gradient(180deg, #4a90d9 0%, #87CEEB 50%, #5a9a42 80%, #4a7a6a 100%);
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(3px);
     display: flex;
     align-items: center;
     justify-content: center;
