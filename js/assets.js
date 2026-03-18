@@ -1,8 +1,17 @@
 /* Asset paths and loader — reports progress via callback, no DOM access */
 const PATHS = {
-    // Player
+    // Player (old Blue Warrior — kept for reference)
     idle: 'Assets/Tiny Swords (Free Pack)/Units/Blue Units/Warrior/Warrior_Idle.png',
     run:  'Assets/Tiny Swords (Free Pack)/Units/Blue Units/Warrior/Warrior_Run.png',
+    // Player (4-directional)
+    idleDown:  'Assets/Ritik_Char/Idle/player_idle_down.png',
+    idleUp:    'Assets/Ritik_Char/Idle/player_idle_up.png',
+    idleLeft:  'Assets/Ritik_Char/Idle/player_idle_left.png',
+    idleRight: 'Assets/Ritik_Char/Idle/player_idle_right.png',
+    runDown:   'Assets/Ritik_Char/Movement/player_run_down.png',
+    runUp:     'Assets/Ritik_Char/Movement/player_run_up.png',
+    runLeft:   'Assets/Ritik_Char/Movement/player_run_left.png',
+    runRight:  'Assets/Ritik_Char/Movement/player_run_right.png',
     // Buildings
     house1:    'Assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/House1.png',
     house2:    'Assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/House2.png',

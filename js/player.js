@@ -1,27 +1,32 @@
 /* Player state, movement, collision, animation, and drawing */
-import { ctx, PSCALE, SPEED, WORLD_W, WORLD_H, WATER_Y } from './config.js';
+import { ctx, SPEED, WORLD_W, WORLD_H, WATER_Y } from './config.js';
 import { keys } from './state.js';
 import { IMG } from './assets.js';
-import { drawFrame } from './sprites.js';
 import { buildings } from './world.js';
 import { spawnParticle } from './particles.js';
 import { play } from './audio.js';
 
 export const player = {
     x: 500, y: 500, w: 40, h: 30,
-    vx: 0, vy: 0, facing: 1, walking: false,
+    vx: 0, vy: 0, facing: 'down', walking: false,
     frame: 0, ft: 0,
-    wasWalking: false, lastFacing: 1, splashed: false,
+    wasWalking: false, lastFacing: 'down', splashed: false,
 };
 
 export function updatePlayer() {
     let mx = 0, my = 0;
-    if (keys.ArrowLeft || keys.KeyA) { mx = -1; player.facing = -1; }
-    if (keys.ArrowRight || keys.KeyD) { mx = 1; player.facing = 1; }
+    if (keys.ArrowLeft || keys.KeyA) mx = -1;
+    if (keys.ArrowRight || keys.KeyD) mx = 1;
     if (keys.ArrowUp || keys.KeyW) my = -1;
     if (keys.ArrowDown || keys.KeyS) my = 1;
     if (mx && my) { mx *= 0.707; my *= 0.707; }
     player.walking = mx !== 0 || my !== 0;
+
+    // Determine facing direction (4-way)
+    if (my < 0) player.facing = 'up';
+    else if (my > 0) player.facing = 'down';
+    else if (mx < 0) player.facing = 'left';
+    else if (mx > 0) player.facing = 'right';
 
     // Dust on movement start or direction change
     if (player.walking && !player.wasWalking) {
@@ -32,7 +37,7 @@ export function updatePlayer() {
     }
     if (player.walking && player.facing !== player.lastFacing) {
         spawnParticle('dust', player.x + player.w / 2, player.y + player.h,
-            { vx: -player.facing * 1.5, vy: -0.8, life: 15, scale: 0.3 });
+            { vx: -mx * 1.5, vy: -0.8, life: 15, scale: 0.3 });
     }
     player.wasWalking = player.walking;
     player.lastFacing = player.facing;
@@ -61,22 +66,33 @@ export function updatePlayer() {
     if (!blockedX) player.x = Math.max(20, Math.min(WORLD_W - player.w - 20, nx));
     if (!blockedY) player.y = Math.max(20, Math.min(WORLD_H - player.h - 20, ny));
 
-    // Animation
+    // Animation (8 frames for both idle and run)
     if (player.walking) {
         player.ft++;
-        if (player.ft > 5) { player.ft = 0; player.frame = (player.frame + 1) % 6; play('footstep'); }
+        if (player.ft > 5) { player.ft = 0; player.frame = (player.frame + 1) % 8; play('footstep'); }
     } else {
         player.ft++;
         if (player.ft > 8) { player.ft = 0; player.frame = (player.frame + 1) % 8; }
     }
 }
 
+const FRAME_W = 96, FRAME_H = 80;
+
 export function drawPlayer(sx, sy) {
-    const img = player.walking ? IMG.run : IMG.idle;
+    const dirMap = player.walking
+        ? { up: 'runUp', down: 'runDown', left: 'runLeft', right: 'runRight' }
+        : { up: 'idleUp', down: 'idleDown', left: 'idleLeft', right: 'idleRight' };
+    const img = IMG[dirMap[player.facing]];
     if (!img) return;
+    // Shadow
     ctx.fillStyle = 'rgba(0,0,0,0.2)';
     ctx.beginPath();
-    ctx.ellipse(sx + player.w / 2, sy + player.h, 18, 5, 0, 0, Math.PI * 2);
+    ctx.ellipse(sx + player.w / 2, sy + player.h, 14, 4, 0, 0, Math.PI * 2);
     ctx.fill();
-    drawFrame(img, player.frame, 192, 192, sx - 28, sy - 38, PSCALE, player.facing === -1);
+    // Draw sprite centered on player position
+    const scale = 1.2;
+    const dw = FRAME_W * scale, dh = FRAME_H * scale;
+    const drawX = sx + player.w / 2 - dw / 2;
+    const drawY = sy + player.h - dh;
+    ctx.drawImage(img, player.frame * FRAME_W, 0, FRAME_W, FRAME_H, drawX, drawY, dw, dh);
 }
