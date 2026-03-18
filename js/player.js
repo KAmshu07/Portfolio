@@ -84,15 +84,15 @@ export function drawPlayer(sx, sy) {
         : { up: 'idleUp', down: 'idleDown', left: 'idleLeft', right: 'idleRight' };
     const img = IMG[dirMap[player.facing]];
     if (!img) return;
-    // Shadow
-    ctx.fillStyle = 'rgba(0,0,0,0.2)';
-    ctx.beginPath();
-    ctx.ellipse(sx + player.w / 2, sy + player.h, 14, 4, 0, 0, Math.PI * 2);
-    ctx.fill();
-    // Draw sprite centered on player position
-    const scale = 1.2;
+    // Draw sprite anchored so feet sit on the ground
+    const scale = 2.0;
     const dw = FRAME_W * scale, dh = FRAME_H * scale;
     const drawX = sx + player.w / 2 - dw / 2;
-    const drawY = sy + player.h - dh;
+    const drawY = sy + player.h - dh + 42;
+    // Shadow (directly under feet)
+    ctx.fillStyle = 'rgba(0,0,0,0.2)';
+    ctx.beginPath();
+    ctx.ellipse(sx + player.w / 2, sy + player.h, 16, 5, 0, 0, Math.PI * 2);
+    ctx.fill();
     ctx.drawImage(img, player.frame * FRAME_W, 0, FRAME_W, FRAME_H, drawX, drawY, dw, dh);
 }
