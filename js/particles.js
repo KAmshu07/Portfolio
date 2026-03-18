@@ -3,7 +3,7 @@ import { ctx } from './config.js';
 import { IMG } from './assets.js';
 import { drawFrame } from './sprites.js';
 
-const MAX_PARTICLES = 50;
+const MAX_PARTICLES = 80;
 const pool = [];
 
 export function spawnParticle(type, x, y, opts = {}) {
@@ -17,6 +17,8 @@ export function spawnParticle(type, x, y, opts = {}) {
         frame: 0, frameTimer: 0,
         scale: opts.scale ?? 0.5,
         alpha: opts.alpha ?? 1,
+        curve: opts.curve,
+        thickness: opts.thickness,
     };
     if (pool.length >= MAX_PARTICLES) pool.shift();
     pool.push(p);
@@ -51,11 +53,26 @@ export function drawParticle(item) {
     } else if (p.type === 'splash' && IMG.splash) {
         drawFrame(IMG.splash, p.frame, 64, 64, item.sx, item.sy, p.scale, false);
     } else if (p.type === 'leaf') {
-        // Canvas-drawn leaf particle (no sprite)
-        ctx.fillStyle = '#8ab648';
+        // Tapered wind curve with per-particle variation
+        const angle = Math.atan2(p.vy, p.vx);
+        const len = p.scale;
+        const curve = (p.curve ?? 0.5) * len;
+        const thick = p.thickness ?? 2;
+        ctx.save();
+        ctx.translate(item.sx, item.sy);
+        ctx.rotate(angle);
+        // Subtle glow
+        ctx.shadowColor = 'rgba(255,255,255,0.3)';
+        ctx.shadowBlur = 4;
+        // Filled tapered shape (thick center, thin ends)
+        ctx.fillStyle = `rgba(255,255,255,${p.alpha * 0.9})`;
         ctx.beginPath();
-        ctx.arc(item.sx, item.sy, 2 * p.scale, 0, Math.PI * 2);
+        ctx.moveTo(-len, 0);
+        ctx.bezierCurveTo(-len * 0.3, -curve, len * 0.3, curve, len, 0);
+        ctx.bezierCurveTo(len * 0.3, curve - thick, -len * 0.3, -curve + thick, -len, 0);
         ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.restore();
     }
     ctx.globalAlpha = 1;
 }

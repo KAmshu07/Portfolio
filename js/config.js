@@ -18,7 +18,7 @@ export function resize() {
 }
 
 // Wind wayfinding bias (0 = pure random, 1 = direct line)
-export const WIND_BIAS = 0.3;
+export const WIND_BIAS = 0.8;
 
 // Zone boundaries for Dark Souls announcements
 export const ZONES = [
