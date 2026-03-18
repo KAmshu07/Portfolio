@@ -31,22 +31,24 @@ a { color: inherit; text-decoration: none; }
 /* ─── Skip Link ─── */
 .skip-link {
     position: fixed;
-    top: 12px;
-    right: 16px;
+    top: 8px;
+    right: 12px;
     z-index: 200;
     font-family: var(--font-body);
     font-size: 11px;
     font-weight: 500;
-    color: var(--text-muted);
-    padding: 6px 14px;
-    border: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.7);
+    padding: 5px 12px;
+    border: 1px solid rgba(255,255,255,0.15);
     border-radius: 4px;
-    transition: color 0.3s, border-color 0.3s;
-    backdrop-filter: blur(8px);
+    background: rgba(15,10,5,0.4);
+    transition: color 0.3s, border-color 0.3s, background 0.3s;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
 }
 .skip-link:hover {
-    color: var(--teal);
-    border-color: var(--teal);
+    color: #eec941;
+    border-color: #eec941;
+    background: rgba(15,10,5,0.6);
 }
 
 /* ─── HUD ─── */
@@ -59,7 +61,8 @@ a { color: inherit; text-decoration: none; }
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 20px;
+    padding: 10px 16px;
+    background: linear-gradient(180deg, rgba(15,10,5,0.7) 0%, rgba(15,10,5,0.3) 70%, transparent 100%);
     opacity: 0;
     transition: opacity 0.5s;
 }
@@ -72,13 +75,15 @@ a { color: inherit; text-decoration: none; }
 .hud-name {
     font-family: var(--font-pixel);
     font-size: 10px;
-    color: var(--teal);
+    color: #eec941;
     letter-spacing: 1px;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.6);
 }
 .hud-title {
     font-size: 11px;
     font-weight: 400;
-    color: var(--text-muted);
+    color: rgba(255,255,255,0.8);
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
 }
 .hud-right {
     text-align: right;
@@ -89,8 +94,9 @@ a { color: inherit; text-decoration: none; }
 .hud-controls {
     font-family: var(--font-pixel);
     font-size: 8px;
-    color: var(--text-muted);
+    color: rgba(255,255,255,0.6);
     letter-spacing: 0.5px;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
 }
 
 /* ─── Zone Indicator ─── */

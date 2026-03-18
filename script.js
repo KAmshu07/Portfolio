@@ -302,13 +302,25 @@ function render() {
             case 'building': {
                 const b = item.data;
                 if (IMG[b.asset]) drawImg(IMG[b.asset], item.sx, item.sy, 1.0);
-                // Label above building
-                ctx.font = "700 9px 'Press Start 2P',monospace";
+                // Label nameplate above building
+                const lx = item.sx + b.w/2;
+                const ly = item.sy - 12;
+                ctx.font = "700 10px 'Press Start 2P',monospace";
+                const tw = ctx.measureText(b.label).width;
+                // Dark pill background
+                const px = 10, py = 4;
+                ctx.fillStyle = 'rgba(20,10,5,0.75)';
+                ctx.beginPath();
+                ctx.roundRect(lx - tw/2 - px, ly - 10 - py, tw + px*2, 16 + py*2, 6);
+                ctx.fill();
+                // Gold border
+                ctx.strokeStyle = 'rgba(238,201,65,0.5)';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+                // Text
                 ctx.fillStyle = '#eec941';
                 ctx.textAlign = 'center';
-                ctx.globalAlpha = 0.7;
-                ctx.fillText(b.label, item.sx + b.w/2, item.sy - 8);
-                ctx.globalAlpha = 1;
+                ctx.fillText(b.label, lx, ly);
                 break;
             }
             case 'tree': {
@@ -334,29 +346,50 @@ function render() {
         }
     }
 
-    // Proximity indicator — bouncing arrow over nearest building
+    // Proximity indicator — glowing arrow + prompt over nearest building
     const nearB = getNearBuilding();
     if (nearB && state === 'PLAYING') {
         const t = Date.now() * 0.001;
         const bx = nearB.x + ox + nearB.w/2;
-        const by = nearB.y + oy - 14 + Math.sin(t * 4) * 5;
+        const by = nearB.y + oy - 30 + Math.sin(t * 4) * 6;
+        // Glow
+        ctx.shadowColor = '#eec941';
+        ctx.shadowBlur = 12;
         ctx.fillStyle = '#eec941';
         ctx.beginPath();
-        ctx.moveTo(bx - 7, by);
-        ctx.lineTo(bx + 7, by);
-        ctx.lineTo(bx, by + 10);
+        ctx.moveTo(bx - 8, by);
+        ctx.lineTo(bx + 8, by);
+        ctx.lineTo(bx, by + 12);
         ctx.closePath();
         ctx.fill();
+        ctx.shadowBlur = 0;
     }
 
-    // Hint text at start
-    if (!player.walking && state === 'PLAYING' && Date.now() % 6000 < 3000) {
-        ctx.font = "400 10px 'Press Start 2P',monospace";
-        ctx.fillStyle = '#eec941';
-        ctx.globalAlpha = 0.5;
+    // Bottom HUD bar
+    if (state === 'PLAYING') {
+        // Dark gradient bar at bottom
+        const barH = 36;
+        const barGrad = ctx.createLinearGradient(0, h - barH - 10, 0, h);
+        barGrad.addColorStop(0, 'rgba(15,10,5,0)');
+        barGrad.addColorStop(0.4, 'rgba(15,10,5,0.7)');
+        barGrad.addColorStop(1, 'rgba(15,10,5,0.85)');
+        ctx.fillStyle = barGrad;
+        ctx.fillRect(0, h - barH - 10, w, barH + 10);
+
         ctx.textAlign = 'center';
-        ctx.fillText('Use WASD or Arrow Keys to explore', w/2, h - 40);
-        ctx.globalAlpha = 1;
+        if (nearB) {
+            // Show building name + explore prompt
+            ctx.font = "700 11px 'Press Start 2P',monospace";
+            ctx.fillStyle = '#eec941';
+            ctx.fillText(nearB.label, w/2, h - 18);
+            ctx.font = "400 8px 'Press Start 2P',monospace";
+            ctx.fillStyle = 'rgba(255,255,255,0.6)';
+            ctx.fillText('Walk closer to explore', w/2, h - 6);
+        } else {
+            ctx.font = "400 8px 'Press Start 2P',monospace";
+            ctx.fillStyle = 'rgba(255,255,255,0.4)';
+            ctx.fillText('WASD to move  •  Walk to buildings to explore', w/2, h - 12);
+        }
     }
 }
 
