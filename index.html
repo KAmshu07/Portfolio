@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Amritanshu Kumar — Game Engineer who ships end-to-end. Play through my portfolio.">
     <title>Amritanshu Kumar | Game Engineer</title>
-    <link rel="icon" type="image/png" href="images/favicon.png">
+    <meta property="og:title" content="Amritanshu Kumar | Game Engineer">
+    <meta property="og:description" content="Game Engineer who ships end-to-end. Explore my portfolio as a playable top-down village.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Amritanshu Kumar | Game Engineer">
+    <meta name="twitter:description" content="Game Engineer who ships end-to-end. Explore my portfolio as a playable top-down village.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Skip link for recruiters who just want info -->
-
     <!-- HUD -->
     <div class="hud">
         <div class="hud-left">
@@ -21,15 +24,12 @@
             <span class="hud-title">Game Engineer</span>
         </div>
         <div class="hud-right">
-            <a href="Amritanshu_Kumar_Resume.pdf" target="_blank" download class="hud-resume">Resume &darr;</a>
+            <a href="Amritanshu_Kumar_Resume.pdf" target="_blank" download class="hud-resume" aria-label="Download resume">Resume &darr;</a>
         </div>
     </div>
 
-    <!-- Zone indicator -->
-    <div class="zone-indicator" id="zoneIndicator"></div>
-
     <!-- Game Canvas -->
-    <canvas id="game"></canvas>
+    <canvas id="game" aria-label="Portfolio game — use WASD to explore">Your browser does not support canvas.</canvas>
 
     <!-- Floating Info Panel (non-blocking, follows objects) -->
     <div class="info-panel" id="infoPanel">
@@ -47,8 +47,8 @@
                 <span>[WASD] Walk</span>
                 <span>Approach buildings to explore</span>
             </div>
-            <button class="intro-start" id="introStart">Press ENTER or Click to Start</button>
-            <a href="Amritanshu_Kumar_Resume.pdf" target="_blank" download class="intro-skip">or download my resume directly</a>
+            <button class="intro-start" id="introStart" aria-label="Start the portfolio game">Press ENTER or Click to Start</button>
+            <a href="Amritanshu_Kumar_Resume.pdf" target="_blank" download class="intro-skip" aria-label="Download resume PDF">or download my resume directly</a>
         </div>
     </div>
 
@@ -66,6 +66,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
