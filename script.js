@@ -371,13 +371,12 @@ function render() {
             case 'tree': {
                 const tr = item.data;
                 if (!IMG[tr.asset]) break;
-                // Fade tree when player is behind it (player Y < tree base but overlapping X)
-                const treeBaseY = tr.y + 200;
+                // Fade tree only when player walks directly behind the trunk/canopy
                 const playerCenterX = player.x + player.w/2;
                 const treeCenterX = tr.x + 96;
-                const behindTree = player.y + player.h < treeBaseY &&
-                    Math.abs(playerCenterX - treeCenterX) < 80 &&
-                    player.y + player.h > tr.y;
+                const playerFeetY = player.y + player.h;
+                const behindTree = playerFeetY > tr.y + 60 && playerFeetY < tr.y + 180 &&
+                    Math.abs(playerCenterX - treeCenterX) < 45;
                 if (behindTree) ctx.globalAlpha = 0.4;
                 drawFrame(IMG[tr.asset], tr.frame, 192, 256, item.sx, item.sy-56, 1.0, false);
                 if (behindTree) ctx.globalAlpha = 1;
