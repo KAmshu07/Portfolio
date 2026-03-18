@@ -9,6 +9,10 @@ import { updateParticles, spawnParticle } from './particles.js';
 import { render } from './render.js';
 import { initAudio, play, startLoops, toggleMute } from './audio.js';
 
+// Scroll overlay
+const scrollOverlay = document.getElementById('scrollOverlay');
+let scrollOpen = false;
+
 // Wind system — ambient weather that pivots toward objectives on demand
 const wind = {
     // Ambient default: gentle right-to-left breeze
@@ -117,6 +121,19 @@ addEventListener('resize', resize);
 addEventListener('keydown', e => {
     keys[e.code] = true;
     if (e.code === 'Enter' && assetsReady && mode === 'INTRO') startGame();
+    if (e.code === 'KeyE' && mode === 'PLAYING') {
+        if (scrollOpen) {
+            scrollOverlay.classList.add('hidden');
+            scrollOpen = false;
+        } else if (getNearBuilding()) {
+            scrollOverlay.classList.remove('hidden');
+            scrollOpen = true;
+        }
+    }
+    if (e.code === 'Escape' && scrollOpen) {
+        scrollOverlay.classList.add('hidden');
+        scrollOpen = false;
+    }
 });
 addEventListener('keyup', e => { keys[e.code] = false; });
 btn.addEventListener('click', () => {
