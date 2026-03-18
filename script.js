@@ -168,13 +168,15 @@ const fires = [
 ];
 // Sheep
 const sheep = { x:500, y:480, frame:0, timer:0 };
-// Bridge over river (horizontal piece: src 0,0,192,64 from Bridge_All)
-const bridgePos = { x: 880, y: WATER_Y - 20 };
-// Foam spots along shore (individual blobs, not a strip)
+// Bridge over river — vertical crossing (rotated horizontal piece)
+const bridgePos = { x: 900, y: WATER_Y - 50 };
+// Foam spots scattered IN the water
 const foamSpots = [
-    { x:200, y:WATER_Y-30 }, { x:500, y:WATER_Y-25 }, { x:1100, y:WATER_Y-28 },
-    { x:1500, y:WATER_Y-32 }, { x:1900, y:WATER_Y-26 }, { x:2300, y:WATER_Y-30 },
-    { x:2600, y:WATER_Y-28 },
+    { x:150, y:WATER_Y+40 }, { x:500, y:WATER_Y+80 }, { x:750, y:WATER_Y+30 },
+    { x:1100, y:WATER_Y+60 }, { x:1400, y:WATER_Y+100 }, { x:1700, y:WATER_Y+45 },
+    { x:2000, y:WATER_Y+70 }, { x:2300, y:WATER_Y+35 }, { x:2600, y:WATER_Y+90 },
+    { x:350, y:WATER_Y+120 }, { x:800, y:WATER_Y+150 }, { x:1250, y:WATER_Y+130 },
+    { x:1800, y:WATER_Y+160 }, { x:2400, y:WATER_Y+110 },
 ];
 
 /* ═══ INTERACTABLES ═══ */
@@ -288,13 +290,16 @@ function render() {
         }
     }
 
-    // Bridge — horizontal plank piece spanning the river
+    // Bridge — rotated 90° to cross the river vertically
     if (IMG.bridge) {
         const bx = bridgePos.x+ox, by = bridgePos.y+oy;
-        if (bx>-200&&bx<w+200&&by>-200&&by<h+200) {
-            // Top row of Bridge_All (0,0,192,64) is the horizontal bridge
-            ctx.drawImage(IMG.bridge, 0, 0, 192, 64, bx, by, 192, 64);
-            ctx.drawImage(IMG.bridge, 0, 0, 192, 64, bx, by+60, 192, 64);
+        if (bx>-200&&bx<w+200&&by>-300&&by<h+200) {
+            ctx.save();
+            ctx.translate(bx + 32, by + 96);
+            ctx.rotate(Math.PI / 2);
+            // Draw horizontal bridge piece rotated to become vertical
+            ctx.drawImage(IMG.bridge, 0, 0, 192, 64, -96, -32, 192, 64);
+            ctx.restore();
         }
     }
 
