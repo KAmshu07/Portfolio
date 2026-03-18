@@ -1,7 +1,7 @@
 /* Entry point — init, input, update loop, game loop */
 import { canvas, WORLD_W, WORLD_H, viewport, resize } from './config.js';
 import { mode, setMode, camera, keys } from './state.js';
-import { IMG, TOTAL_ASSETS, loadAssets } from './assets.js';
+import { loadAssets } from './assets.js';
 import { player, updatePlayer } from './player.js';
 import { animateWorld } from './world.js';
 import { updatePanel } from './ui.js';
@@ -9,6 +9,7 @@ import { render } from './render.js';
 
 // State
 let loadFailed = false;
+let assetsReady = false;
 const btn = document.getElementById('introStart');
 
 // Init
@@ -18,12 +19,12 @@ addEventListener('resize', resize);
 // Input
 addEventListener('keydown', e => {
     keys[e.code] = true;
-    if (e.code === 'Enter' && !loadFailed && mode === 'INTRO' && Object.keys(IMG).length === TOTAL_ASSETS) startGame();
+    if (e.code === 'Enter' && assetsReady && mode === 'INTRO') startGame();
 });
 addEventListener('keyup', e => { keys[e.code] = false; });
 btn.addEventListener('click', () => {
     if (loadFailed) { window.open('Amritanshu_Kumar_Resume.pdf'); return; }
-    if (Object.keys(IMG).length === TOTAL_ASSETS) startGame();
+    if (assetsReady) startGame();
 });
 
 function startGame() {
@@ -71,6 +72,7 @@ btn.disabled = true;
 loadAssets((done, total) => {
     btn.textContent = `Loading... ${Math.round(done / total * 100)}%`;
 }).then(() => {
+    assetsReady = true;
     btn.textContent = 'Press ENTER or Click to Start';
     btn.disabled = false;
 }).catch(err => {
