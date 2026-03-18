@@ -58,6 +58,8 @@ const A = {
     // Water rocks
     wrocks1: 'Assets/Tiny Swords (Update 010)/Terrain/Water/Rocks/Rocks_01.png',
     wrocks2: 'Assets/Tiny Swords (Update 010)/Terrain/Water/Rocks/Rocks_02.png',
+    wrocks3: 'Assets/Tiny Swords (Update 010)/Terrain/Water/Rocks/Rocks_03.png',
+    wrocks4: 'Assets/Tiny Swords (Update 010)/Terrain/Water/Rocks/Rocks_04.png',
     // Cursor
     cursor: 'Assets/Tiny Swords (Free Pack)/UI Elements/UI Elements/Cursors/Cursor_01.png',
 };
@@ -168,8 +170,23 @@ const fires = [
 ];
 // Sheep
 const sheep = { x:500, y:480, frame:0, timer:0 };
-// Bridge over river — vertical crossing (rotated horizontal piece)
-const bridgePos = { x: 900, y: WATER_Y - 50 };
+// Water rocks scattered in the river (animated)
+const waterRocks = [
+    { x:100,  y:WATER_Y+20,  asset:'wrocks3' },
+    { x:400,  y:WATER_Y+80,  asset:'wrocks1' },
+    { x:650,  y:WATER_Y+40,  asset:'wrocks4' },
+    { x:950,  y:WATER_Y+100, asset:'wrocks2' },
+    { x:1200, y:WATER_Y+30,  asset:'wrocks3' },
+    { x:1500, y:WATER_Y+70,  asset:'wrocks1' },
+    { x:1750, y:WATER_Y+120, asset:'wrocks4' },
+    { x:2050, y:WATER_Y+50,  asset:'wrocks2' },
+    { x:2350, y:WATER_Y+90,  asset:'wrocks3' },
+    { x:2600, y:WATER_Y+35,  asset:'wrocks1' },
+    { x:300,  y:WATER_Y+150, asset:'wrocks2' },
+    { x:800,  y:WATER_Y+160, asset:'wrocks4' },
+    { x:1400, y:WATER_Y+140, asset:'wrocks3' },
+    { x:2200, y:WATER_Y+170, asset:'wrocks1' },
+];
 // Foam spots scattered IN the water
 const foamSpots = [
     { x:150, y:WATER_Y+40 }, { x:500, y:WATER_Y+80 }, { x:750, y:WATER_Y+30 },
@@ -231,9 +248,8 @@ function update() {
         const bf = { x:b.x+b.w*0.15, y:b.y+b.h*0.6, w:b.w*0.7, h:b.h*0.35 };
         if (pf.x<bf.x+bf.w && pf.x+pf.w>bf.x && pf.y<bf.y+bf.h && pf.y+pf.h>bf.y) { blocked=true; break; }
     }
-    // Water collision (can't walk into river, except bridge area)
-    const inBridge = nx > bridgePos.x-30 && nx < bridgePos.x+90;
-    if (ny + player.h > WATER_Y && !inBridge) blocked = true;
+    // Water collision (can't walk into river)
+    if (ny + player.h > WATER_Y) blocked = true;
 
     if (!blocked) {
         player.x = Math.max(20, Math.min(WORLD_W-player.w-20, nx));
@@ -290,16 +306,12 @@ function render() {
         }
     }
 
-    // Bridge — rotated 90° to cross the river vertically
-    if (IMG.bridge) {
-        const bx = bridgePos.x+ox, by = bridgePos.y+oy;
-        if (bx>-200&&bx<w+200&&by>-300&&by<h+200) {
-            ctx.save();
-            ctx.translate(bx + 32, by + 96);
-            ctx.rotate(Math.PI / 2);
-            // Draw horizontal bridge piece rotated to become vertical
-            ctx.drawImage(IMG.bridge, 0, 0, 192, 64, -96, -32, 192, 64);
-            ctx.restore();
+    // Water rocks — animated, scattered in river
+    const wrFrame = Math.floor(Date.now()*0.002) % 8;
+    for (const wr of waterRocks) {
+        const rx = wr.x+ox, ry = wr.y+oy;
+        if (rx>-150&&rx<w+150&&ry>-150&&ry<h+150 && IMG[wr.asset]) {
+            drawFrame(IMG[wr.asset], wrFrame, 128, 128, rx, ry, 1.0, false);
         }
     }
 
