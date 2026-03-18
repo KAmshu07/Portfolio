@@ -132,12 +132,10 @@ a { color: inherit; text-decoration: none; }
 .intro-content {
     max-width: 500px;
     padding: 32px 36px;
-    border: 32px solid transparent;
-    border-image-source: url('Assets/Tiny Swords (Free Pack)/UI Elements/UI Elements/Papers/RegularPaper.png');
-    border-image-slice: 64 fill;
-    border-image-width: 32px;
-    border-image-repeat: stretch;
-    image-rendering: pixelated;
+    background: #f0e2c8;
+    border: 4px solid #3a2a1a;
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 2px #d8c8a8, 0 6px 0 #2a1a0a, 0 8px 24px rgba(0,0,0,0.3);
 }
 .intro-title {
     font-family: var(--font-pixel);
@@ -183,27 +181,26 @@ a { color: inherit; text-decoration: none; }
     font-family: var(--font-pixel);
     font-size: 10px;
     color: #fff;
-    background: transparent;
-    border: 24px solid transparent;
-    border-image-source: url('Assets/Tiny Swords (Free Pack)/UI Elements/UI Elements/Buttons/BigBlueButton_Regular.png');
-    border-image-slice: 64 fill;
-    border-image-width: 24px;
-    border-image-repeat: stretch;
-    image-rendering: pixelated;
-    padding: 4px 16px;
+    background: linear-gradient(180deg, #6ab8b0, #4a9a92);
+    border: 3px solid #3a6a62;
+    border-bottom-width: 5px;
+    border-radius: 4px;
+    padding: 14px 28px;
     cursor: pointer;
     letter-spacing: 1px;
-    transition: transform 0.15s;
+    transition: transform 0.15s, border-bottom-width 0.1s;
     animation: none;
-    border-radius: 0;
-    text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 8px rgba(0,0,0,0.2);
 }
 .intro-start:hover {
-    transform: scale(1.05);
+    background: linear-gradient(180deg, #7ac8c0, #5aaaa2);
+    transform: scale(1.03);
 }
 .intro-start:active {
-    border-image-source: url('Assets/Tiny Swords (Free Pack)/UI Elements/UI Elements/Buttons/BigBlueButton_Pressed.png');
-    transform: scale(0.98);
+    background: linear-gradient(180deg, #4a8a82, #3a7a72);
+    border-bottom-width: 3px;
+    transform: translateY(2px);
 }
 .intro-skip {
     display: block;
@@ -235,26 +232,21 @@ a { color: inherit; text-decoration: none; }
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding: 20px 24px;
-    background: transparent;
-    border: 36px solid transparent;
-    border-image-source: url('Assets/Tiny Swords (Free Pack)/UI Elements/UI Elements/Wood Table/WoodTable.png');
-    border-image-slice: 128 fill;
-    border-image-width: 36px;
-    border-image-repeat: stretch;
-    image-rendering: pixelated;
-    border-radius: 0;
+    background: linear-gradient(180deg, #5a3a22, #4a2a18);
+    border: 4px solid #2a1a0a;
+    border-radius: 4px;
     pointer-events: auto;
     transform: translateY(30px);
     opacity: 0;
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
                 opacity 0.25s ease;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 0 0 2px #6a4a2a, inset 0 2px 8px rgba(0,0,0,0.3),
+                0 6px 0 #1a0a00, 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 .info-panel.visible .info-panel-inner {
     transform: translateY(0);
     opacity: 1;
 }
-/* Remove old corner decorations — wood table has its own */
 .info-panel-inner::before,
 .info-panel-inner::after {
     display: none;
