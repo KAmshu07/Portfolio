@@ -88,6 +88,20 @@ for (let i = 0; i < 12; i++) {
     });
 }
 
+// Path decorations (intentionally placed)
+[
+    { x: 900,  y: 500,  asset: 'deco02', scale: 0.8 },
+    { x: 1050, y: 600,  asset: 'deco03', scale: 0.7 },
+    { x: 1350, y: 550,  asset: 'deco05', scale: 0.6 },
+    { x: 800,  y: 750,  asset: 'deco06', scale: 0.7 },
+    { x: 450,  y: 800,  asset: 'deco07', scale: 0.6 },
+    { x: 1100, y: 1000, asset: 'deco08', scale: 0.7 },
+    { x: 700,  y: 1200, asset: 'deco02', scale: 0.6 },
+    { x: 1300, y: 1300, asset: 'deco03', scale: 0.7 },
+].forEach(d => {
+    decos.push({ x: d.x, y: d.y, asset: d.asset, frame: 0, timer: 0, isStatic: true, scale: d.scale });
+});
+
 // Monument at spawn center
 export const monument = { x: 1200, y: 820 };
 
