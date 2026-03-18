@@ -2,7 +2,8 @@
 import { player } from './player.js';
 import { buildings } from './world.js';
 import { interactables } from './content.js';
-import { visitedBuildings } from './state.js';
+import { visitedBuildings, currentZone, setCurrentZone, announcedZones } from './state.js';
+import { ZONES } from './config.js';
 
 const infoPanel = document.getElementById('infoPanel');
 const infoPanelInner = document.getElementById('infoPanelInner');
@@ -41,5 +42,25 @@ export function updatePanel() {
     } else {
         infoPanel.classList.remove('visible');
         activeLabel = null;
+    }
+}
+
+export const zoneAnnouncement = { text: '', alpha: 0, startTime: 0, active: false };
+
+export function updateZone() {
+    for (const zone of ZONES) {
+        if (zone.test(player.x, player.y)) {
+            if (currentZone !== zone.name) {
+                setCurrentZone(zone.name);
+                if (!announcedZones.has(zone.name)) {
+                    announcedZones.add(zone.name);
+                    zoneAnnouncement.text = zone.name;
+                    zoneAnnouncement.alpha = 0;
+                    zoneAnnouncement.startTime = Date.now();
+                    zoneAnnouncement.active = true;
+                }
+            }
+            return;
+        }
     }
 }

@@ -4,7 +4,7 @@ import { mode, setMode, camera, keys, visitedBuildings, isAllVisited } from './s
 import { loadAssets } from './assets.js';
 import { player, updatePlayer } from './player.js';
 import { animateWorld, updateNPCs, buildings } from './world.js';
-import { updatePanel } from './ui.js';
+import { updatePanel, getNearBuilding, updateZone } from './ui.js';
 import { updateParticles, spawnParticle } from './particles.js';
 import { render } from './render.js';
 
@@ -96,6 +96,18 @@ function update() {
     updateNPCs();
     updatePanel();
     spawnWindLeaves();
+
+    // Nameplate fade
+    const nearB = getNearBuilding();
+    for (const b of buildings) {
+        if (nearB && b.label === nearB.label) {
+            b.nameplateAlpha = Math.min(1, b.nameplateAlpha + 0.05);
+        } else {
+            b.nameplateAlpha = Math.max(0, b.nameplateAlpha - 0.08);
+        }
+    }
+
+    updateZone();
 }
 
 // Game loop — starts immediately so intro camera pan shows terrain loading in

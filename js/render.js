@@ -5,7 +5,7 @@ import { IMG } from './assets.js';
 import { player, drawPlayer } from './player.js';
 import { buildings, trees, decos, monument, fires, sheep, npcs, waterRocks, foamSpots, clouds } from './world.js';
 import { drawFrame, drawImg } from './sprites.js';
-import { getNearBuilding } from './ui.js';
+import { getNearBuilding, zoneAnnouncement } from './ui.js';
 import { getParticles, drawParticle } from './particles.js';
 
 /* ─── Viewport culling ─── */
@@ -88,7 +88,11 @@ const renderers = {
     building(item) {
         const b = item.data;
         if (IMG[b.asset]) drawImg(IMG[b.asset], item.sx, item.sy, 1.0);
-        drawNameplate(b.label, item.sx + b.w / 2, item.sy - 12);
+        if (b.nameplateAlpha > 0.01) {
+            ctx.globalAlpha = b.nameplateAlpha;
+            drawNameplate(b.label, item.sx + b.w / 2, item.sy - 12);
+            ctx.globalAlpha = 1;
+        }
     },
     tree(item) {
         const tr = item.data;
@@ -153,6 +157,27 @@ function drawClouds(ox, oy, now) {
         const sy = c.y + oy * 0.3;
         if (IMG[c.asset]) drawImg(IMG[c.asset], sx, sy, 1.0);
     }
+    ctx.globalAlpha = 1;
+}
+
+/* ─── Zone announcement (Dark Souls style) ─── */
+function drawZoneAnnouncement(w, h, now) {
+    const za = zoneAnnouncement;
+    if (!za.active) return;
+    const elapsed = (now - za.startTime) / 1000;
+    if (elapsed < 0.5) za.alpha = elapsed / 0.5;
+    else if (elapsed < 2.0) za.alpha = 1;
+    else if (elapsed < 2.5) za.alpha = 1 - (elapsed - 2.0) / 0.5;
+    else { za.active = false; za.alpha = 0; return; }
+
+    ctx.globalAlpha = za.alpha * 0.9;
+    ctx.font = "700 16px 'Press Start 2P',monospace";
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#eec941';
+    ctx.shadowColor = 'rgba(0,0,0,0.6)';
+    ctx.shadowBlur = 8;
+    ctx.fillText(za.text, w / 2, h / 2);
+    ctx.shadowBlur = 0;
     ctx.globalAlpha = 1;
 }
 
@@ -245,6 +270,7 @@ export function render() {
 
     // Cloud layer (above entities, below HUD)
     drawClouds(ox, oy, now);
+    drawZoneAnnouncement(w, h, now);
 
     // Overlays (only during gameplay)
     const nearB = getNearBuilding();
