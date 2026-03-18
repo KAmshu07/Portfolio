@@ -7,6 +7,7 @@ import { animateWorld, updateNPCs, buildings } from './world.js';
 import { updatePanel, getNearBuilding, updateZone } from './ui.js';
 import { updateParticles, spawnParticle } from './particles.js';
 import { render } from './render.js';
+import { initAudio, play, startLoops, toggleMute } from './audio.js';
 
 // Wind wayfinding
 let windTimer = 0;
@@ -52,6 +53,7 @@ const loadingBar = document.getElementById('loadingBar');
 
 // Init
 resize();
+initAudio();
 addEventListener('resize', resize);
 
 // Input
@@ -64,6 +66,10 @@ btn.addEventListener('click', () => {
     if (loadFailed) { window.open('Amritanshu_Kumar_Resume.pdf'); return; }
     if (assetsReady) startGame();
 });
+document.getElementById('muteBtn').addEventListener('click', () => {
+    const m = toggleMute();
+    document.getElementById('muteBtn').textContent = m ? '🔇' : '🔊';
+});
 
 function startGame() {
     setMode('PLAYING');
@@ -72,6 +78,8 @@ function startGame() {
     canvas.style.cursor = "url('Assets/Tiny Swords (Free Pack)/UI Elements/UI Elements/Cursors/Cursor_01.png') 0 0, auto";
     introZoom.active = true;
     introZoom.startTime = Date.now();
+    play('click');
+    startLoops();
 }
 
 // Update

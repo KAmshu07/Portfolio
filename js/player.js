@@ -5,6 +5,7 @@ import { IMG } from './assets.js';
 import { drawFrame } from './sprites.js';
 import { buildings } from './world.js';
 import { spawnParticle } from './particles.js';
+import { play } from './audio.js';
 
 export const player = {
     x: 500, y: 500, w: 40, h: 30,
@@ -52,6 +53,7 @@ export function updatePlayer() {
     if (ny + player.h > WATER_Y && !player.splashed) {
         spawnParticle('splash', player.x + player.w / 2, WATER_Y - 10,
             { vx: 0, vy: -0.5, life: 25, scale: 0.6 });
+        play('splash');
         player.splashed = true;
     }
     if (ny + player.h <= WATER_Y) player.splashed = false;
@@ -62,7 +64,7 @@ export function updatePlayer() {
     // Animation
     if (player.walking) {
         player.ft++;
-        if (player.ft > 5) { player.ft = 0; player.frame = (player.frame + 1) % 6; }
+        if (player.ft > 5) { player.ft = 0; player.frame = (player.frame + 1) % 6; play('footstep'); }
     } else {
         player.ft++;
         if (player.ft > 8) { player.ft = 0; player.frame = (player.frame + 1) % 8; }

@@ -4,6 +4,7 @@ import { buildings } from './world.js';
 import { interactables } from './content.js';
 import { visitedBuildings, currentZone, setCurrentZone, announcedZones } from './state.js';
 import { ZONES } from './config.js';
+import { play } from './audio.js';
 
 const infoPanel = document.getElementById('infoPanel');
 const infoPanelInner = document.getElementById('infoPanelInner');
@@ -60,9 +61,11 @@ export function updatePanel() {
     cachedNearB = findNearBuilding();
     if (cachedNearB) {
         if (cachedNearB.label !== activeLabel) {
+            play('panelOpen');
             activeLabel = cachedNearB.label;
             const data = interactables.find(i => i.label === cachedNearB.label);
             if (data) {
+                if (!visitedBuildings.has(cachedNearB.label)) play('chime');
                 visitedBuildings.add(cachedNearB.label);
                 if (typedLabels.has(cachedNearB.label)) {
                     infoPanelInner.innerHTML = data.content;
@@ -75,6 +78,7 @@ export function updatePanel() {
         }
         infoPanel.classList.add('visible');
     } else {
+        if (activeLabel) play('panelClose');
         infoPanel.classList.remove('visible');
         activeLabel = null;
         if (typewriterState?.rafId) {
