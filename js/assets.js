@@ -38,6 +38,28 @@ const PATHS = {
     wrocks2: 'Assets/Tiny Swords (Update 010)/Terrain/Water/Rocks/Rocks_02.png',
     wrocks3: 'Assets/Tiny Swords (Update 010)/Terrain/Water/Rocks/Rocks_03.png',
     wrocks4: 'Assets/Tiny Swords (Update 010)/Terrain/Water/Rocks/Rocks_04.png',
+    // Particle effects
+    dust1:   'Assets/Tiny Swords (Free Pack)/Particle FX/Dust_01.png',
+    dust2:   'Assets/Tiny Swords (Free Pack)/Particle FX/Dust_02.png',
+    splash:  'Assets/Tiny Swords (Free Pack)/Particle FX/Water Splash.png',
+    // Clouds
+    cloud1:  'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Clouds/Clouds_01.png',
+    cloud2:  'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Clouds/Clouds_02.png',
+    cloud3:  'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Clouds/Clouds_03.png',
+    cloud4:  'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Clouds/Clouds_04.png',
+    cloud5:  'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Clouds/Clouds_05.png',
+    // NPC units
+    archerIdle: 'Assets/Tiny Swords (Free Pack)/Units/Red Units/Archer/Archer_Idle.png',
+    archerRun:  'Assets/Tiny Swords (Free Pack)/Units/Red Units/Archer/Archer_Run.png',
+    monkIdle:   'Assets/Tiny Swords (Free Pack)/Units/Purple Units/Monk/Idle.png',
+    monkRun:    'Assets/Tiny Swords (Free Pack)/Units/Purple Units/Monk/Run.png',
+    // Extra decorations
+    deco02:  'Assets/Tiny Swords (Update 010)/Deco/02.png',
+    deco03:  'Assets/Tiny Swords (Update 010)/Deco/03.png',
+    deco05:  'Assets/Tiny Swords (Update 010)/Deco/05.png',
+    deco06:  'Assets/Tiny Swords (Update 010)/Deco/06.png',
+    deco07:  'Assets/Tiny Swords (Update 010)/Deco/07.png',
+    deco08:  'Assets/Tiny Swords (Update 010)/Deco/08.png',
 };
 
 export const IMG = {};
