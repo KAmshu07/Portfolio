@@ -71,11 +71,11 @@ function updateWind() {
 
 function spawnWindParticles() {
     windSpawnTimer++;
-    const spawnRate = wind.guiding ? 4 : 8;
+    const spawnRate = wind.guiding ? 2 : 4;
     if (windSpawnTimer < spawnRate) return;
     windSpawnTimer = 0;
 
-    const count = wind.guiding ? 4 : 2;
+    const count = wind.guiding ? 6 : 4;
     const perpX = -wind.dirY, perpY = wind.dirX;
     const { w, h } = viewport;
 
@@ -94,10 +94,10 @@ function spawnWindParticles() {
         spawnParticle('leaf', sx, sy, {
             vx, vy,
             life: 80 + Math.random() * 50,
-            scale: 6 + Math.random() * 10,
-            alpha: (wind.guiding ? 0.4 : 0.2) + Math.random() * 0.3,
+            scale: 14 + Math.random() * 18,
+            alpha: (wind.guiding ? 0.7 : 0.5) + Math.random() * 0.3,
             curve: 0.3 + Math.random() * 0.7,
-            thickness: 1 + Math.random() * 2,
+            thickness: 2.2 + Math.random() * 3.3,
         });
     }
 }

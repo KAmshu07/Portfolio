@@ -3,7 +3,7 @@ import { ctx } from './config.js';
 import { IMG } from './assets.js';
 import { drawFrame } from './sprites.js';
 
-const MAX_PARTICLES = 80;
+const MAX_PARTICLES = 120;
 const pool = [];
 
 export function spawnParticle(type, x, y, opts = {}) {
