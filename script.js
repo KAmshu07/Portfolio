@@ -380,8 +380,8 @@ function render() {
                 const feetY = player.y + player.h;
                 // Behind = feet ABOVE trunk base (lower Y = further back in depth)
                 // and horizontally under the canopy (~60px radius from trunk center)
-                const behindTree = feetY < trunkY && feetY > trunkY - 160
-                    && Math.abs(feetX - trunkX) < 65;
+                const behindTree = feetY < trunkY && feetY > trunkY - 180
+                    && Math.abs(feetX - trunkX) < 85;
                 if (behindTree) ctx.globalAlpha = 0.4;
                 drawFrame(IMG[tr.asset], tr.frame, 192, 256, item.sx, item.sy-56, 1.0, false);
                 if (behindTree) ctx.globalAlpha = 1;
