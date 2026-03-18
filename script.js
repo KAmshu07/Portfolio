@@ -357,10 +357,10 @@ function drawPlayer(sx, sy) {
     // Shadow
     ctx.fillStyle = 'rgba(0,0,0,0.2)';
     ctx.beginPath();
-    ctx.ellipse(sx + player.w/2, sy + player.h + 4, 20, 6, 0, 0, 6.28);
+    ctx.ellipse(sx + player.w/2, sy + player.h, 18, 5, 0, 0, 6.28);
     ctx.fill();
-    // Sprite — offset so feet align with collision box bottom
-    drawFrame(img, player.frame, 192, 192, sx - 28, sy - 62, PSCALE, flip);
+    // Sprite — offset so feet sit on shadow
+    drawFrame(img, player.frame, 192, 192, sx - 28, sy - 38, PSCALE, flip);
 }
 
 /* ═══ SECTION 12 — INFO PANEL ═══ */
