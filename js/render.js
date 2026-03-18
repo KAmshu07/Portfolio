@@ -1,6 +1,6 @@
 /* Main render pipeline — ground, water, Y-sorted entities, HUD */
 import { ctx, TILE, WATER_Y, WORLD_W, viewport } from './config.js';
-import { mode, camera, isAllVisited } from './state.js';
+import { mode, camera, isAllVisited, introZoom } from './state.js';
 import { IMG } from './assets.js';
 import { player, drawPlayer } from './player.js';
 import { buildings, trees, decos, monument, fires, sheep, npcs, waterRocks, foamSpots, clouds } from './world.js';
@@ -187,6 +187,19 @@ export function render() {
     const ox = -camera.x, oy = -camera.y;
     const now = Date.now();
 
+    // Intro zoom effect
+    if (introZoom.active) {
+        const elapsed = (now - introZoom.startTime) / 400;
+        if (elapsed >= 1) { introZoom.active = false; introZoom.scale = 1; }
+        else { introZoom.scale = 1 + 0.05 * Math.sin(elapsed * Math.PI); }
+    }
+    if (introZoom.scale !== 1) {
+        ctx.save();
+        ctx.translate(w / 2, h / 2);
+        ctx.scale(introZoom.scale, introZoom.scale);
+        ctx.translate(-w / 2, -h / 2);
+    }
+
     // Ground tiles
     ctx.fillStyle = '#7ab648';
     ctx.fillRect(0, 0, w, h);
@@ -276,4 +289,6 @@ export function render() {
     const nearB = getNearBuilding();
     if (nearB && mode === 'PLAYING') drawProximityIndicator(nearB, ox, oy, now);
     if (mode === 'PLAYING') drawBottomHUD(nearB, w, h);
+
+    if (introZoom.scale !== 1) ctx.restore();
 }

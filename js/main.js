@@ -1,6 +1,6 @@
 /* Entry point — init, input, update loop, game loop */
 import { canvas, WORLD_W, WORLD_H, viewport, resize, WIND_BIAS } from './config.js';
-import { mode, setMode, camera, keys, visitedBuildings, isAllVisited } from './state.js';
+import { mode, setMode, camera, keys, visitedBuildings, isAllVisited, introZoom } from './state.js';
 import { loadAssets } from './assets.js';
 import { player, updatePlayer } from './player.js';
 import { animateWorld, updateNPCs, buildings } from './world.js';
@@ -48,6 +48,7 @@ function spawnWindLeaves() {
 let loadFailed = false;
 let assetsReady = false;
 const btn = document.getElementById('introStart');
+const loadingBar = document.getElementById('loadingBar');
 
 // Init
 resize();
@@ -69,6 +70,8 @@ function startGame() {
     document.getElementById('intro').classList.add('hidden');
     document.querySelector('.hud').classList.add('visible');
     canvas.style.cursor = "url('Assets/Tiny Swords (Free Pack)/UI Elements/UI Elements/Cursors/Cursor_01.png') 0 0, auto";
+    introZoom.active = true;
+    introZoom.startTime = Date.now();
 }
 
 // Update
@@ -123,7 +126,9 @@ btn.textContent = 'Loading...';
 btn.disabled = true;
 
 loadAssets((done, total) => {
-    btn.textContent = `Loading... ${Math.round(done / total * 100)}%`;
+    const pct = Math.round(done / total * 100);
+    btn.textContent = `Loading... ${pct}%`;
+    loadingBar.style.width = pct + '%';
 }).then(() => {
     assetsReady = true;
     btn.textContent = 'Press ENTER or Click to Start';
