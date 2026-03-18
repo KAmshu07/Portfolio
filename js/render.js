@@ -6,6 +6,7 @@ import { player, drawPlayer } from './player.js';
 import { buildings, trees, decos, monument, fires, sheep, npcs, waterRocks, foamSpots, clouds } from './world.js';
 import { drawFrame, drawImg } from './sprites.js';
 import { getNearBuilding } from './ui.js';
+import { getParticles, drawParticle } from './particles.js';
 
 /* ─── Viewport culling ─── */
 function inView(sx, sy, margin) {
@@ -133,6 +134,7 @@ const renderers = {
     player(item) {
         drawPlayer(item.sx, item.sy);
     },
+    particle: drawParticle,
 };
 
 /* ─── Parallax clouds ─── */
@@ -221,6 +223,11 @@ export function render() {
         if (inView(sx, sy, 100)) drawList.push({ y: sheep.y + 60, type: 'sheep', data: sheep, sx, sy });
     }
     drawList.push({ y: player.y + player.h, type: 'player', sx: player.x + ox, sy: player.y + oy });
+
+    for (const p of getParticles()) {
+        const sx = p.x + ox, sy = p.y + oy;
+        drawList.push({ y: p.y, type: 'particle', data: p, sx, sy });
+    }
 
     // Y-sort and dispatch
     drawList.sort((a, b) => a.y - b.y);

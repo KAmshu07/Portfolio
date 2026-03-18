@@ -4,11 +4,13 @@ import { keys } from './state.js';
 import { IMG } from './assets.js';
 import { drawFrame } from './sprites.js';
 import { buildings } from './world.js';
+import { spawnParticle } from './particles.js';
 
 export const player = {
     x: 500, y: 500, w: 40, h: 30,
     vx: 0, vy: 0, facing: 1, walking: false,
     frame: 0, ft: 0,
+    wasWalking: false, lastFacing: 1, splashed: false,
 };
 
 export function updatePlayer() {
@@ -19,6 +21,20 @@ export function updatePlayer() {
     if (keys.ArrowDown || keys.KeyS) my = 1;
     if (mx && my) { mx *= 0.707; my *= 0.707; }
     player.walking = mx !== 0 || my !== 0;
+
+    // Dust on movement start or direction change
+    if (player.walking && !player.wasWalking) {
+        for (let i = 0; i < 3; i++) {
+            spawnParticle('dust', player.x + player.w / 2 + (Math.random() - 0.5) * 10,
+                player.y + player.h, { vx: -mx * 0.5 + (Math.random() - 0.5), vy: -0.5 - Math.random(), life: 20, scale: 0.4 });
+        }
+    }
+    if (player.walking && player.facing !== player.lastFacing) {
+        spawnParticle('dust', player.x + player.w / 2, player.y + player.h,
+            { vx: -player.facing * 1.5, vy: -0.8, life: 15, scale: 0.3 });
+    }
+    player.wasWalking = player.walking;
+    player.lastFacing = player.facing;
 
     const nx = player.x + mx * SPEED;
     const ny = player.y + my * SPEED;
@@ -31,6 +47,14 @@ export function updatePlayer() {
         if (player.x < bx + bw && player.x + player.w > bx && ny < by + bh && ny + player.h > by) blockedY = true;
     }
     if (ny + player.h > WATER_Y) blockedY = true;
+
+    // Water splash on collision
+    if (ny + player.h > WATER_Y && !player.splashed) {
+        spawnParticle('splash', player.x + player.w / 2, WATER_Y - 10,
+            { vx: 0, vy: -0.5, life: 25, scale: 0.6 });
+        player.splashed = true;
+    }
+    if (ny + player.h <= WATER_Y) player.splashed = false;
 
     if (!blockedX) player.x = Math.max(20, Math.min(WORLD_W - player.w - 20, nx));
     if (!blockedY) player.y = Math.max(20, Math.min(WORLD_H - player.h - 20, ny));

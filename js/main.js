@@ -5,6 +5,7 @@ import { loadAssets } from './assets.js';
 import { player, updatePlayer } from './player.js';
 import { animateWorld, updateNPCs } from './world.js';
 import { updatePanel } from './ui.js';
+import { updateParticles } from './particles.js';
 import { render } from './render.js';
 
 // State
@@ -47,6 +48,7 @@ function update() {
     if (mode !== 'PLAYING') return;
 
     updatePlayer();
+    updateParticles();
 
     const { w, h } = viewport;
     camera.x += ((player.x + player.w / 2 - w / 2) - camera.x) * 0.08;
