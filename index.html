@@ -1,658 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Amritanshu Kumar's portfolio website" />
-    <title>Amritanshu Kumar | Website</title>
-    <!--favicon-img-->
+    <meta name="description" content="Amritanshu Kumar — Game Engineer who ships end-to-end. Play through my portfolio.">
+    <title>Amritanshu Kumar | Game Engineer</title>
     <link rel="icon" type="image/png" href="images/favicon.png">
-    <!--favicon-img-->
-    <!--main css file should not be removed -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <!--main css file-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
 </head>
-
 <body>
-    <!--contains all the div-->
-    <div id="all">
-        <!--mouse  follower-->
-        <div class="cursor"></div>
-        <!--mouse  follower-->
-        <!--loader-->
-        <div id="loader">
-            <span class="color">Amritanshu</span>Kumar
-        </div>
-        <!--loader-end-->
-        <!--link-screen-->
-        <div id="breaker">
-        </div>
-        <div id="breaker-two">
-        </div>
-        <!--link-screen-->
-        <!--Main-Section-->
-        <!--Navigator-fullscreen-->
-        <div id="navigation-content">
-            <div class="logo">
-                <img src="images/willy wonka logo.png" alt="logo">
-            </div>
-            <div class="navigation-close">
-                <span class="close-first"></span>
-                <span class="close-second"></span>
-            </div>
-            <div class="navigation-links">
-                <a href="#" data-text="HOME" id="home-link">HOME</a>
-                <a href="#" data-text="ABOUT" id="about-link">ABOUT</a>
-                <a href="#" data-text="PORTFOLIO" id="portfolio-link">PORTFOLIO</a>
-                <a href="#" data-text="CONTACT" id="contact-link">CONTACT</a>
-                <a href="Amritanshu_Kumar_Resume.pdf" target="_blank" download id="cv-link" data-text="DOWNLOAD CV">DOWNLOAD CV</a>
-            </div>
-        </div>
+    <!-- Skip link for recruiters who just want info -->
+    <a href="Amritanshu_Kumar_Resume.pdf" target="_blank" download class="skip-link">Download Resume (skip game)</a>
 
-        <!--Navigator-Fullscreen END-->
-        <!--Home Page-->
-        <!--Menubar-->
-        <div id="navigation-bar">
-            <img src="images/willy wonka logo.png" alt="logo">
-            <div class="menubar">
-                <!-- Add the word "MENU" next to the icon -->
-                <span class="first-span"></span>
-                <span class="second-span"></span>
-                <span class="third-span"></span>
-                <span class="menu-label">MENU</span>
-            </div>
+    <!-- HUD -->
+    <div class="hud">
+        <div class="hud-left">
+            <span class="hud-name">Amritanshu Kumar</span>
+            <span class="hud-title">Game Engineer</span>
         </div>
-        <!--Menubar End-->
-        <!--Header-->
-        <div id="header">
-            <div id="particles"></div>
-            <!--Social Media Links-->
-            <div class="social-media-links">
-                <!-- <a href="#"><img src="images/git.png" class="social-media" alt="github-logo"></a> -->
-                <a target="_blank" href="https://www.linkedin.com/in/amritanshu-kumar-/"><img src="images/linkedin logo.png" class="social-media" alt="linkedin-logo"></a>
-                <a target="_blank" href="https://github.com/KAmshu07"><img src="images/youtube.png" class="social-media" alt="youtube-logo"></a>
-            </div>
-            <!--Social Media Links end-->
-            <div class="header-content">
-                <div class="header-content-box">
-                    <div class="firstline"><span class="color">Amritanshu </span>Kumar</div>
-                    <div class="secondline">
-                        I'm a
-                        <span class="txt-rotate color" data-period="1200"
-                              data-rotate='[ "Game Developer with 4+ Years of Experience.", "Unity Game Developer.", "Tool Development Expert.", "Gameplay Systems Specialist.", "Unreal Engine Enthusiast.", "Game Mechanics Optimizer.", "Innovative Problem Solver." ]'></span>
-                        <span class="slash">|</span>
-                    </div>
-                    <div class="contact">
-                        <a href="Mailto:kamshu00@gmail.com">
-                            <img src="images/mail.png" alt="email-pic"
-                                 class="contactpic">
-                        </a><!--Your email Id write in place of "#"-->
-                        <a href="Tel:+91 7903734532">
-                            <img src="images/call.png" alt="phone-pic"
-                                 class="contactpic">
-                        </a><!--Your telephone number Id write in place of "#"-->
-                    </div>
-                </div>
-            </div>
+        <div class="hud-right">
+
+            <span class="hud-controls">[&larr;&rarr;] Walk &nbsp; Approach objects to explore</span>
         </div>
-        <!--Header End-->
-        <!--HomePage End-->
-        <!--Main-Section End-->
-        <!--about-->
-        <div id="about">
-            <!--about content-->
-            <div id="about-content">
-                <div class="about-header">
-                    About <span class="color">Me</span>
-                    <span class="header-caption">Get to Know <span class="color"> me.</span></span>
-                </div>
-                <div class="about-main">
-                    <div class="about-first-paragraph wow">
-                        <!--about description-->
-                        <span class="about-first-line">
-                            I'm a
-                            <span class="color">Game Developer</span>
-                            with 4+ years of experience.
-                        </span>
-                        <br>
-                        <span class="about-second-line">
-                            I’m a passionate game developer with expertise in Unity and Unreal Engine, dedicated to crafting seamless, interactive experiences. Leveraging advanced technologies like OpenCV for real-time interaction and Arduino for hardware integration, I specialize in developing unique gameplay features and custom tools that enhance productivity and consistency across projects. With a strong eye for detail and a focus on quality, I create solutions that are both innovative and impactful, driving each project toward successful, engaging outcomes.
-                        </span>
-                        <div class="cv">
-                            <a href="Amritanshu_Resume.pdf" target="_blank" download style="
-                                 display: inline-block;
-                                 padding: 10px 20px;
-                                 background-color: #DC3545; /* Bootstrap 'danger' red */
-                                 color: #fff; /* White text color */
-                                 text-decoration: none; /* Remove underline */
-                                 border: none; /* Remove border */
-                                 border-radius: 4px; /* Rounded corners */
-                                 font-size: 16px;
-                                 cursor: pointer;
-                                 transition: background-color 0.3s ease;
-    "
-                               onmouseover="this.style.backgroundColor='#BD2130';"
-                               onmouseout="this.style.backgroundColor='#DC3545';">
-                                <!-- Revert to 'danger' red -->
-                                Download <span class="colors">CV</span>
-                            </a>
-                        </div>
-
-
-                    </div>
-                    <!--about picture-->
-                    <!-- <div class="about-img">
-                    <img src="images/images.jpg" alt="Image">
-                </div> -->
-                </div>
-            </div>
-            <!--services start-->
-            <div id="services">
-                <!--services header-->
-                <div class="services-heading wow">
-                    <span class="color">My</span> Services
-                </div>
-                <!--services header end-->
-                <!--services content-->
-                <div class="services-content">
-                    <div class="service-one service wow">
-                        <div class="service-img">
-                            <img src="images/unity.png" alt="service-one">
-                        </div>
-                        <div class="service-description">
-                            <h2>Unity3D Game Development</h2>
-                            <p>I am confident in my ability to create immersive and enjoyable games with Unity3D. My experience includes developing tools and game mechanics to enhance gameplay.</p>
-                        </div>
-                    </div>
-                    <div class="service-two service wow">
-                        <div class="service-img">
-                            <img src="images/unreal.png" alt="service-two">
-                        </div>
-                        <div class="service-description">
-                            <h2>Unreal Engine Game Development</h2>
-                            <p>I have extensive experience in creating stunning console, mobile, and PC games using Unreal Engine. My projects demonstrate my proficiency in using Blueprints and C++ for game development.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--services content end-->
-            <!--services end-->
-
-            <div id="skills-section">
-                <div class="services-heading wow">
-                    Unity <span class="color">Skills</span>
-                </div>
-                <ul class="description">
-                    <li>Deep expertise in Unity for real-time application development, including intricate hardware-software integration using OpenCV and Arduino</li>
-                    <li>Proven ability to optimize Unity environments for maximum performance and efficiency</li>
-                    <li>Experienced in building user-centric, dynamic UI/UX within Unity, enhancing interactivity and user engagement</li>
-                    <li>Versatile in both 3D and 2D game development, with a focus on creating seamless gameplay experiences</li>
-                    <li>Exceptional problem-solving skills and the ability to perform under pressure</li>
-                    <li>Strong project management and communication abilities, ensuring clear interaction and project alignment with team members and stakeholders</li>
-                </ul>
-            </div>
-
-            <div id="skills-section">
-                <div class="services-heading wow">
-                    Unreal Engine <span class="color">Skills</span>
-                </div>
-                <ul class="description">
-                    <li>Proficient in Unreal Engine, leveraging Blueprints and C++ to create immersive game environments and intricate gameplay mechanics</li>
-                    <li>Skilled in implementing advanced Unreal Engine features, including but not limited to physics-based gameplay, complex AI behaviours, and real-time networked game systems</li>
-                    <li>Strong foundation in visual scripting with Blueprints, enabling rapid prototyping and iterative development for both gameplay and interaction design</li>
-                </ul>
-            </div>
-            <div id="skills">
-                <div class="skills-header">
-                    Core <span class="color">Competencies</span>
-                </div>
-                <div class="skills-content" style="text-align: center;">
-                    <!-- Unity Skill -->
-                    <div class="skill-html skill">
-                        <div class="skill-text">
-                            <div class="html">
-                                <ul><li>Unity Development</li></ul>
-                            </div>
-                        </div>
-                        <div class="html-prog wow prog">
-                            <div class="unity-progress wow" style="width: 90%;">90%</div>
-                        </div>
-                    </div>
-                    <!-- C# Programming -->
-                    <div class="skill-html skill">
-                        <div class="skill-text">
-                            <div class="html">
-                                <ul><li>C# Programming</li></ul>
-                            </div>
-                        </div>
-                        <div class="html-prog wow prog">
-                            <div class="Csharp-progress wow" style="width: 85%;">85%</div>
-                        </div>
-                    </div>
-                    <!-- Python Scripting -->
-                    <div class="skill-html skill">
-                        <div class="skill-text">
-                            <div class="html">
-                                <ul><li>Editor Scripting</li></ul>
-                            </div>
-                        </div>
-                        <div class="html-prog wow prog">
-                            <div class="editor-progress wow" style="width: 60%;">60%</div>
-                        </div>
-                    </div>
-                    <!-- Unreal Engine Experience -->
-                    <div class="skill-html skill">
-                        <div class="skill-text">
-                            <div class="html">
-                                <ul><li>Unreal Engine Development</li></ul>
-                            </div>
-                        </div>
-                        <div class="html-prog wow prog">
-                            <div class="ue-progress wow" style="width: 65%;">65%</div>
-                        </div>
-                    </div>
-                    <!-- C++ Development -->
-                    <div class="skill-html skill">
-                        <div class="skill-text">
-                            <div class="html">
-                                <ul><li>C++ Development</li></ul>
-                            </div>
-                        </div>
-                        <div class="html-prog wow prog">
-                            <div class="C-progress wow" style="width: 50%;">50%</div>
-                        </div>
-                    </div>
-                    <!-- Blueprint Scripting -->
-                    <div class="skill-html skill">
-                        <div class="skill-text">
-                            <div class="html">
-                                <ul><li>Blueprint Scripting</li></ul>
-                            </div>
-                        </div>
-                        <div class="html-prog wow prog">
-                            <div class="blueprint-progress wow" style="width: 70%;">70%</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--copyright-section-->
-        <div class="footer">
-            <div class="footer-text">
-                <img src="./images/copyright.png" alt="copyright-img" class="images" height="14px"> Amritanshu Kumar
-            </div>
-        </div>
-        <!--copyright-section-->
     </div>
-    <!--about end-->
-    <!--portfolio-->
-    <div id="portfolio">
-        <div class="portfolio-header">
-            <span class="color"> My </span> Projects
-            <span class="header-caption"> Some Of My <span class="color"> Works</span></span>
+
+    <!-- Zone indicator -->
+    <div class="zone-indicator" id="zoneIndicator"></div>
+
+    <!-- Game Canvas -->
+    <canvas id="game"></canvas>
+
+    <!-- Floating Info Panel (non-blocking, follows objects) -->
+    <div class="info-panel" id="infoPanel">
+        <div class="info-panel-inner" id="infoPanelInner"></div>
+    </div>
+
+    <!-- Intro Screen -->
+    <div class="intro" id="intro">
+        <div class="intro-content">
+            <h1 class="intro-title">Amritanshu Kumar</h1>
+            <p class="intro-sub">Game Engineer who ships end-to-end</p>
+            <div class="intro-divider"></div>
+            <p class="intro-hint">This portfolio is a game.<br>Explore to discover my work.</p>
+            <div class="intro-controls">
+                <span>[&larr;&rarr;] Walk</span>
+                <span>Approach objects to explore</span>
+            </div>
+            <button class="intro-start" id="introStart">Press ENTER or Click to Start</button>
+            <a href="Amritanshu_Kumar_Resume.pdf" target="_blank" download class="intro-skip">or download my resume directly</a>
         </div>
-        <div id="portfolio-content">
-            <style>
-                /* Smooth animated gradient background for text */
-                .animated-downloads {
-                    font-weight: bold;
-                    background: linear-gradient(45deg, #ff00cc, #ff3366, #ff6633, #ffcc33, #ccff33, #33ff66, #33ffcc, #33ccff, #3366ff, #6633ff, #cc33ff, #ff33cc, #ff00cc );
-                    -webkit-background-clip: text;
-                    color: transparent;
-                    animation: gradientMove 5s infinite linear;
-                    background-size: 500%; /* Larger background size for smoother flow */
-                }
+    </div>
 
-                /* Animation for moving gradient */
-                @keyframes gradientMove {
-                    0% {
-                        background-position: 0% 50%;
-                    }
-
-                    100% {
-                        background-position: 100% 50%;
-                    }
-                }
-            </style>
-
-            <!-- Alnahsha Run -->
-            <div class="portfolio portfolio-first">
-                <div class="portfolio-image">
-                    <video controls autoplay muted>
-                        <source src="videos/alnahsha-run.webm" type="video/webm" />
-                    </video>
-                </div>
-                <div class="portfolio-text">
-                    <h2>Alnahsha Run <span class="animated-downloads">(1M+ downloads)</span></h2>
-                    <p>An engaging endless runner game set in culturally themed cities like Riyadh, Cairo, and Dubai. The game reached over 1M downloads and holds a 4.6-star rating on Google Play.</p>
-                    <ul>
-                        <li>Immersive environments based on iconic cities</li>
-                        <li>Daily challenges, missions, and leaderboard integration</li>
-                        <li>Enhanced user retention with rigorous testing and bug fixes</li>
-                    </ul>
-                    <a href="https://play.google.com/store/apps/details?id=com.moderndoctors.alnahsharun&pcampaignid=web_share" target="_blank" class="play-store-link">
-                        View on Play Store
-                    </a>
-                </div>
-            </div>
-
-            <!-- Twisco Run -->
-            <div class="portfolio portfolio-second">
-                <div class="portfolio-image">
-                    <video controls autoplay muted>
-                        <source src="videos/twisco-run.webm" type="video/webm" />
-                    </video>
-                </div>
-                <div class="portfolio-text">
-                    <h2>Twisco Run <span class="animated-downloads">(10K+ downloads)</span></h2>
-                    <p>A narrative-driven runner game where players navigate obstacles, with unique characters and storyline. The game surpassed 10K downloads with high user engagement.</p>
-                    <ul>
-                        <li>Storyline and mission objectives that drive player engagement</li>
-                        <li>Challenging gameplay to increase retention rates</li>
-                        <li>Compliance with Play Families Policy and data safety standards</li>
-                    </ul>
-                    <a href="https://play.google.com/store/apps/details?id=com.twiscorun&pcampaignid=web_share" target="_blank" class="play-store-link">
-                        View on Play Store
-                    </a>
-                </div>
-            </div>
-
-
-            <!-- Project 1 -->
-            <div class="portfolio portfolio-first">
-                <div class="portfolio-image">
-                    <video controls autoplay muted>
-                        <source src="videos/arrow-game.webm" type="video/webm" />
-                    </video>
-                </div>
-                <div class="portfolio-text">
-                    <h2>Recurve 28 (Arrow Game)</h2>
-                    <p>A complex game that integrates a camera, Arduino sensor, and projector to deliver a unique gameplay experience. The game employs OpenCV to detect arrows and determine their impact point with pixel-perfect accuracy.</p>
-                    <ul>
-                        <li>Hardware integration with camera, Arduino, and projector</li>
-                        <li>Precise arrow impact detection using OpenCV</li>
-                        <li>Multiple gameplay modes utilizing the detection system</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Project 2 -->
-            <div class="portfolio portfolio-first">
-                <div class="portfolio-image">
-                    <video controls autoplay muted>
-                        <source src="videos/setup-tool.webm" type="video/webm" />
-                    </video>
-                </div>
-                <div class="portfolio-text">
-                    <h2>Project Setup Tool</h2>
-                    <p>A powerful tool designed to set up projects with predefined settings and structures, enabling developers to start working within seconds and maintain consistent architecture across projects.</p>
-                    <ul>
-                        <li>Customizable project setup</li>
-                        <li>Automation of repetitive setup tasks</li>
-                        <li>Ensures consistency and efficiency across projects</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Project 3 -->
-            <div class="portfolio portfolio-second">
-                <div class="portfolio-image">
-                    <video controls autoplay muted>
-                        <source src="videos/finger-royale.webm" type="video/webm" />
-                    </video>
-                </div>
-                <div class="portfolio-text">
-                    <h2>Finger Royale</h2>
-                    <p>A replica of the "Finger on the App" challenge by Mr. Beast. This game tests players' endurance by requiring them to keep their finger on the screen for as long as possible. The last person remaining wins.</p>
-                    <ul>
-                        <li>Real-time multiplayer functionality</li>
-                        <li>Accurate touch detection</li>
-                        <li>User-friendly interface with dynamic updates</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Project 4 -->
-            <div class="portfolio portfolio-second">
-                <div class="portfolio-image">
-                    <video controls autoplay muted>
-                        <source src="videos/deft-runner.webm" type="video/webm" />
-                    </video>
-                </div>
-                <div class="portfolio-text">
-                    <h2>Deft Runner</h2>
-                    <p>A reskin of Twisco Run with improved features and optimization. This project highlights the learning curve and ability to enhance existing games.</p>
-                    <ul>
-                        <li>Enhanced optimization for smoother gameplay</li>
-                        <li>Continuous swipe feature for seamless player control</li>
-                        <li>Improved object pooling and state management</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Project 5 -->
-            <div class="portfolio portfolio-first">
-                <div class="portfolio-image">
-                    <video controls autoplay muted>
-                        <source src="videos/hangman-game.webm" type="video/webm" />
-                    </video>
-                </div>
-                <div class="portfolio-text">
-                    <h2>Hangman Game</h2>
-                    <p>A simple hangman game developed to practice and demonstrate the SOLID principles.</p>
-                    <ul>
-                        <li>Clean code architecture adhering to SOLID principles</li>
-                        <li>Simple, intuitive gameplay</li>
-                        <li>Well-documented code for educational purposes</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Tool 1 -->
-            <div class="portfolio portfolio-second">
-                <div class="portfolio-image">
-                    <video controls autoplay muted>
-                        <source src="videos/timer-tool.webm" type="video/webm" />
-                    </video>
-                </div>
-                <div class="portfolio-text">
-                    <h2>Timer Tool</h2>
-                    <p>A versatile tool for implementing various timers in a game, with advanced scheduling features for complex timing requirements.</p>
-                    <ul>
-                        <li>Support for multiple timer types</li>
-                        <li>Advanced scheduling and management features</li>
-                        <li>Custom editor window for real-time management</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Tool 2 -->
-            <div class="portfolio portfolio-first">
-                <div class="portfolio-image">
-                    <video controls autoplay muted>
-                        <source src="videos/ui-manager.webm" type="video/webm" />
-                    </video>
-                </div>
-                <div class="portfolio-text">
-                    <h2>UI Manager Tool</h2>
-                    <p>A tool to streamline UI element references in large and complex UIs. It also served as a learning project for editor scripting.</p>
-                    <ul>
-                        <li>Easy reference management for UI elements</li>
-                        <li>Custom editor windows for streamlined development</li>
-                        <li>Improves development efficiency in large projects</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Tool 3 -->
-            <div class="portfolio portfolio-first">
-                <div class="portfolio-image">
-                    <video controls autoplay muted>
-                        <source src="videos/internet-manager.webm" type="video/webm" />
-                    </video>
-                </div>
-                <div class="portfolio-text">
-                    <h2>Internet Manager Tool</h2>
-                    <p>A tool to manage internet connectivity within the game, allowing other components to perform internet-based tasks without handling connectivity issues directly.</p>
-                    <ul>
-                        <li>Robust internet connectivity management</li>
-                        <li>Easy integration with other game components</li>
-                        <li>Provides a unified interface for internet-related tasks</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Tool 4 -->
-            <div class="portfolio portfolio-second">
-                <div class="portfolio-image">
-                    <video controls autoplay muted>
-                        <source src="videos/scene-switch.webm" type="video/webm" />
-                    </video>
-                </div>
-                <div class="portfolio-text">
-                    <h2>Scene Switch Tool</h2>
-                    <p>A simple yet effective tool to quickly switch between and locate scenes using a custom editor window.</p>
-                    <ul>
-                        <li>Fast scene switching</li>
-                        <li>Easy navigation in the editor</li>
-                        <li>Enhances productivity during development</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!--copyright-section-->
-        <div class="footer">
-            <div class="footer-text">
-                <img src="./images/copyright.png" alt="copyright-img" class="images" height="14px"> Amritanshu Kumar
+    <!-- Mobile Warning -->
+    <div class="mobile-warning" id="mobileWarning">
+        <div class="mobile-warning-content">
+            <h2>Best on Desktop</h2>
+            <p>This portfolio is a playable game that needs a keyboard.</p>
+            <a href="Amritanshu_Kumar_Resume.pdf" target="_blank" download class="mobile-resume-btn">Download Resume</a>
+            <div class="mobile-links">
+                <a href="mailto:kamshu00@gmail.com">Email</a>
+                <a href="https://www.linkedin.com/in/amritanshu-kumar-/" target="_blank">LinkedIn</a>
+                <a href="https://github.com/KAmshu07" target="_blank">GitHub</a>
             </div>
         </div>
     </div>
-    <!--portfolio end-->
-    <!--contact-->
-    <div id="contact">
-        <div class="contact-header">
-            Contact <span class="color"> Me</span>
-            <div class="contact-header-caption"> <span class="color"> Get</span> In Touch.</div>
-        </div>
-        <div class="contact-content">
-            <!--Contact form-->
-            <div class="contact-form">
-                <div class="form-header">
-                    <strong>Message me</strong>
-                </div>
-                <form id="myForm" action="#">
-                    <div class="input-line">
-                        <input id="name" type="text" placeholder="Name" class="input-name">
-                        <input id="email" type="email" placeholder="Email" class="input-name">
-                    </div>
-                    <textarea id="body" class="input-textarea" placeholder="message"></textarea>
-                    <button type="button" id="submit" value="send">Submit</button>
-                </form>
 
-            </div>
-            <!--Contact form-->
-            <!--Contact information-->
-            <div class="contact-info">
-                <div class="contact-info-header">
-                    <strong>Contact Info</strong>
-                </div>
-                <div class="contact-info-content">
-                    <div class="contect-info-content-line">
-                        <img src="./images/icon-name.png" class="icon" alt="name-icon">
-                        <div class="contact-info-icon-text">
-                            <h6>Name</h6>
-                            <p>Amritanshu Kumar</p>
-                        </div>
-                    </div>
-                    <div class="contect-info-content-line">
-                        <img src="./images/icon-location.png" class="icon" alt="location-icon">
-                        <div class="contact-info-icon-text">
-                            <h6>Location</h6>
-                            <p> Patna, Bihar, India</p>
-                        </div>
-                    </div>
-                    <div class="contect-info-content-line">
-                        <img src="./images/icon-phone.png" class="icon" alt="phone-icon">
-                        <div class="contact-info-icon-text">
-                            <h6>Call</h6>
-                            <p>+91 7903734532</p>
-                        </div>
-                    </div>
-
-                    <div class="contect-info-content-line">
-                        <img src="./images/icon-email.png" class="icon" alt="email-icon">
-                        <div class="contact-info-icon-text">
-                            <h6>Email</h6>
-                            <p>kamshu00@gmail.com</p>
-                        </div>
-                    </div>
-                </div>
-                <!--Contact information end-->
-            </div>
-        </div>
-        <!--copyright-section You Can Remove After Downloading-->
-        <div class="footer">
-            <div class="footer-text">
-                <img src="./images/copyright.png" alt="copyright-img" class="images" height="14px"> Amritanshu Kumar
-            </div>
-        </div>
-        <!--copyright-section-->
-    </div>
-    <!--contact end-->
-    </div>
-    <!--all the divisions-->
-    <script src="jquery.min.js"></script>
-    <script src="particles.js"></script>
-    <script src="particles.min.js"></script>
-    <script src="scripts.js"></script>
-    <!--particles script-->
-    <script>
-        particlesJS("particles", { "particles": { "number": { "value": 60, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#fff" }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 }, "image": { "src": "img/github.svg", "width": 100, "height": 100 } }, "opacity": { "value": 0.5, "random": true, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 7, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": false, "distance": 500, "color": "#ffffff", "opacity": 0.4, "width": 2 }, "move": { "enable": true, "speed": 3, "direction": "bottom", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } }, "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "bubble" }, "onclick": { "enable": true, "mode": "repulse" }, "resize": true }, "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 0.5 } }, "bubble": { "distance": 400, "size": 4, "duration": 0.3, "opacity": 1, "speed": 3 }, "repulse": { "distance": 200, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } } }, "retina_detect": true });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Array of links in the order you want to navigate
-            const sections = ["home-link", "about-link", "portfolio-link", "contact-link"];
-
-            // Function to get the current active section
-            function getCurrentSectionIndex() {
-                for (let i = 0; i < sections.length; i++) {
-                    const section = document.getElementById(sections[i]);
-                    if (section && section.classList.contains("active")) {
-                        return i;
-                    }
-                }
-                // Default to the first section if none are active
-                return 0;
-            }
-
-            // Function to handle logo click behavior to cycle through sections
-            function handleLogoClick() {
-                // Determine the current active section
-                let sectionIndex = getCurrentSectionIndex();
-
-                // Move to the next section in the array
-                sectionIndex = (sectionIndex + 1) % sections.length;
-
-                // Trigger a click on the next section link
-                document.getElementById(sections[sectionIndex]).click();
-
-                // Update the active class for the current section
-                setActiveSection(sectionIndex);
-            }
-
-            // Function to set the active class on the current section
-            function setActiveSection(index) {
-                document.querySelectorAll(".navigation-links a").forEach(link => link.classList.remove("active"));
-                document.getElementById(sections[index]).classList.add("active");
-            }
-
-            // Select both logos and add the event listener to each
-            const logos = document.querySelectorAll("#navigation-bar img, #navigation-content .logo img");
-
-            logos.forEach(logo => {
-                logo.addEventListener("click", handleLogoClick);
-            });
-
-            // Set the first section as active initially
-            setActiveSection(0);
-        });
-    </script>
-
+    <script src="script.js"></script>
 </body>
-
 </html>
