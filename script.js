@@ -1,29 +1,23 @@
 /* ═══════════════════════════════════════════════════════════════
    GAME PORTFOLIO — Amritanshu Kumar
-   Clean rewrite: COC fantasy art style, modular sections
+   Top-down village with Tiny Swords assets
    ═══════════════════════════════════════════════════════════════ */
 (function () {
 'use strict';
 
-/* ╔═══════════════════════════════════════════════════════════╗
-   ║  SECTION 1 — CONSTANTS & CONFIG                          ║
-   ╚═══════════════════════════════════════════════════════════╝ */
+/* ═══ SECTION 1 — CONFIG ═══ */
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
-const MOVE_SPEED = 1.5;
-const GRAVITY = 0.35;
-const TILE = 40;
-const WORLD_W = 5500;
-const WORLD_H = 1200;
-const GROUND_Y = WORLD_H - TILE * 2;
-/* ╔═══════════════════════════════════════════════════════════╗
-   ║  SECTION 2 — ASSET LOADER                                ║
-   ╚═══════════════════════════════════════════════════════════╝ */
+const SPEED = 2.5;
+const WORLD_W = 2400;
+const WORLD_H = 1800;
+const TILE = 64;
+const PSCALE = 0.5;  // player sprite scale
+
+/* ═══ SECTION 2 — ASSET LOADER ═══ */
 const ASSET_DEFS = {
-    // Player
     warrior_idle: 'Assets/Tiny Swords (Free Pack)/Units/Blue Units/Warrior/Warrior_Idle.png',
     warrior_run:  'Assets/Tiny Swords (Free Pack)/Units/Blue Units/Warrior/Warrior_Run.png',
-    // Buildings
     house1:    'Assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/House1.png',
     house2:    'Assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/House2.png',
     house3:    'Assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/House3.png',
@@ -32,34 +26,19 @@ const ASSET_DEFS = {
     tower:     'Assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/Tower.png',
     archery:   'Assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/Archery.png',
     monastery: 'Assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/Monastery.png',
-    // Trees
     tree1: 'Assets/Tiny Swords (Free Pack)/Terrain/Resources/Wood/Trees/Tree1.png',
     tree2: 'Assets/Tiny Swords (Free Pack)/Terrain/Resources/Wood/Trees/Tree2.png',
     tree3: 'Assets/Tiny Swords (Free Pack)/Terrain/Resources/Wood/Trees/Tree3.png',
     tree4: 'Assets/Tiny Swords (Free Pack)/Terrain/Resources/Wood/Trees/Tree4.png',
-    // Bushes
     bush1: 'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Bushes/Bushe1.png',
     bush2: 'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Bushes/Bushe2.png',
-    bush3: 'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Bushes/Bushe3.png',
-    bush4: 'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Bushes/Bushe4.png',
-    // Rocks
     rock1: 'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Rocks/Rock1.png',
     rock2: 'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Rocks/Rock2.png',
-    rock3: 'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Rocks/Rock3.png',
-    rock4: 'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Rocks/Rock4.png',
-    // Clouds
-    cloud1: 'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Clouds/Clouds_01.png',
-    cloud2: 'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Clouds/Clouds_02.png',
-    cloud3: 'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Clouds/Clouds_03.png',
-    // Special
     sheep:  'Assets/Tiny Swords (Free Pack)/Terrain/Resources/Meat/Sheep/Sheep_Idle.png',
     gold1:  'Assets/Tiny Swords (Free Pack)/Terrain/Resources/Gold/Gold Stones/Gold Stone 1.png',
-    // Terrain
     tilemap: 'Assets/Tiny Swords (Free Pack)/Terrain/Tileset/Tilemap_color1.png',
 };
-
 const IMG = {};
-
 function loadAssets() {
     const entries = Object.entries(ASSET_DEFS);
     let loaded = 0;
@@ -73,11 +52,7 @@ function loadAssets() {
                 IMG[key] = img;
                 loaded++;
                 btn.textContent = 'Loading... ' + Math.round(loaded / entries.length * 100) + '%';
-                if (loaded === entries.length) {
-                    btn.textContent = 'Press ENTER or Click to Start';
-                    btn.disabled = false;
-                    resolve();
-                }
+                if (loaded === entries.length) { btn.textContent = 'Press ENTER or Click to Start'; btn.disabled = false; resolve(); }
             };
             img.onerror = () => reject(new Error('Failed: ' + src));
             img.src = src;
@@ -85,413 +60,344 @@ function loadAssets() {
     });
 }
 
-/* ╔═══════════════════════════════════════════════════════════╗
-   ║  SECTION 3 — STATE                                       ║
-   ╚═══════════════════════════════════════════════════════════╝ */
+/* ═══ SECTION 3 — STATE ═══ */
 let state = 'INTRO';
 let keys = {};
-let camera = { x: 0 };
+let camera = { x: 0, y: 0 };
 let w, h;
-let currentZone = '';
-
 function resize() { w = canvas.width = innerWidth; h = canvas.height = innerHeight; ctx.imageSmoothingEnabled = false; }
 resize();
 addEventListener('resize', resize);
 
-/* ╔═══════════════════════════════════════════════════════════╗
-   ║  SECTION 4 — INPUT                                       ║
-   ╚═══════════════════════════════════════════════════════════╝ */
+/* ═══ SECTION 4 — INPUT ═══ */
 const TOTAL_ASSETS = Object.keys(ASSET_DEFS).length;
-
 addEventListener('keydown', e => {
     keys[e.code] = true;
     if (e.code === 'Enter' && state === 'INTRO' && Object.keys(IMG).length === TOTAL_ASSETS) startGame();
 });
 addEventListener('keyup', e => { keys[e.code] = false; });
-
 document.getElementById('introStart').addEventListener('click', () => {
     if (Object.keys(IMG).length === TOTAL_ASSETS) startGame();
 });
-
 function startGame() {
     state = 'PLAYING';
     document.getElementById('intro').classList.add('hidden');
     document.querySelector('.hud').classList.add('visible');
 }
 
-/* ╔═══════════════════════════════════════════════════════════╗
-   ║  SECTION 5 — PLAYER                                      ║
-   ╚═══════════════════════════════════════════════════════════╝ */
+/* ═══ SECTION 5 — PLAYER ═══ */
 const player = {
-    x: 200, y: GROUND_Y - 64, w: 40, h: 64,
-    vx: 0, vy: 0, onGround: false,
+    x: WORLD_W / 2 - 200, y: WORLD_H / 2 + 100,
+    w: 40, h: 30, // collision box (footprint for top-down)
+    vx: 0, vy: 0,
     facing: 1, walking: false, frame: 0, ft: 0
 };
 
-/* ╔═══════════════════════════════════════════════════════════╗
-   ║  SECTION 6 — WORLD DATA                                  ║
-   ╚═══════════════════════════════════════════════════════════╝ */
-
-// Buildings (matched to interactables by position)
+/* ═══ SECTION 6 — WORLD DATA ═══ */
+// Village layout — buildings placed in a natural village cluster
 const buildings = [
-    { x: 900,  asset: 'house1',    w: 128, h: 192 },
-    { x: 1200, asset: 'house2',    w: 128, h: 192 },
-    { x: 1500, asset: 'house3',    w: 128, h: 192 },
-    { x: 2200, asset: 'castle',    w: 320, h: 256 },
-    { x: 2700, asset: 'barracks',  w: 192, h: 256 },
-    { x: 3200, asset: 'tower',     w: 128, h: 256 },
-    { x: 3600, asset: 'archery',   w: 192, h: 256 },
-    { x: 3950, asset: 'monastery', w: 192, h: 320 },
+    // About zone — small houses on the left
+    { x: 350,  y: 500,  asset: 'house1',  w: 128, h: 192, label: 'BIO' },
+    { x: 600,  y: 350,  asset: 'house2',  w: 128, h: 192, label: 'SKILLS' },
+    { x: 200,  y: 800,  asset: 'house3',  w: 128, h: 192, label: 'TECH' },
+    // Projects zone — bigger buildings in center
+    { x: 1000, y: 600,  asset: 'castle',  w: 320, h: 256, label: 'PONGZ' },
+    { x: 1450, y: 400,  asset: 'barracks',w: 192, h: 256, label: 'ALNAHSHA' },
+    { x: 1700, y: 750,  asset: 'tower',   w: 128, h: 256, label: 'ENGINE' },
+    { x: 1200, y: 1000, asset: 'archery', w: 192, h: 256, label: 'RECURVE' },
+    { x: 1900, y: 500,  asset: 'monastery',w: 192, h: 320, label: 'SYSTEMS' },
 ];
 
-// Trees (scattered, randomly assigned tree1-4)
+// Trees scattered around
 const trees = [];
-const treePositions = [60, 450, 750, 1050, 1400, 1750, 2000, 2550, 3000, 3500, 4400, 4800, 5200];
-for (const tx of treePositions) {
-    trees.push({
-        x: tx + Math.random() * 30,
-        asset: 'tree' + (Math.floor(Math.random() * 4) + 1),
-        frame: Math.floor(Math.random() * 8),
-        timer: Math.floor(Math.random() * 10),
-        depth: Math.random() > 0.3 ? 1.0 : 0.5,
-    });
-}
-
-// Bushes
-const bushes = [];
-for (let bx = 100; bx < WORLD_W; bx += 200 + Math.random() * 300) {
-    bushes.push({
-        x: bx + Math.random() * 40,
-        asset: 'bush' + (Math.floor(Math.random() * 4) + 1),
-        frame: Math.floor(Math.random() * 8),
-        timer: Math.floor(Math.random() * 10),
-    });
-}
-
-// Rocks
-const rocks = [];
-for (let rx = 300; rx < WORLD_W; rx += 400 + Math.random() * 500) {
-    rocks.push({
-        x: rx + Math.random() * 50,
-        asset: 'rock' + (Math.floor(Math.random() * 4) + 1),
-    });
-}
-
-// Clouds (parallax background)
-const clouds = [];
-for (let i = 0; i < 8; i++) {
-    clouds.push({
-        x: Math.random() * WORLD_W,
-        y: 60 + Math.random() * 180,
-        asset: 'cloud' + (Math.floor(Math.random() * 3) + 1),
-        spd: 0.08 + Math.random() * 0.12,
-        scale: 0.3 + Math.random() * 0.3,
-    });
-}
-
-// Gold stones (near Projects zone)
-const goldStones = [];
-for (let gx = 2000; gx < 4200; gx += 350 + Math.random() * 200) {
-    goldStones.push({ x: gx + Math.random() * 80 });
-}
-
-// Sheep (easter egg in About zone)
-const sheep = { x: 1100, frame: 0, timer: 0 };
-
-// Zones
-const zones = [
-    { name: 'SPAWN', start: 0, end: 750 },
-    { name: 'ABOUT', start: 750, end: 1800 },
-    { name: 'PROJECTS', start: 1800, end: 4200 },
-    { name: 'CONTACT', start: 4200, end: WORLD_W },
+const treeSpots = [
+    [80,300],[250,200],[500,150],[150,600],[700,700],[850,400],
+    [950,250],[1100,150],[1350,200],[1600,150],[1800,300],
+    [2000,700],[2100,400],[2200,900],[500,1100],[800,1200],
+    [1400,1100],[1700,1200],[2000,1100],[100,1000],[2100,600],
+    [700,500],[1550,650],[1850,950],[400,1300],[1000,1350],
 ];
+for (const [tx, ty] of treeSpots) {
+    trees.push({ x: tx, y: ty, asset: 'tree' + (Math.floor(Math.random()*4)+1), frame: Math.floor(Math.random()*8), timer: Math.floor(Math.random()*10) });
+}
 
-/* ╔═══════════════════════════════════════════════════════════╗
-   ║  SECTION 7 — INTERACTABLES + CONTENT                     ║
-   ╚═══════════════════════════════════════════════════════════╝ */
+// Decorations
+const decos = [];
+for (let i = 0; i < 30; i++) {
+    decos.push({ x: Math.random()*WORLD_W, y: Math.random()*WORLD_H, asset: Math.random()>0.5?'bush1':'bush2', frame: Math.floor(Math.random()*8), timer: Math.floor(Math.random()*10) });
+}
+for (let i = 0; i < 15; i++) {
+    decos.push({ x: Math.random()*WORLD_W, y: Math.random()*WORLD_H, asset: Math.random()>0.5?'rock1':'rock2', frame: 0, timer: 0, isStatic: true });
+}
+// Gold stones near castle
+for (let i = 0; i < 5; i++) {
+    decos.push({ x: 900+Math.random()*400, y: 500+Math.random()*300, asset: 'gold1', frame: 0, timer: 0, isStatic: true });
+}
+// Sheep
+const sheep = { x: 500, y: 650, frame: 0, timer: 0 };
+
+/* ═══ SECTION 7 — INTERACTABLES ═══ */
+// Each interactable is linked to a building by matching label
 const interactables = [
-    { x:350, y:GROUND_Y-60, w:60, h:60, type:'sign', label:'?',
-      content:`<h2>Welcome!</h2><p>Walk right to explore my portfolio.</p><p>I'm <strong>Amritanshu Kumar</strong> — a Game Engineer who ships end-to-end.</p><p style="color:#eec941">5M+ Downloads • 14K+ Players • 62K+ Matches • 3+ Years</p>` },
-    { x:900, y:GROUND_Y-192, w:128, h:192, type:'building', label:'BIO',
+    { label:'BIO',
       content:`<h2>About Me</h2><p>Client, server, API, and deployment pipeline — I build across the complete stack. Currently leading a production multiplayer game from Unity client through TypeScript game server to cloud deployment.</p><p>Built a game engine in C++ from first principles. Shipped titles with over <strong style="color:#eec941">5M downloads</strong>.</p><p><strong>Current:</strong> Team Lead at RootHoot Pvt Ltd (Remote)</p><p><strong>Previous:</strong> Game Developer at DeftSoft</p>` },
-    { x:1200, y:GROUND_Y-192, w:128, h:192, type:'building', label:'SKILLS',
+    { label:'SKILLS',
       content:`<h2>What I Do</h2><p><strong style="color:#eec941">01 — Full-Stack Game Dev</strong><br>Unity client to backend to deployment.</p><br><p><strong style="color:#eec941">02 — Backend & Multiplayer</strong><br>Node.js, Socket.IO, Express, MongoDB, Docker.</p><br><p><strong style="color:#eec941">03 — Engine & Systems</strong><br>C++ engine dev, ECS, reusable Unity frameworks.</p>` },
-    { x:1500, y:GROUND_Y-192, w:128, h:192, type:'building', label:'TECH',
+    { label:'TECH',
       content:`<h2>Tech Stack</h2><div class="popup-tags"><span class="t-lang">C#</span><span class="t-lang">TypeScript</span><span class="t-lang">C++</span><span class="t-lang">Go</span><span class="t-lang">Python</span><span class="t-engine">Unity</span><span class="t-engine">Unreal</span><span class="t-infra">Node.js</span><span class="t-infra">Express</span><span class="t-infra">MongoDB</span><span class="t-infra">Redis</span><span class="t-infra">Socket.IO</span><span class="t-devops">Docker</span><span class="t-devops">Cloud Run</span><span class="t-devops">GitHub Actions</span></div>` },
-    { x:2200, y:GROUND_Y-256, w:320, h:256, type:'building', label:'PONGZ',
+    { label:'PONGZ',
       content:`<span class="popup-badge">FLAGSHIP — EARLY ACCESS</span><h2>Pongz</h2><p class="popup-metrics">14K+ Players • 2,800+ DAU • 62K+ Matches</p><p>Production multiplayer Mahjong game. Unity 6 client, TypeScript/Socket.IO game server, Express/MongoDB REST API. Docker on Cloud Run.</p><ul><li>Ranked matchmaking with 34-tier skill rating</li><li>7,400+ ranked players competing</li><li>AFK detection with bot stand-ins</li><li>CI/CD: GitHub Actions → Docker → Cloud Run</li></ul><div class="popup-pills"><span>Unity 6</span><span>TypeScript</span><span>Socket.IO</span><span>Express</span><span>MongoDB</span><span>Docker</span></div>` },
-    { x:2700, y:GROUND_Y-256, w:192, h:256, type:'building', label:'ALNAHSHA',
+    { label:'ALNAHSHA',
       content:`<h2>Alnahsha Run</h2><p class="popup-metrics">5M+ Downloads • 4.6 Stars</p><p>Endless runner reaching 5M+ downloads on Google Play. Improved engagement 30% through player-driven iteration.</p><div class="popup-pills"><span>Unity</span><span>C#</span><span>Google Play</span></div><a href="https://play.google.com/store/apps/details?id=com.moderndoctors.alnahsharun" target="_blank" class="popup-link">Play Store →</a>` },
-    { x:3200, y:GROUND_Y-256, w:128, h:256, type:'building', label:'ENGINE',
+    { label:'ENGINE',
       content:`<h2>Nimirta Engine</h2><p class="popup-metrics">C++ from first principles</p><p>Custom 2D game engine in C++/SFML. Physics simulation, ECS architecture, AI opponents across 3 difficulty levels.</p><div class="popup-pills"><span>C++</span><span>SFML</span><span>ECS</span><span>Physics</span></div>` },
-    { x:3600, y:GROUND_Y-256, w:192, h:256, type:'building', label:'RECURVE',
+    { label:'RECURVE',
       content:`<h2>Recurve 28</h2><p>Hardware-integrated archery game — camera, Arduino, projector with OpenCV for real-time arrow detection.</p><div class="popup-pills"><span>Unity</span><span>OpenCV</span><span>Arduino</span></div>` },
-    { x:3950, y:GROUND_Y-320, w:192, h:320, type:'building', label:'SYSTEMS',
+    { label:'SYSTEMS',
       content:`<h2>Unity Systems</h2><p>8 reusable engine systems: UI, Event Bus, State Machine, Logging, Save, Pause, Popup, Loading.</p><div class="popup-pills"><span>C#</span><span>Unity</span><span>Patterns</span></div>` },
-    { x:4500, y:GROUND_Y-80, w:60, h:80, type:'contact', label:'MAIL',
-      content:`<h2>Let's Talk</h2><p>Open to opportunities at studios that value ownership and shipping games people play.</p><div class="contact-grid"><a href="mailto:kamshu00@gmail.com" class="contact-card"><small>EMAIL</small><span>kamshu00@gmail.com</span></a><a href="https://www.linkedin.com/in/amritanshu-kumar-/" target="_blank" class="contact-card"><small>LINKEDIN</small><span>amritanshu-kumar</span></a><a href="tel:+917903734532" class="contact-card"><small>PHONE</small><span>+91 7903734532</span></a><a href="Amritanshu_Kumar_Resume.pdf" target="_blank" download class="contact-card"><small>RESUME</small><span>Download PDF ↓</span></a></div>` },
 ];
 
-/* ╔═══════════════════════════════════════════════════════════╗
-   ║  SECTION 8 — SPRITE HELPERS                              ║
-   ╚═══════════════════════════════════════════════════════════╝ */
+/* ═══ SECTION 8 — SPRITE HELPERS ═══ */
 function drawFrame(img, frame, fw, fh, x, y, scale, flip) {
     ctx.save();
     const dw = fw * scale, dh = fh * scale;
-    if (flip) {
-        ctx.translate(x + dw, y);
-        ctx.scale(-1, 1);
-        x = 0; y = 0;
-    }
+    if (flip) { ctx.translate(x + dw, y); ctx.scale(-1, 1); x = 0; y = 0; }
     ctx.drawImage(img, frame * fw, 0, fw, fh, x, y, dw, dh);
     ctx.restore();
 }
-
-function drawStatic(img, x, y, scale) {
+function drawImg(img, x, y, scale) {
     ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
 }
 
-/* ╔═══════════════════════════════════════════════════════════╗
-   ║  SECTION 9 — UPDATE                                      ║
-   ╚═══════════════════════════════════════════════════════════╝ */
+/* ═══ SECTION 9 — UPDATE ═══ */
 function update() {
     if (state !== 'PLAYING') return;
 
-    player.walking = false;
-    if (keys.ArrowLeft || keys.KeyA) { player.vx = -MOVE_SPEED; player.facing = -1; player.walking = true; }
-    else if (keys.ArrowRight || keys.KeyD) { player.vx = MOVE_SPEED; player.facing = 1; player.walking = true; }
-    else { player.vx *= 0.8; if (Math.abs(player.vx) < 0.05) player.vx = 0; }
+    // Movement — 4 directional, no gravity
+    let mx = 0, my = 0;
+    if (keys.ArrowLeft || keys.KeyA) { mx = -1; player.facing = -1; }
+    if (keys.ArrowRight || keys.KeyD) { mx = 1; player.facing = 1; }
+    if (keys.ArrowUp || keys.KeyW) my = -1;
+    if (keys.ArrowDown || keys.KeyS) my = 1;
 
-    player.vy += GRAVITY;
-    player.x += player.vx;
-    player.y += player.vy;
-    player.x = Math.max(0, Math.min(WORLD_W - player.w, player.x));
+    // Normalize diagonal
+    if (mx && my) { mx *= 0.707; my *= 0.707; }
+    player.walking = mx !== 0 || my !== 0;
 
-    // Ground collision
-    player.onGround = false;
-    if (player.y + player.h >= GROUND_Y) {
-        player.y = GROUND_Y - player.h;
-        player.vy = 0;
-        player.onGround = true;
+    const nx = player.x + mx * SPEED;
+    const ny = player.y + my * SPEED;
+
+    // Building collision — check against building footprints
+    let blocked = false;
+    const pFoot = { x: nx, y: ny, w: player.w, h: player.h };
+    for (const b of buildings) {
+        // Building footprint: bottom portion of building sprite
+        const bFoot = { x: b.x + b.w*0.15, y: b.y + b.h*0.6, w: b.w*0.7, h: b.h*0.35 };
+        if (pFoot.x < bFoot.x + bFoot.w && pFoot.x + pFoot.w > bFoot.x &&
+            pFoot.y < bFoot.y + bFoot.h && pFoot.y + pFoot.h > bFoot.y) {
+            blocked = true; break;
+        }
+    }
+    if (!blocked) {
+        player.x = Math.max(0, Math.min(WORLD_W - player.w, nx));
+        player.y = Math.max(0, Math.min(WORLD_H - player.h, ny));
     }
 
-    // Camera
-    const targetX = player.x - w / 2 + player.w / 2;
-    camera.x += (targetX - camera.x) * 0.08;
+    // Camera — center on player
+    camera.x += ((player.x + player.w/2 - w/2) - camera.x) * 0.08;
+    camera.y += ((player.y + player.h/2 - h/2) - camera.y) * 0.08;
     camera.x = Math.max(0, Math.min(WORLD_W - w, camera.x));
+    camera.y = Math.max(0, Math.min(WORLD_H - h, camera.y));
 
     // Walk anim
-    if (player.walking && player.onGround) {
+    if (player.walking) {
         player.ft++;
-        if (player.ft > 6) { player.ft = 0; player.frame = (player.frame + 1) % 6; }
+        if (player.ft > 5) { player.ft = 0; player.frame = (player.frame + 1) % 6; }
     } else {
         player.ft++;
         if (player.ft > 8) { player.ft = 0; player.frame = (player.frame + 1) % 8; }
     }
 
-    // Animate trees
-    for (const tr of trees) {
-        tr.timer++;
-        if (tr.timer >= 10) { tr.timer = 0; tr.frame = (tr.frame + 1) % 8; }
-    }
-    // Animate bushes
-    for (const b of bushes) {
-        b.timer++;
-        if (b.timer >= 12) { b.timer = 0; b.frame = (b.frame + 1) % 8; }
-    }
-    // Animate sheep
-    sheep.timer++;
-    if (sheep.timer >= 10) { sheep.timer = 0; sheep.frame = (sheep.frame + 1) % 6; }
-
-    // Zone
-    const z = zones.find(z => player.x >= z.start && player.x < z.end);
-    if (z && z.name !== currentZone) {
-        currentZone = z.name;
-        const el = document.getElementById('zoneIndicator');
-        el.textContent = '// ' + z.name;
-        el.classList.add('visible');
-        clearTimeout(el._t);
-        el._t = setTimeout(() => el.classList.remove('visible'), 2000);
-    }
+    // Animate trees & decos
+    for (const tr of trees) { tr.timer++; if (tr.timer >= 10) { tr.timer = 0; tr.frame = (tr.frame + 1) % 8; } }
+    for (const d of decos) { if (!d.isStatic) { d.timer++; if (d.timer >= 12) { d.timer = 0; d.frame = (d.frame + 1) % 8; } } }
+    sheep.timer++; if (sheep.timer >= 10) { sheep.timer = 0; sheep.frame = (sheep.frame + 1) % 6; }
 
     // Info panel
     updatePanel();
 }
 
-/* ╔═══════════════════════════════════════════════════════════╗
-   ║  SECTION 10 — RENDER                                     ║
-   ╚═══════════════════════════════════════════════════════════╝ */
+/* ═══ SECTION 10 — RENDER ═══ */
 function render() {
-    const gY = GROUND_Y + (h - WORLD_H);
     const ox = -camera.x;
-    const t = Date.now() * 0.001;
+    const oy = -camera.y;
 
-    // 1. Sky gradient
-    const sky = ctx.createLinearGradient(0, 0, 0, gY);
-    sky.addColorStop(0, '#4a90d9');
-    sky.addColorStop(0.7, '#87CEEB');
-    sky.addColorStop(1, '#b8e4f0');
-    ctx.fillStyle = sky;
-    ctx.fillRect(0, 0, w, gY);
-
-    // 2. Clouds (parallax 0.15)
-    for (const c of clouds) {
-        const cx = ((c.x + t * c.spd * 20) % (WORLD_W + 600)) - 300;
-        const sx = cx - camera.x * 0.15;
-        if (sx < -300 || sx > w + 300) continue;
-        if (IMG[c.asset]) drawStatic(IMG[c.asset], sx, c.y + (h - WORLD_H) * 0.2, c.scale);
-    }
-
-    // 3. Background trees (parallax 0.5)
-    for (const tr of trees) {
-        if (tr.depth !== 0.5) continue;
-        const tx = tr.x - camera.x * 0.5;
-        if (tx < -200 || tx > w + 200) continue;
-        if (IMG[tr.asset]) drawFrame(IMG[tr.asset], tr.frame, 192, 256, tx, gY - 200, 0.7, false);
-    }
-
-    // 4. Buildings (parallax 1.0, bottom-aligned to ground)
-    for (const b of buildings) {
-        const bx = b.x + ox;
-        if (bx < -b.w - 20 || bx > w + 20) continue;
-        if (IMG[b.asset]) drawStatic(IMG[b.asset], bx, gY - b.h, 1.0);
-    }
-
-    // 5. Foreground trees (parallax 1.0)
-    for (const tr of trees) {
-        if (tr.depth !== 1.0) continue;
-        const tx = tr.x + ox;
-        if (tx < -200 || tx > w + 200) continue;
-        if (IMG[tr.asset]) drawFrame(IMG[tr.asset], tr.frame, 192, 256, tx, gY - 230, 0.9, false);
-    }
-
-    // 6. Ground
-    ctx.fillStyle = '#5a9a42';
-    ctx.fillRect(0, gY, w, h - gY);
-    // Grass edge using tilemap (draw repeating grass top tiles)
+    // Ground — tile grass across visible area
+    ctx.fillStyle = '#7ab648';
+    ctx.fillRect(0, 0, w, h);
     if (IMG.tilemap) {
-        for (let gx = -(camera.x % 64); gx < w + 64; gx += 64) {
-            ctx.drawImage(IMG.tilemap, 64, 0, 64, 64, gx, gY - 16, 64, 64);
+        // Use the center grass tile (col 1, row 1 of the tilemap, 64x64)
+        const srcX = 64, srcY = 64, srcW = 64, srcH = 64;
+        const startX = -(camera.x % TILE);
+        const startY = -(camera.y % TILE);
+        for (let gx = startX; gx < w + TILE; gx += TILE) {
+            for (let gy = startY; gy < h + TILE; gy += TILE) {
+                ctx.drawImage(IMG.tilemap, srcX, srcY, srcW, srcH, gx, gy, TILE, TILE);
+            }
         }
     }
-    // Stone layer below
-    ctx.fillStyle = '#4a7a6a';
-    ctx.fillRect(0, gY + 48, w, h - gY);
 
-    // 7. Near decorations
-    // Gold stones
-    for (const gs of goldStones) {
-        const gsx = gs.x + ox;
-        if (gsx < -64 || gsx > w + 64) continue;
-        if (IMG.gold1) drawStatic(IMG.gold1, gsx, gY - 40, 0.5);
+    // Collect all drawable objects for Y-sort (isometric depth)
+    const drawList = [];
+
+    // Buildings
+    for (const b of buildings) {
+        const sx = b.x + ox, sy = b.y + oy;
+        if (sx < -b.w-20 || sx > w+20 || sy < -b.h-20 || sy > h+20) continue;
+        drawList.push({ y: b.y + b.h, type: 'building', data: b, sx, sy });
     }
-    // Bushes
-    for (const b of bushes) {
-        const bx = b.x + ox;
-        if (bx < -128 || bx > w + 128) continue;
-        if (IMG[b.asset]) drawFrame(IMG[b.asset], b.frame, 128, 128, bx, gY - 80, 0.7, false);
+
+    // Trees
+    for (const tr of trees) {
+        const sx = tr.x + ox, sy = tr.y + oy;
+        if (sx < -200 || sx > w+200 || sy < -300 || sy > h+100) continue;
+        drawList.push({ y: tr.y + 200, type: 'tree', data: tr, sx, sy });
     }
-    // Rocks
-    for (const r of rocks) {
-        const rx = r.x + ox;
-        if (rx < -64 || rx > w + 64) continue;
-        if (IMG[r.asset]) drawStatic(IMG[r.asset], rx, gY - 30, 0.6);
+
+    // Decos
+    for (const d of decos) {
+        const sx = d.x + ox, sy = d.y + oy;
+        if (sx < -100 || sx > w+100 || sy < -100 || sy > h+100) continue;
+        drawList.push({ y: d.y + 50, type: 'deco', data: d, sx, sy });
     }
+
     // Sheep
-    if (IMG.sheep) {
-        const sx = sheep.x + ox;
-        if (sx > -128 && sx < w + 128) {
-            drawFrame(IMG.sheep, sheep.frame, 128, 128, sx, gY - 70, 0.6, false);
+    {
+        const sx = sheep.x + ox, sy = sheep.y + oy;
+        if (sx > -100 && sx < w+100 && sy > -100 && sy < h+100) {
+            drawList.push({ y: sheep.y + 60, type: 'sheep', sx, sy });
         }
     }
 
-    // 8. Player
-    drawPlayer(player.x + ox, player.y + (h - WORLD_H), t);
+    // Player
+    drawList.push({ y: player.y + player.h, type: 'player', sx: player.x + ox, sy: player.y + oy });
 
-    // 9. Proximity indicators (bouncing arrows above interactables)
-    for (const obj of interactables) {
-        const ix = obj.x + ox;
-        if (ix < -80 || ix > w + 80) continue;
-        const near = Math.abs(player.x + player.w / 2 - (obj.x + obj.w / 2)) < obj.w / 2 + 30 &&
-                     player.y + player.h > obj.y - 20 && player.y < obj.y + obj.h + 20;
-        if (near && state === 'PLAYING') {
-            const cx = ix + obj.w / 2;
-            const iy = obj.y + (h - WORLD_H);
-            const b = Math.sin(t * 4) * 4;
-            ctx.fillStyle = '#eec941';
-            ctx.beginPath();
-            ctx.moveTo(cx - 6, iy - 16 + b);
-            ctx.lineTo(cx + 6, iy - 16 + b);
-            ctx.lineTo(cx, iy - 8 + b);
-            ctx.closePath();
-            ctx.fill();
+    // Sort by Y (bottom of object) for depth
+    drawList.sort((a, b) => a.y - b.y);
+
+    // Draw everything
+    for (const item of drawList) {
+        switch (item.type) {
+            case 'building': {
+                const b = item.data;
+                if (IMG[b.asset]) drawImg(IMG[b.asset], item.sx, item.sy, 1.0);
+                // Label above building
+                ctx.font = "700 9px 'Press Start 2P',monospace";
+                ctx.fillStyle = '#eec941';
+                ctx.textAlign = 'center';
+                ctx.globalAlpha = 0.7;
+                ctx.fillText(b.label, item.sx + b.w/2, item.sy - 8);
+                ctx.globalAlpha = 1;
+                break;
+            }
+            case 'tree': {
+                const tr = item.data;
+                if (IMG[tr.asset]) drawFrame(IMG[tr.asset], tr.frame, 192, 256, item.sx, item.sy - 56, 1.0, false);
+                break;
+            }
+            case 'deco': {
+                const d = item.data;
+                if (d.isStatic) {
+                    if (IMG[d.asset]) drawImg(IMG[d.asset], item.sx, item.sy, 0.8);
+                } else {
+                    if (IMG[d.asset]) drawFrame(IMG[d.asset], d.frame, 128, 128, item.sx, item.sy, 0.6, false);
+                }
+                break;
+            }
+            case 'sheep':
+                if (IMG.sheep) drawFrame(IMG.sheep, sheep.frame, 128, 128, item.sx, item.sy, 0.7, false);
+                break;
+            case 'player':
+                drawPlayer(item.sx, item.sy);
+                break;
         }
     }
 
-    // Arrow hint at start
-    if (player.x < 180 && state === 'PLAYING') {
-        const px = player.x + ox;
-        const py = player.y + (h - WORLD_H);
+    // Proximity indicator — bouncing arrow over nearest building
+    const nearB = getNearBuilding();
+    if (nearB && state === 'PLAYING') {
+        const t = Date.now() * 0.001;
+        const bx = nearB.x + ox + nearB.w/2;
+        const by = nearB.y + oy - 14 + Math.sin(t * 4) * 5;
+        ctx.fillStyle = '#eec941';
+        ctx.beginPath();
+        ctx.moveTo(bx - 7, by);
+        ctx.lineTo(bx + 7, by);
+        ctx.lineTo(bx, by + 10);
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    // Hint text at start
+    if (!player.walking && state === 'PLAYING' && Date.now() % 6000 < 3000) {
         ctx.font = "400 10px 'Press Start 2P',monospace";
         ctx.fillStyle = '#eec941';
-        ctx.globalAlpha = 0.4;
+        ctx.globalAlpha = 0.5;
         ctx.textAlign = 'center';
-        ctx.fillText('→→→', px + 70 + Math.sin(t * 3) * 5, py + player.h / 2);
+        ctx.fillText('Use WASD or Arrow Keys to explore', w/2, h - 40);
         ctx.globalAlpha = 1;
     }
 }
 
-/* ╔═══════════════════════════════════════════════════════════╗
-   ║  SECTION 11 — DRAW PLAYER                                ║
-   ╚═══════════════════════════════════════════════════════════╝ */
-function drawPlayer(screenX, screenY) {
+/* ═══ SECTION 11 — DRAW PLAYER ═══ */
+function drawPlayer(sx, sy) {
     const img = player.walking ? IMG.warrior_run : IMG.warrior_idle;
     if (!img) return;
-    const scale = 0.4;
     const flip = player.facing === -1;
-
     // Shadow
-    ctx.fillStyle = 'rgba(0,0,0,0.15)';
+    ctx.fillStyle = 'rgba(0,0,0,0.2)';
     ctx.beginPath();
-    ctx.ellipse(screenX + player.w / 2, screenY + player.h, 16, 4, 0, 0, 6.28);
+    ctx.ellipse(sx + player.w/2, sy + player.h + 4, 20, 6, 0, 0, 6.28);
     ctx.fill();
-
-    // Sprite (offset to center 77px sprite over 40x64 collision box)
-    drawFrame(img, player.frame, 192, 192, screenX - 18, screenY - 13, scale, flip);
+    // Sprite — offset so feet align with collision box bottom
+    drawFrame(img, player.frame, 192, 192, sx - 28, sy - 62, PSCALE, flip);
 }
 
-/* ╔═══════════════════════════════════════════════════════════╗
-   ║  SECTION 12 — INFO PANEL (proximity auto-show)           ║
-   ╚═══════════════════════════════════════════════════════════╝ */
+/* ═══ SECTION 12 — INFO PANEL ═══ */
 const infoPanel = document.getElementById('infoPanel');
 const infoPanelInner = document.getElementById('infoPanelInner');
-let activeObj = null;
+let activeLabel = null;
+
+function getNearBuilding() {
+    const pcx = player.x + player.w/2;
+    const pcy = player.y + player.h/2;
+    let nearest = null, dist = 999;
+    for (const b of buildings) {
+        const bcx = b.x + b.w/2, bcy = b.y + b.h/2;
+        const d = Math.sqrt((pcx-bcx)**2 + (pcy-bcy)**2);
+        const threshold = Math.max(b.w, b.h) * 0.7;
+        if (d < threshold && d < dist) { nearest = b; dist = d; }
+    }
+    return nearest;
+}
 
 function updatePanel() {
-    let nearest = null, dist = 999;
-    for (const obj of interactables) {
-        const dx = Math.abs(player.x + player.w / 2 - (obj.x + obj.w / 2));
-        const vy = player.y + player.h > obj.y - 20 && player.y < obj.y + obj.h + 20;
-        if (dx < obj.w / 2 + 30 && vy && dx < dist) { nearest = obj; dist = dx; }
+    const nearB = getNearBuilding();
+    if (nearB) {
+        if (nearB.label !== activeLabel) {
+            activeLabel = nearB.label;
+            const data = interactables.find(i => i.label === nearB.label);
+            if (data) infoPanelInner.innerHTML = data.content;
+        }
+        infoPanel.classList.add('visible');
+    } else {
+        infoPanel.classList.remove('visible');
+        activeLabel = null;
     }
-    if (nearest && nearest !== activeObj) { activeObj = nearest; infoPanelInner.innerHTML = nearest.content; }
-    if (nearest) infoPanel.classList.add('visible');
-    else { infoPanel.classList.remove('visible'); activeObj = null; }
 }
 
-/* ╔═══════════════════════════════════════════════════════════╗
-   ║  SECTION 13 — GAME LOOP                                  ║
-   ╚═══════════════════════════════════════════════════════════╝ */
-let gameActive = true;
-const heroObs = new IntersectionObserver(([e]) => {
-    // pause when not visible (tab switch etc)
-}, { threshold: 0.1 });
-
-function loop() {
-    update();
-    render();
-    requestAnimationFrame(loop);
-}
+/* ═══ SECTION 13 — GAME LOOP ═══ */
+function loop() { update(); render(); requestAnimationFrame(loop); }
 loop();
 
 loadAssets().catch(err => {
