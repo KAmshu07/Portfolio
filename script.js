@@ -137,8 +137,16 @@ const treeSpots = [
     // Near water
     [300,1400],[1500,1350],[2000,1350],[2400,1400],
 ];
+// Fade zone per tree type: { xRadius, yDepth } — tweak these per tree shape
+const TREE_FADE = {
+    tree1: { xR: 75, yD: 160 },  // wide deciduous
+    tree2: { xR: 70, yD: 200 },  // medium deciduous
+    tree3: { xR: 55, yD: 180 },  // tall pine (narrow but tall)
+    tree4: { xR: 50, yD: 170 },  // small pine
+};
 for (const [tx,ty] of treeSpots) {
-    trees.push({ x:tx, y:ty, asset:'tree'+(Math.floor(Math.random()*4)+1), frame:Math.floor(Math.random()*8), timer:Math.floor(Math.random()*10) });
+    const asset = 'tree'+(Math.floor(Math.random()*4)+1);
+    trees.push({ x:tx, y:ty, asset, frame:Math.floor(Math.random()*8), timer:Math.floor(Math.random()*10), fade: TREE_FADE[asset] });
 }
 
 // Decorations — flowers, rocks, bushes along paths
@@ -380,8 +388,9 @@ function render() {
                 const feetY = player.y + player.h;
                 // Behind = feet ABOVE trunk base (lower Y = further back in depth)
                 // and horizontally under the canopy (~60px radius from trunk center)
-                const behindTree = feetY < trunkY && feetY > trunkY - 180
-                    && Math.abs(feetX - trunkX) < 85;
+                const fade = tr.fade || { xR: 70, yD: 160 };
+                const behindTree = feetY < trunkY && feetY > trunkY - fade.yD
+                    && Math.abs(feetX - trunkX) < fade.xR;
                 if (behindTree) ctx.globalAlpha = 0.4;
                 drawFrame(IMG[tr.asset], tr.frame, 192, 256, item.sx, item.sy-56, 1.0, false);
                 if (behindTree) ctx.globalAlpha = 1;
