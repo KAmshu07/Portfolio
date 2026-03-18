@@ -139,10 +139,10 @@ const treeSpots = [
 ];
 // Per-tree config: xR=canopy X radius, yD=canopy depth, base=trunk foot Y offset from tr.y
 const TREE_FADE = {
-    tree1: { xR: 75, yD: 160, base: 210 },  // wide deciduous, trunk lower
-    tree2: { xR: 70, yD: 200, base: 200 },  // medium deciduous
-    tree3: { xR: 55, yD: 180, base: 220 },  // tall pine, trunk sits lower
-    tree4: { xR: 50, yD: 170, base: 190 },  // small pine, shorter
+    tree1: { xR: 75, yD: 180, base: 220 },  // wide deciduous, trunk lower
+    tree2: { xR: 70, yD: 220, base: 210 },  // medium deciduous
+    tree3: { xR: 55, yD: 180, base: 140 },  // tall pine, trunk sits lower
+    tree4: { xR: 50, yD: 130, base: 140 },  // small pine, shorter
 };
 for (const [tx,ty] of treeSpots) {
     const asset = 'tree'+(Math.floor(Math.random()*4)+1);

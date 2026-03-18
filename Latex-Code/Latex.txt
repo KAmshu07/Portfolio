@@ -1,0 +1,102 @@
+\documentclass[11pt, a4paper]{moderncv}
+
+% Font and Encoding
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Style and Color
+\moderncvstyle{banking}
+\moderncvcolor{black}
+
+% Page Layout
+\usepackage[scale=0.90, top=1cm, bottom=1cm, left=1.6cm, right=1.6cm]{geometry}
+
+% Spacing Control
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=1pt, parsep=0pt, topsep=3pt, leftmargin=1.5em}
+\setlength{\parskip}{0pt}
+\setlength{\sectionSpacing}{5pt}
+
+% Personal Information
+\name{Amritanshu}{Kumar}
+\phone{+91 7903734532}
+\email{kamshu00@gmail.com}
+\homepage{bit.ly/4hqTcY6}
+\social[linkedin]{linkedin.com/in/amritanshu-kumar-}
+
+\begin{document}
+
+\makecvtitle
+\vspace{-1.8em}
+
+%% ─── Professional Summary ────────────────────────────────────────────
+\section{Professional Summary}
+\cvitem{}{%
+Game Engineer who ships end-to-end — client, server, API, and deployment pipeline. Currently leading a production multiplayer game across the complete stack, from Unity gameplay to TypeScript backend to Google Play. Built a game engine in C++ from first principles. Shipped titles with \textbf{5M+ downloads}.%
+}
+
+\vspace{0.2em}
+
+%% ─── Professional Experience ─────────────────────────────────────────
+\section{Professional Experience}
+
+\cventry{Oct 2024 -- Present}{Team Lead}{RootHoot Pvt Ltd}{Remote, Hyderabad}{}{%
+\begin{itemize}
+    \item Own the complete technical stack for Pongz, a production multiplayer Mahjong game — \textbf{14K+ players}, \textbf{2,800+ DAU}, and \textbf{62K+ matches} in early access, from Unity 6 gameplay to backend services to Play Store release pipeline.
+    \item Solely built the real-time game server in TypeScript/Socket.IO, handling matchmaking, reconnection, AFK detection with automatic bot stand-ins, and game-state resolution to maintain fair play across unstable connections.
+    \item Designed the ranked matchmaking and 34-tier skill rating system — \textbf{7,400+ ranked players} actively competing, balancing competitive integrity with player retention.
+    \item Built and deployed the REST API (Express, MongoDB) with OAuth, 2FA, and rate limiting — containerized with Docker on Google Cloud Run.
+    \item Developed 8 reusable Unity systems (UI, Event Bus, State Machine, Logging, Save, Pause, Popup, Loading) adopted across team projects, cutting setup time for new development.
+\end{itemize}
+}
+
+\vspace{0.2em}
+
+\cventry{Feb 2023 -- Oct 2024}{Game Developer}{DeftSoft}{Mohali, Punjab}{}{%
+\begin{itemize}
+    \item Shipped an endless runner to \textbf{5M+ downloads} and \textbf{4.6 stars} on Google Play — improved engagement \textbf{30\%} by iterating on live player feedback.
+    \item Introduced test-driven development across the team, improving user ratings by \textbf{1.5 stars} through higher release quality.
+    \item Cut level design time by \textbf{40\%} by building procedural generation tools so designers could focus on creative work instead of manual placement.
+    \item Optimized the rendering pipeline, achieving \textbf{25\%} higher frame rates on the low-end devices most players use.
+    \item Mentored 3 junior developers — code reviews, pair programming, and establishing team coding standards.
+\end{itemize}
+}
+
+\vspace{0.2em}
+
+%% ─── Selected Projects ──────────────────────────────────────────────
+\section{Selected Projects}
+
+\cvitem{\textbf{Nimirta Engine}}{%
+Custom 2D game engine in C++/SFML, built from first principles — physics simulation (collision detection, impulse resolution), ECS architecture, material system, and AI opponents across 3 difficulty levels.%
+}
+
+\vspace{0.1em}
+
+\cvitem{\textbf{Recurve 28}}{%
+Hardware-integrated archery game — camera, Arduino, and projector linked through OpenCV for real-time arrow impact detection. Multiple gameplay modes designed around the detection system.%
+}
+
+\vspace{0.2em}
+
+%% ─── Technical Skills ───────────────────────────────────────────────
+\section{Technical Skills}
+\cvitem{}{%
+\begin{itemize}[itemsep=0pt, topsep=1pt]
+    \item \textbf{Languages:} C\#, TypeScript, C++, Go, Python
+    \item \textbf{Game Engines:} Unity, Unreal Engine, Custom (C++)
+    \item \textbf{Backend:} Node.js, Express, MongoDB, Redis, Socket.IO, Docker, Google Cloud Run
+    \item \textbf{Specializations:} Game Architecture, Real-Time Multiplayer, CI/CD, TDD, Clean Architecture, ECS
+\end{itemize}
+}
+
+\vspace{0.2em}
+
+%% ─── Education & Certifications ─────────────────────────────────────
+\section{Education \& Certifications}
+\cventry{Sep 2020 -- Jun 2023}{Bachelor of Computer Application}{Lovely Professional University}{Punjab, India}{}{}
+\vspace{-0.3em}
+\cvitem{Certifications}{Unity Certified Programmer \textbar{} Unreal Engine Game Design \& Development Specialization}
+
+\end{document}

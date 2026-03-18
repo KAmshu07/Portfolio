@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:supercell.com)",
+      "Bash(find /c/Nimrita/Personal/Portfolio -type f \\\\\\(-name *.png -o -name *.jpg -o -name *.jpeg -o -name *.svg -o -name *.gif -o -name *.webp -o -name *.ico \\\\\\))",
+      "Bash(identify:*)"
+    ]
+  }
+}
