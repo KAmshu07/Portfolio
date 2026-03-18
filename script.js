@@ -100,6 +100,8 @@ const buildings = [
     { x: 350,  y: 500,  asset: 'house1',  w: 128, h: 192, label: 'BIO' },
     { x: 600,  y: 350,  asset: 'house2',  w: 128, h: 192, label: 'SKILLS' },
     { x: 200,  y: 800,  asset: 'house3',  w: 128, h: 192, label: 'TECH' },
+    // Contact — bottom right
+    { x: 1800, y: 1100, asset: 'house1',  w: 128, h: 192, label: 'CONTACT' },
     // Projects zone — bigger buildings in center
     { x: 1000, y: 600,  asset: 'castle',  w: 320, h: 256, label: 'PONGZ' },
     { x: 1450, y: 400,  asset: 'barracks',w: 192, h: 256, label: 'ALNAHSHA' },
@@ -155,6 +157,8 @@ const interactables = [
       content:`<h2>Recurve 28</h2><p>Hardware-integrated archery game — camera, Arduino, projector with OpenCV for real-time arrow detection.</p><div class="popup-pills"><span>Unity</span><span>OpenCV</span><span>Arduino</span></div>` },
     { label:'SYSTEMS',
       content:`<h2>Unity Systems</h2><p>8 reusable engine systems: UI, Event Bus, State Machine, Logging, Save, Pause, Popup, Loading.</p><div class="popup-pills"><span>C#</span><span>Unity</span><span>Patterns</span></div>` },
+    { label:'CONTACT',
+      content:`<h2>Let's Talk</h2><p>Open to opportunities at studios that value ownership and shipping games people play.</p><div class="contact-grid"><a href="mailto:kamshu00@gmail.com" class="contact-card"><small>EMAIL</small><span>kamshu00@gmail.com</span></a><a href="https://www.linkedin.com/in/amritanshu-kumar-/" target="_blank" class="contact-card"><small>LINKEDIN</small><span>amritanshu-kumar</span></a><a href="tel:+917903734532" class="contact-card"><small>PHONE</small><span>+91 7903734532</span></a><a href="Amritanshu_Kumar_Resume.pdf" target="_blank" download class="contact-card"><small>RESUME</small><span>Download PDF ↓</span></a></div>` },
 ];
 
 /* ═══ SECTION 8 — SPRITE HELPERS ═══ */
