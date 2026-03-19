@@ -27,36 +27,6 @@ function findNearBuilding() {
 
 export function getNearBuilding() { return cachedNearB; }
 
-const typedLabels = new Set();
-let typewriterState = null;
-
-function startTypewriter(html, label) {
-    if (typewriterState?.rafId) cancelAnimationFrame(typewriterState.rafId);
-    typewriterState = { fullHTML: html, charIndex: 0, label, rafId: 0, accumulator: 0 };
-    infoPanelInner.innerHTML = '';
-    typewriterState.rafId = requestAnimationFrame(typewriterTick);
-}
-
-function typewriterTick() {
-    if (!typewriterState || typewriterState.charIndex >= typewriterState.fullHTML.length) {
-        if (typewriterState) {
-            infoPanelInner.innerHTML = typewriterState.fullHTML;
-            typedLabels.add(typewriterState.label);
-            typewriterState = null;
-        }
-        return;
-    }
-    // Advance ~30 chars per second at 60fps
-    typewriterState.accumulator += 0.5;
-    if (typewriterState.accumulator >= 1) {
-        const advance = Math.floor(typewriterState.accumulator);
-        typewriterState.accumulator -= advance;
-        typewriterState.charIndex = Math.min(typewriterState.charIndex + advance, typewriterState.fullHTML.length);
-    }
-    infoPanelInner.innerHTML = typewriterState.fullHTML.substring(0, typewriterState.charIndex);
-    typewriterState.rafId = requestAnimationFrame(typewriterTick);
-}
-
 export function updatePanel() {
     cachedNearB = findNearBuilding();
     if (cachedNearB) {
@@ -67,11 +37,7 @@ export function updatePanel() {
             if (data) {
                 if (!visitedBuildings.has(cachedNearB.label)) play('chime');
                 visitedBuildings.add(cachedNearB.label);
-                if (typedLabels.has(cachedNearB.label)) {
-                    infoPanelInner.innerHTML = data.content;
-                } else {
-                    startTypewriter(data.content, cachedNearB.label);
-                }
+                infoPanelInner.innerHTML = data.content;
             } else {
                 console.warn('No content for building label:', cachedNearB.label);
             }

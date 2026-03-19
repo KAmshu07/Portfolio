@@ -75,7 +75,7 @@ function drawBottomHUD(nearB, w, h) {
         ctx.fillText(nearB.label, w / 2, h - 18);
         ctx.font = "400 8px 'Press Start 2P',monospace";
         ctx.fillStyle = 'rgba(255,255,255,0.6)';
-        ctx.fillText('[E] Open scroll', w / 2, h - 6);
+        ctx.fillText(nearB.label === 'CONTACT' ? '[E] Open resume' : 'Walk closer to explore', w / 2, h - 6);
     } else {
         ctx.font = "400 8px 'Press Start 2P',monospace";
         ctx.fillStyle = 'rgba(255,255,255,0.4)';

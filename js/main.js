@@ -125,7 +125,7 @@ addEventListener('keydown', e => {
         if (scrollOpen) {
             scrollOverlay.classList.add('hidden');
             scrollOpen = false;
-        } else if (getNearBuilding()) {
+        } else if (getNearBuilding()?.label === 'CONTACT') {
             scrollOverlay.classList.remove('hidden');
             scrollOpen = true;
         }
