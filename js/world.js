@@ -289,7 +289,7 @@ export function updateNPCs() {
             npc.idleTimer++;
             npc.timer++;
             if (npc.timer >= 10) { npc.timer = 0; npc.frame = (npc.frame + 1) % (npc.idleFrames || 8); }
-            if (npc.idleTimer > 90) { npc.state = 'walk'; npc.idleTimer = 0; }
+            if (npc.idleTimer > 90) { npc.state = 'walk'; npc.idleTimer = 0; npc.chatCooldown = 180; }
         } else {
             // Walk toward current waypoint in 2D
             const target = npc.waypoints[npc.currentWP];
@@ -311,11 +311,14 @@ export function updateNPCs() {
         }
     }
 
+    // Tick cooldowns
+    for (const npc of npcs) { if (npc.chatCooldown > 0) npc.chatCooldown--; }
+
     // NPC meetings — when two walking NPCs cross paths, they stop and face each other
     for (let i = 0; i < npcs.length; i++) {
         for (let j = i + 1; j < npcs.length; j++) {
             const a = npcs[i], b = npcs[j];
-            if (a.state === 'walk' && b.state === 'walk') {
+            if (a.state === 'walk' && b.state === 'walk' && !a.chatCooldown && !b.chatCooldown) {
                 const dist = Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);
                 if (dist < 60) {
                     a.state = 'chat'; a.idleTimer = 0; a.frame = 0;
@@ -338,9 +341,9 @@ export function animateWorld() {
 
 // Parallax clouds (rendered above entities)
 export const clouds = [
-    { x: 200,  y: 100,  asset: 'cloud1', speed: 0.15 },
-    { x: 900,  y: 300,  asset: 'cloud2', speed: 0.2 },
-    { x: 1600, y: 50,   asset: 'cloud3', speed: 0.12 },
-    { x: 2300, y: 250,  asset: 'cloud4', speed: 0.18 },
-    { x: 500,  y: 500,  asset: 'cloud5', speed: 0.22 },
+    { x: 200,  y: -300, asset: 'cloud1', speed: 0.15 },
+    { x: 900,  y: -150, asset: 'cloud2', speed: 0.2 },
+    { x: 1600, y: -350, asset: 'cloud3', speed: 0.12 },
+    { x: 2300, y: -200, asset: 'cloud4', speed: 0.18 },
+    { x: 500,  y: -100, asset: 'cloud5', speed: 0.22 },
 ];
