@@ -79,7 +79,7 @@ function drawBottomHUD(nearB, w, h) {
     } else {
         ctx.font = "400 8px 'Press Start 2P',monospace";
         ctx.fillStyle = 'rgba(255,255,255,0.4)';
-        ctx.fillText('WASD to move  •  SPACE to follow the wind', w / 2, h - 12);
+        ctx.fillText('WASD to move  •  SHIFT to sprint  •  SPACE to follow the wind', w / 2, h - 12);
     }
 }
 

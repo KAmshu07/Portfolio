@@ -42,8 +42,18 @@ export function updatePlayer() {
     player.wasWalking = player.walking;
     player.lastFacing = player.facing;
 
-    const nx = player.x + mx * SPEED;
-    const ny = player.y + my * SPEED;
+    // Sprint — hold Shift for 2x speed
+    const sprinting = player.walking && (keys.ShiftLeft || keys.ShiftRight);
+    const speed = sprinting ? SPEED * 2 : SPEED;
+
+    // Extra dust when sprinting
+    if (sprinting && player.walking && player.ft % 3 === 0) {
+        spawnParticle('dust', player.x + player.w / 2 + (Math.random() - 0.5) * 8,
+            player.y + player.h, { vx: (Math.random() - 0.5) * 1.5, vy: -0.8 - Math.random(), life: 15, scale: 0.35 });
+    }
+
+    const nx = player.x + mx * speed;
+    const ny = player.y + my * speed;
 
     // Axis-independent collision — test X and Y separately for wall sliding
     let blockedX = false, blockedY = false;
