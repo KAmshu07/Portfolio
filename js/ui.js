@@ -47,10 +47,6 @@ export function updatePanel() {
         if (activeLabel) play('panelClose');
         infoPanel.classList.remove('visible');
         activeLabel = null;
-        if (typewriterState?.rafId) {
-            cancelAnimationFrame(typewriterState.rafId);
-            typewriterState = null;
-        }
     }
 }
 
