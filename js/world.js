@@ -143,6 +143,7 @@ export const foamSpots = [
 ];
 
 // NPC villagers — each has a purpose and place in the village
+// Per-NPC tweakable: scale, yOffset (ground sprite), fw/fh (frame size), idleFrames/runFrames
 export const npcs = [
     // Castle guard — Red Archer patrols the castle entrance briskly
     {
@@ -150,6 +151,7 @@ export const npcs = [
         idleAsset: 'archerIdle', runAsset: 'archerRun',
         frame: 0, timer: 0, facing: 1, speed: 0.8,
         state: 'walk', idleTimer: 0, idleDuration: 80,
+        idleFrames: 6, runFrames: 4, fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
     // Monastery monk — contemplative, slow, long pauses
     {
@@ -157,6 +159,7 @@ export const npcs = [
         idleAsset: 'monkIdle', runAsset: 'monkRun',
         frame: 0, timer: 0, facing: 1, speed: 0.35,
         state: 'idle', idleTimer: 0, idleDuration: 240,
+        idleFrames: 6, runFrames: 4, fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
     // Woodcutter — hauls wood from trees to monument area, slow and heavy
     {
@@ -164,6 +167,7 @@ export const npcs = [
         idleAsset: 'pawnWoodIdle', runAsset: 'pawnWoodRun',
         frame: 0, timer: 0, facing: 1, speed: 0.4,
         state: 'walk', idleTimer: 0, idleDuration: 180,
+        fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
     // Gold carrier — transports gold near the monument, medium pace
     {
@@ -171,6 +175,7 @@ export const npcs = [
         idleAsset: 'pawnGoldIdle', runAsset: 'pawnGoldRun',
         frame: 0, timer: 0, facing: -1, speed: 0.55,
         state: 'walk', idleTimer: 0, idleDuration: 150,
+        fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
     // Shepherd — tends to the sheep, very short patrol, long rests
     {
@@ -178,6 +183,7 @@ export const npcs = [
         idleAsset: 'pawnMeatIdle', runAsset: 'pawnMeatRun',
         frame: 0, timer: 0, facing: 1, speed: 0.3,
         state: 'idle', idleTimer: 0, idleDuration: 300,
+        fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
     // Border guard — Black Lancer patrols south near the river, fast and alert
     {
@@ -185,6 +191,7 @@ export const npcs = [
         idleAsset: 'blackLancerIdle', runAsset: 'blackLancerRun',
         frame: 0, timer: 0, facing: 1, speed: 0.9,
         state: 'walk', idleTimer: 0, idleDuration: 60,
+        idleFrames: 12, runFrames: 6, fw: 320, fh: 320, scale: 0.5, yOffset: 60,
     },
     // Miner — works the rocks in the projects district
     {
@@ -192,6 +199,7 @@ export const npcs = [
         idleAsset: 'pawnPickIdle', runAsset: 'pawnPickRun',
         frame: 0, timer: 0, facing: -1, speed: 0.45,
         state: 'walk', idleTimer: 0, idleDuration: 200,
+        fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
     // Gate warrior — guards the path between about quarter and projects
     {
@@ -199,6 +207,7 @@ export const npcs = [
         idleAsset: 'yellowWarriorIdle', runAsset: 'yellowWarriorRun',
         frame: 0, timer: 0, facing: 1, speed: 0.5,
         state: 'idle', idleTimer: 0, idleDuration: 250,
+        fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
 ];
 
@@ -206,12 +215,12 @@ export function updateNPCs() {
     for (const npc of npcs) {
         if (npc.state === 'idle') {
             npc.idleTimer++;
-            npc.timer++; if (npc.timer >= 10) { npc.timer = 0; npc.frame = (npc.frame + 1) % 8; }
+            npc.timer++; if (npc.timer >= 10) { npc.timer = 0; npc.frame = (npc.frame + 1) % (npc.idleFrames || 8); }
             if (npc.idleTimer > (npc.idleDuration || 120)) { npc.state = 'walk'; npc.idleTimer = 0; }
         } else {
             const target = npc.facing === 1 ? npc.patrolB : npc.patrolA;
             npc.x += npc.speed * npc.facing;
-            npc.timer++; if (npc.timer >= 6) { npc.timer = 0; npc.frame = (npc.frame + 1) % 6; }
+            npc.timer++; if (npc.timer >= 6) { npc.timer = 0; npc.frame = (npc.frame + 1) % (npc.runFrames || 6); }
             if ((npc.facing === 1 && npc.x >= target) || (npc.facing === -1 && npc.x <= target)) {
                 npc.state = 'idle'; npc.facing *= -1; npc.frame = 0;
             }

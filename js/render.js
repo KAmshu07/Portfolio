@@ -135,11 +135,19 @@ const renderers = {
         const n = item.data;
         const img = n.state === 'walk' ? IMG[n.runAsset] : IMG[n.idleAsset];
         if (!img) return;
+        const fw = n.fw || 192, fh = n.fh || 192;
+        const s = n.scale ?? 0.5;
+        const yo = n.yOffset ?? 5;
+        const dw = fw * s, dh = fh * s;
+        const footX = item.sx + dw / 2;
+        const footY = item.sy + dh - yo;
+        // Shadow at feet
         ctx.fillStyle = 'rgba(0,0,0,0.15)';
         ctx.beginPath();
-        ctx.ellipse(item.sx + 48, item.sy + 88, 14, 4, 0, 0, Math.PI * 2);
+        ctx.ellipse(footX, footY, 14, 4, 0, 0, Math.PI * 2);
         ctx.fill();
-        drawFrame(img, n.frame, 192, 192, item.sx, item.sy, 0.5, n.facing === -1);
+        // Sprite anchored so feet touch shadow
+        drawFrame(img, n.frame, fw, fh, item.sx, footY - dh + yo, s, n.facing === -1);
     },
     player(item) {
         drawPlayer(item.sx, item.sy);
