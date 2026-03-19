@@ -302,8 +302,16 @@ export function updateNPCs() {
                 npc.frame = 0;
                 npc.idleTimer = 0;
             } else {
-                npc.x += (dx / dist) * npc.speed;
-                npc.y += (dy / dist) * npc.speed;
+                const nx = npc.x + (dx / dist) * npc.speed;
+                const ny = npc.y + (dy / dist) * npc.speed;
+                // Building collision — same footprint as player uses
+                let blocked = false;
+                for (const b of buildings) {
+                    const bx = b.x + b.w * 0.15, by = b.y + b.h * 0.6, bw = b.w * 0.7, bh = b.h * 0.35;
+                    if (nx > bx && nx < bx + bw && ny > by && ny < by + bh) { blocked = true; break; }
+                }
+                if (!blocked) { npc.x = nx; npc.y = ny; }
+                else { npc.state = 'idle'; npc.idleTimer = 0; npc.currentWP = (npc.currentWP + 1) % npc.waypoints.length; }
                 npc.facing = dx > 0 ? 1 : -1;
                 npc.timer++;
                 if (npc.timer >= 6) { npc.timer = 0; npc.frame = (npc.frame + 1) % (npc.runFrames || 6); }
