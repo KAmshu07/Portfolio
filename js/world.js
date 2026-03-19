@@ -142,68 +142,75 @@ export const foamSpots = [
     { x: 1800, y: WATER_Y + 160 }, { x: 2400, y: WATER_Y + 110 },
 ];
 
-// NPC villagers — each has a purpose and place in the village
-// Per-NPC tweakable: scale, yOffset (ground sprite), fw/fh (frame size), idleFrames/runFrames
+// NPC villagers — patrol paths tied to actual world landmarks
+// patrolA/B = X coords of real objects they walk between
 export const npcs = [
-    // Castle guard — Red Archer patrols the castle entrance briskly
+    // Castle guard — patrols between the two fire torches at the castle gate
+    // Torch 1: x=1630, Torch 2: x=1950 → walks the castle frontage at y=680
     {
-        x: 1700, y: 580, patrolA: 1620, patrolB: 1820,
+        x: 1700, y: 680, patrolA: 1630, patrolB: 1950,
         idleAsset: 'archerIdle', runAsset: 'archerRun',
         frame: 0, timer: 0, facing: 1, speed: 0.8,
         state: 'walk', idleTimer: 0, idleDuration: 80,
         idleFrames: 6, runFrames: 4, fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
-    // Monastery monk — contemplative, slow, long pauses
+    // Monk — walks between monastery (2200) and archery range (1800), contemplating
+    // y=1050 matches both buildings' Y level
     {
-        x: 2250, y: 1100, patrolA: 2180, patrolB: 2350,
+        x: 2100, y: 1050, patrolA: 1850, patrolB: 2250,
         idleAsset: 'monkIdle', runAsset: 'monkRun',
-        frame: 0, timer: 0, facing: 1, speed: 0.35,
+        frame: 0, timer: 0, facing: -1, speed: 0.35,
         state: 'idle', idleTimer: 0, idleDuration: 240,
         idleFrames: 6, runFrames: 4, fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
-    // Woodcutter — hauls wood from trees to monument area, slow and heavy
+    // Woodcutter — hauls wood from trees (NW ~100-200) to TECH house (250,650)
+    // Walks along the tree line at y=500
     {
-        x: 300, y: 500, patrolA: 150, patrolB: 550,
+        x: 200, y: 500, patrolA: 100, patrolB: 400,
         idleAsset: 'pawnWoodIdle', runAsset: 'pawnWoodRun',
         frame: 0, timer: 0, facing: 1, speed: 0.4,
         state: 'walk', idleTimer: 0, idleDuration: 180,
         fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
-    // Gold carrier — transports gold near the monument, medium pace
+    // Gold carrier — transports gold from monument (1200) toward castle (1650)
+    // The supply route at y=780 between spawn and projects
     {
-        x: 1100, y: 750, patrolA: 1000, patrolB: 1350,
+        x: 1300, y: 780, patrolA: 1200, patrolB: 1600,
         idleAsset: 'pawnGoldIdle', runAsset: 'pawnGoldRun',
-        frame: 0, timer: 0, facing: -1, speed: 0.55,
+        frame: 0, timer: 0, facing: 1, speed: 0.55,
         state: 'walk', idleTimer: 0, idleDuration: 150,
         fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
-    // Shepherd — tends to the sheep, very short patrol, long rests
+    // Shepherd — tends to the sheep at (500,480), tiny patrol around the flock
     {
-        x: 530, y: 430, patrolA: 480, patrolB: 600,
+        x: 520, y: 480, patrolA: 470, patrolB: 580,
         idleAsset: 'pawnMeatIdle', runAsset: 'pawnMeatRun',
         frame: 0, timer: 0, facing: 1, speed: 0.3,
         state: 'idle', idleTimer: 0, idleDuration: 300,
         fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
-    // Border guard — Black Lancer patrols south near the river, fast and alert
+    // Border guard — patrols the waterline between contact house (900) and monument south
+    // y=1400, just above WATER_Y, guarding the crossing
     {
-        x: 1200, y: 1300, patrolA: 950, patrolB: 1500,
+        x: 1100, y: 1400, patrolA: 850, patrolB: 1400,
         idleAsset: 'blackLancerIdle', runAsset: 'blackLancerRun',
         frame: 0, timer: 0, facing: 1, speed: 0.9,
         state: 'walk', idleTimer: 0, idleDuration: 60,
         idleFrames: 12, runFrames: 6, fw: 320, fh: 320, scale: 0.5, yOffset: 60,
     },
-    // Miner — works the rocks in the projects district
+    // Miner — works between barracks (2050) and tower (2350) in the projects quarry
+    // y=500, between both buildings
     {
-        x: 2100, y: 550, patrolA: 2050, patrolB: 2250,
+        x: 2150, y: 500, patrolA: 2050, patrolB: 2350,
         idleAsset: 'pawnPickIdle', runAsset: 'pawnPickRun',
         frame: 0, timer: 0, facing: -1, speed: 0.45,
         state: 'walk', idleTimer: 0, idleDuration: 200,
         fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
-    // Gate warrior — guards the path between about quarter and projects
+    // Gate warrior — guards the gap between about quarter and the monument
+    // Stands at (~800,700), the natural corridor between TECH house and the path to monument
     {
-        x: 850, y: 400, patrolA: 800, patrolB: 950,
+        x: 800, y: 700, patrolA: 700, patrolB: 900,
         idleAsset: 'yellowWarriorIdle', runAsset: 'yellowWarriorRun',
         frame: 0, timer: 0, facing: 1, speed: 0.5,
         state: 'idle', idleTimer: 0, idleDuration: 250,
