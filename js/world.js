@@ -174,17 +174,28 @@ const L = {
 const NPC_DEFAULTS = { frame: 0, timer: 0, facing: 1, state: 'walk', idleTimer: 0, currentWP: 0, fw: 192, fh: 192, scale: 0.5, yOffset: 30 };
 
 export const npcs = [
-    // Castle guard — patrols OUTSIDE the castle: left side → front → right side
+    // Kingdom ranger (Red Archer) — patrols the ENTIRE map: castle → monument → about quarter → contact → back
     {
         ...NPC_DEFAULTS,
-        x: buildings[3].x - 30, y: L.castle.y,
+        x: buildings[3].x + buildings[3].w + 30, y: buildings[3].y + buildings[3].h + 30,
         waypoints: [
-            { x: buildings[3].x - 30, y: buildings[3].y + buildings[3].h + 20, idle: 60 },
-            { x: buildings[3].x + buildings[3].w / 2, y: buildings[3].y + buildings[3].h + 30, idle: 80 },
-            { x: buildings[3].x + buildings[3].w + 30, y: buildings[3].y + buildings[3].h + 20, idle: 60 },
+            // Castle area
+            { x: buildings[3].x + buildings[3].w + 30, y: buildings[3].y + buildings[3].h + 30, idle: 80 },
+            // South to monument (clear path)
+            { x: L.monument.x + 50, y: L.monument.y + 50, idle: 60 },
+            // West to about quarter (go south of buildings, then up)
+            { x: 800, y: 900, idle: 20 },
+            { x: buildings[0].x + buildings[0].w + 30, y: buildings[0].y + buildings[0].h + 20, idle: 100 },
+            // Visit sheep
+            { x: L.sheep.x + 60, y: L.sheep.y + 30, idle: 40 },
+            // South to contact (clear path down)
+            { x: 700, y: 1100, idle: 20 },
+            { x: buildings[8].x + buildings[8].w + 30, y: buildings[8].y + buildings[8].h + 20, idle: 80 },
+            // Back to monument via clear path
+            { x: 1100, y: 1100, idle: 20 },
         ],
         idleAsset: 'archerIdle', runAsset: 'archerRun',
-        speed: 0.8, idleFrames: 6, runFrames: 4,
+        speed: 1.0, idleFrames: 6, runFrames: 4,
     },
     // Monk — walks from monastery to archery, stops at monument to meditate, loops back
     {
@@ -233,17 +244,27 @@ export const npcs = [
         idleAsset: 'pawnMeatIdle', runAsset: 'pawnMeatRun',
         speed: 0.3, state: 'idle',
     },
-    // Border guard — long patrol: contact house → south trees → water tree → back
+    // Border guard (Black Lancer) — full perimeter patrol across the map
     {
         ...NPC_DEFAULTS,
-        x: L.contact.x, y: L.contact.y + 30,
+        x: buildings[8].x + 50, y: buildings[8].y + buildings[8].h + 20,
         waypoints: [
-            { x: L.contact.x + 50, y: L.contact.y + 30, idle: 40 },
-            { x: 1100, y: 1380, idle: 30 },
-            { x: L.treeWater.x, y: L.treeWater.y + 30, idle: 50 },
+            // South patrol along waterline (clear path, no buildings)
+            { x: buildings[8].x + 50, y: buildings[8].y + buildings[8].h + 20, idle: 40 },
+            { x: L.treeWater.x, y: L.treeWater.y + 40, idle: 30 },
+            { x: 2200, y: 1380, idle: 30 },
+            // East border — stay along the right edge (outside project buildings)
+            { x: 2650, y: 1100, idle: 30 },
+            { x: 2650, y: 600, idle: 40 },
+            // North border — stay along top edge
+            { x: 2600, y: 150, idle: 30 },
+            { x: 500, y: 150, idle: 30 },
+            // West border — come back south along left edge
+            { x: 100, y: 400, idle: 30 },
+            { x: 100, y: 1200, idle: 30 },
         ],
         idleAsset: 'blackLancerIdle', runAsset: 'blackLancerRun',
-        speed: 0.9, idleFrames: 12, runFrames: 6, fw: 320, fh: 320, yOffset: 60,
+        speed: 1.1, idleFrames: 12, runFrames: 6, fw: 320, fh: 320, yOffset: 60,
     },
     // Miner — tower quarry → border rocks → barracks supply drop → loop
     {
@@ -268,6 +289,42 @@ export const npcs = [
         ],
         idleAsset: 'yellowWarriorIdle', runAsset: 'yellowWarriorRun',
         speed: 0.5, state: 'idle',
+    },
+    // Lumberjack (Blue Pawn w/ Axe) — chops in projects district trees
+    {
+        ...NPC_DEFAULTS,
+        x: treeSpots[16][0], y: treeSpots[16][1] + 50,
+        waypoints: [
+            { x: treeSpots[16][0] + 30, y: treeSpots[16][1] + 50, idle: 220 },
+            { x: treeSpots[17][0] + 30, y: treeSpots[17][1] + 50, idle: 200 },
+            { x: treeSpots[15][0] + 30, y: treeSpots[15][1] + 50, idle: 180 },
+        ],
+        idleAsset: 'pawnAxeIdle', runAsset: 'pawnAxeRun',
+        speed: 0.4,
+    },
+    // Builder (Yellow Pawn w/ Hammer) — works near barracks and tower
+    {
+        ...NPC_DEFAULTS,
+        x: buildings[4].x + 50, y: buildings[4].y + buildings[4].h + 20,
+        waypoints: [
+            { x: buildings[4].x + 50, y: buildings[4].y + buildings[4].h + 30, idle: 250 },
+            { x: buildings[5].x + 50, y: buildings[5].y + buildings[5].h + 30, idle: 200 },
+            { x: (buildings[4].x + buildings[5].x) / 2, y: buildings[4].y + buildings[4].h + 50, idle: 120 },
+        ],
+        idleAsset: 'pawnHammerIdle', runAsset: 'pawnHammerRun',
+        speed: 0.45,
+    },
+    // Castle guard (Blue Warrior) — patrols outside the castle walls
+    {
+        ...NPC_DEFAULTS,
+        x: buildings[3].x - 30, y: buildings[3].y + buildings[3].h + 20,
+        waypoints: [
+            { x: buildings[3].x - 30, y: buildings[3].y + buildings[3].h + 20, idle: 100 },
+            { x: buildings[3].x + buildings[3].w / 2, y: buildings[3].y + buildings[3].h + 40, idle: 120 },
+            { x: buildings[3].x + buildings[3].w + 30, y: buildings[3].y + buildings[3].h + 20, idle: 100 },
+        ],
+        idleAsset: 'blueWarriorIdle', runAsset: 'blueWarriorRun',
+        speed: 0.6,
     },
 ];
 

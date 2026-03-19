@@ -75,6 +75,12 @@ const PATHS = {
     blackLancerRun:  'Assets/Tiny Swords (Free Pack)/Units/Black Units/Lancer/Lancer_Run.png',
     yellowWarriorIdle: 'Assets/Tiny Swords (Free Pack)/Units/Yellow Units/Warrior/Warrior_Idle.png',
     yellowWarriorRun:  'Assets/Tiny Swords (Free Pack)/Units/Yellow Units/Warrior/Warrior_Run.png',
+    pawnAxeIdle:    'Assets/Tiny Swords (Free Pack)/Units/Blue Units/Pawn/Pawn_Idle Axe.png',
+    pawnAxeRun:     'Assets/Tiny Swords (Free Pack)/Units/Blue Units/Pawn/Pawn_Run Axe.png',
+    pawnHammerIdle: 'Assets/Tiny Swords (Free Pack)/Units/Yellow Units/Pawn/Pawn_Idle Hammer.png',
+    pawnHammerRun:  'Assets/Tiny Swords (Free Pack)/Units/Yellow Units/Pawn/Pawn_Run Hammer.png',
+    blueWarriorIdle: 'Assets/Tiny Swords (Free Pack)/Units/Blue Units/Warrior/Warrior_Idle.png',
+    blueWarriorRun:  'Assets/Tiny Swords (Free Pack)/Units/Blue Units/Warrior/Warrior_Run.png',
     // Extra decorations
     deco02:  'Assets/Tiny Swords (Update 010)/Deco/02.png',
     deco03:  'Assets/Tiny Swords (Update 010)/Deco/03.png',
