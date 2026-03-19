@@ -168,92 +168,161 @@ const L = {
     pathDeco:   { x: 800, y: 750 },
 };
 
-// NPC villagers — patrol paths derived from landmarks
-// Change a building/tree position → NPC route updates automatically
-const NPC_DEFAULTS = { frame: 0, timer: 0, facing: 1, state: 'walk', idleTimer: 0, fw: 192, fh: 192, scale: 0.5, yOffset: 30 };
+// NPC villagers — multi-waypoint 2D routes through the village
+// Each NPC has a waypoints array: [{x, y, idle}] defining their daily loop
+// NPCs walk in 2D toward each waypoint, idle there, then move to the next
+const NPC_DEFAULTS = { frame: 0, timer: 0, facing: 1, state: 'walk', idleTimer: 0, currentWP: 0, fw: 192, fh: 192, scale: 0.5, yOffset: 30 };
 
 export const npcs = [
-    // Castle guard — patrols between fire torches at the castle gate
+    // Castle guard — patrols the castle perimeter: torch1 → torch2 → lower torch → back
     {
         ...NPC_DEFAULTS,
-        x: L.torch1.x + 70, y: L.torch1.y,
-        patrolA: L.torch1.x, patrolB: L.torch2.x,
+        x: L.torch1.x, y: L.torch1.y,
+        waypoints: [
+            { x: L.torch1.x, y: L.torch1.y, idle: 60 },
+            { x: L.torch2.x, y: L.torch2.y, idle: 60 },
+            { x: fires[2].x, y: fires[2].y, idle: 80 },
+        ],
         idleAsset: 'archerIdle', runAsset: 'archerRun',
-        speed: 0.8, idleDuration: 80,
-        idleFrames: 6, runFrames: 4,
+        speed: 0.8, idleFrames: 6, runFrames: 4,
     },
-    // Monk — contemplates between archery range and monastery
+    // Monk — walks from monastery to archery, stops at monument to meditate, loops back
     {
         ...NPC_DEFAULTS,
-        x: L.archery.x + 100, y: L.archery.y,
-        patrolA: L.archery.x + 50, patrolB: L.monastery.x + 50,
+        x: L.monastery.x, y: L.monastery.y,
+        waypoints: [
+            { x: L.monastery.x + 50, y: L.monastery.y + 50, idle: 300 },
+            { x: L.archery.x + 50, y: L.archery.y + 50, idle: 200 },
+            { x: L.monument.x + 100, y: L.monument.y, idle: 250 },
+        ],
         idleAsset: 'monkIdle', runAsset: 'monkRun',
-        facing: -1, speed: 0.35, state: 'idle', idleDuration: 240,
-        idleFrames: 6, runFrames: 4,
+        speed: 0.35, idleFrames: 6, runFrames: 4,
     },
-    // Woodcutter — hauls wood between two NW trees
+    // Woodcutter — chops at tree, hauls to tech house, rests, loops
     {
         ...NPC_DEFAULTS,
-        x: L.treeNW1.x, y: (L.treeNW1.y + L.treeNW2.y) / 2,
-        patrolA: L.treeNW1.x, patrolB: L.treeNW2.x,
+        x: L.treeNW1.x, y: L.treeNW1.y,
+        waypoints: [
+            { x: L.treeNW1.x + 30, y: L.treeNW1.y + 50, idle: 200 },
+            { x: L.treeNW2.x + 30, y: L.treeNW2.y + 50, idle: 120 },
+            { x: L.techHouse.x + 50, y: L.techHouse.y + 30, idle: 100 },
+        ],
         idleAsset: 'pawnWoodIdle', runAsset: 'pawnWoodRun',
-        speed: 0.4, idleDuration: 180,
+        speed: 0.4,
     },
-    // Gold carrier — transports gold from monument toward castle
+    // Gold carrier — monument → midway rest → castle delivery → back
     {
         ...NPC_DEFAULTS,
-        x: L.monument.x + 100, y: L.monument.y - 70,
-        patrolA: L.monument.x, patrolB: L.castle.x - 50,
+        x: L.monument.x, y: L.monument.y,
+        waypoints: [
+            { x: L.monument.x + 30, y: L.monument.y - 30, idle: 120 },
+            { x: 1400, y: 720, idle: 40 },
+            { x: L.castle.x - 30, y: L.castle.y - 50, idle: 150 },
+        ],
         idleAsset: 'pawnGoldIdle', runAsset: 'pawnGoldRun',
-        speed: 0.55, idleDuration: 150,
+        speed: 0.55,
     },
-    // Shepherd — tends to the sheep, tiny circle around the flock
+    // Shepherd — sheep → nearby tree shade → back to sheep
     {
         ...NPC_DEFAULTS,
-        x: L.sheep.x + 20, y: L.sheep.y,
-        patrolA: L.sheep.x - 30, patrolB: L.sheep.x + 40,
+        x: L.sheep.x, y: L.sheep.y,
+        waypoints: [
+            { x: L.sheep.x + 30, y: L.sheep.y + 10, idle: 300 },
+            { x: L.treeNW2.x - 20, y: L.treeNW2.y + 60, idle: 150 },
+        ],
         idleAsset: 'pawnMeatIdle', runAsset: 'pawnMeatRun',
-        speed: 0.3, state: 'idle', idleDuration: 300,
+        speed: 0.3, state: 'idle',
     },
-    // Border guard — patrols waterline from contact house to water tree
+    // Border guard — long patrol: contact house → south trees → water tree → back
     {
         ...NPC_DEFAULTS,
-        x: L.contact.x + 200, y: L.contact.y + 30,
-        patrolA: L.contact.x, patrolB: L.treeWater.x,
+        x: L.contact.x, y: L.contact.y + 30,
+        waypoints: [
+            { x: L.contact.x + 50, y: L.contact.y + 30, idle: 40 },
+            { x: 1100, y: 1380, idle: 30 },
+            { x: L.treeWater.x, y: L.treeWater.y + 30, idle: 50 },
+        ],
         idleAsset: 'blackLancerIdle', runAsset: 'blackLancerRun',
-        speed: 0.9, idleDuration: 60,
-        idleFrames: 12, runFrames: 6, fw: 320, fh: 320, yOffset: 60,
+        speed: 0.9, idleFrames: 12, runFrames: 6, fw: 320, fh: 320, yOffset: 60,
     },
-    // Miner — works between tower and border rocks
+    // Miner — tower quarry → border rocks → barracks supply drop → loop
     {
         ...NPC_DEFAULTS,
-        x: L.tower.x + 50, y: L.tower.y - 200,
-        patrolA: L.tower.x, patrolB: L.treeBorder.x,
+        x: L.tower.x, y: L.tower.y - 100,
+        waypoints: [
+            { x: L.tower.x + 30, y: L.tower.y - 100, idle: 200 },
+            { x: L.treeBorder.x - 30, y: L.treeBorder.y, idle: 180 },
+            { x: L.barracks.x - 30, y: L.barracks.y, idle: 100 },
+        ],
         idleAsset: 'pawnPickIdle', runAsset: 'pawnPickRun',
-        facing: -1, speed: 0.45, idleDuration: 200,
+        speed: 0.45,
     },
-    // Gate warrior — guards the path between tree and path decoration
+    // Gate warrior — patrols between gate, path, and tech house
     {
         ...NPC_DEFAULTS,
-        x: L.treeGate.x + 50, y: (L.treeGate.y + L.pathDeco.y) / 2,
-        patrolA: L.treeGate.x, patrolB: L.pathDeco.x + 50,
+        x: L.treeGate.x, y: L.treeGate.y,
+        waypoints: [
+            { x: L.treeGate.x + 30, y: L.treeGate.y + 50, idle: 200 },
+            { x: L.pathDeco.x, y: L.pathDeco.y, idle: 100 },
+            { x: L.techHouse.x + 100, y: L.techHouse.y - 30, idle: 150 },
+        ],
         idleAsset: 'yellowWarriorIdle', runAsset: 'yellowWarriorRun',
-        speed: 0.5, state: 'idle', idleDuration: 250,
+        speed: 0.5, state: 'idle',
     },
 ];
 
 export function updateNPCs() {
     for (const npc of npcs) {
+        const wp = npc.waypoints[npc.currentWP];
+
         if (npc.state === 'idle') {
             npc.idleTimer++;
-            npc.timer++; if (npc.timer >= 10) { npc.timer = 0; npc.frame = (npc.frame + 1) % (npc.idleFrames || 8); }
-            if (npc.idleTimer > (npc.idleDuration || 120)) { npc.state = 'walk'; npc.idleTimer = 0; }
+            npc.timer++;
+            if (npc.timer >= 10) { npc.timer = 0; npc.frame = (npc.frame + 1) % (npc.idleFrames || 8); }
+            if (npc.idleTimer > (wp.idle || 120)) {
+                npc.state = 'walk';
+                npc.idleTimer = 0;
+                npc.currentWP = (npc.currentWP + 1) % npc.waypoints.length;
+            }
+        } else if (npc.state === 'chat') {
+            // Brief stop when meeting another NPC
+            npc.idleTimer++;
+            npc.timer++;
+            if (npc.timer >= 10) { npc.timer = 0; npc.frame = (npc.frame + 1) % (npc.idleFrames || 8); }
+            if (npc.idleTimer > 90) { npc.state = 'walk'; npc.idleTimer = 0; }
         } else {
-            const target = npc.facing === 1 ? npc.patrolB : npc.patrolA;
-            npc.x += npc.speed * npc.facing;
-            npc.timer++; if (npc.timer >= 6) { npc.timer = 0; npc.frame = (npc.frame + 1) % (npc.runFrames || 6); }
-            if ((npc.facing === 1 && npc.x >= target) || (npc.facing === -1 && npc.x <= target)) {
-                npc.state = 'idle'; npc.facing *= -1; npc.frame = 0;
+            // Walk toward current waypoint in 2D
+            const target = npc.waypoints[npc.currentWP];
+            const dx = target.x - npc.x;
+            const dy = target.y - npc.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 5) {
+                npc.state = 'idle';
+                npc.frame = 0;
+                npc.idleTimer = 0;
+            } else {
+                npc.x += (dx / dist) * npc.speed;
+                npc.y += (dy / dist) * npc.speed;
+                npc.facing = dx > 0 ? 1 : -1;
+                npc.timer++;
+                if (npc.timer >= 6) { npc.timer = 0; npc.frame = (npc.frame + 1) % (npc.runFrames || 6); }
+            }
+        }
+    }
+
+    // NPC meetings — when two walking NPCs cross paths, they stop and face each other
+    for (let i = 0; i < npcs.length; i++) {
+        for (let j = i + 1; j < npcs.length; j++) {
+            const a = npcs[i], b = npcs[j];
+            if (a.state === 'walk' && b.state === 'walk') {
+                const dist = Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);
+                if (dist < 60) {
+                    a.state = 'chat'; a.idleTimer = 0; a.frame = 0;
+                    b.state = 'chat'; b.idleTimer = 0; b.frame = 0;
+                    a.facing = b.x > a.x ? 1 : -1;
+                    b.facing = a.x > b.x ? 1 : -1;
+                }
             }
         }
     }

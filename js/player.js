@@ -7,7 +7,7 @@ import { spawnParticle } from './particles.js';
 import { play } from './audio.js';
 
 export const player = {
-    x: 500, y: 500, w: 40, h: 30,
+    x: 500, y: 500, w: 40, h: 40,
     vx: 0, vy: 0, facing: 'down', walking: false,
     frame: 0, ft: 0,
     wasWalking: false, lastFacing: 'down', splashed: false,

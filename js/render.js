@@ -100,10 +100,15 @@ const renderers = {
         const fade = tr.fade || { xR: 70, yD: 160, base: 200 };
         const trunkX = tr.x + 96;
         const trunkY = tr.y + fade.base;
-        const feetX = player.x + player.w / 2;
-        const feetY = player.y + player.h;
-        const behindTree = feetY < trunkY && feetY > trunkY - fade.yD
-            && Math.abs(feetX - trunkX) < fade.xR;
+        // Check if player OR any NPC is behind this tree
+        let behindTree = false;
+        const checkBehind = (fx, fy) => fy < trunkY && fy > trunkY - fade.yD && Math.abs(fx - trunkX) < fade.xR;
+        if (checkBehind(player.x + player.w / 2, player.y + player.h)) behindTree = true;
+        if (!behindTree) {
+            for (const n of npcs) {
+                if (checkBehind(n.x + 48, n.y + 80)) { behindTree = true; break; }
+            }
+        }
         if (behindTree) ctx.globalAlpha = 0.4;
         drawFrame(IMG[tr.asset], tr.frame, 192, 256, item.sx, item.sy - 56, 1.0, false);
         if (behindTree) ctx.globalAlpha = 1;
@@ -268,7 +273,9 @@ export function render() {
     }
     for (const n of npcs) {
         const sx = n.x + ox, sy = n.y + oy;
-        if (inView(sx, sy, 150)) drawList.push({ y: n.y + 90, type: 'npc', data: n, sx, sy });
+        // Sort at visual foot position: sprite bottom + yOffset shift
+        const sortY = n.y + (n.fh || 192) * (n.scale ?? 0.5);
+        if (inView(sx, sy, 150)) drawList.push({ y: sortY, type: 'npc', data: n, sx, sy });
     }
     {
         const sx = sheep.x + ox, sy = sheep.y + oy;
