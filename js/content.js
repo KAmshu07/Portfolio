@@ -97,8 +97,7 @@ export const interactables = [
                 <a href="tel:+917903734532" class="contact-card">
                     <small>PHONE</small><span>+91 7903734532</span></a>
                 <a href="Amritanshu_Kumar_Resume.pdf" target="_blank" download class="contact-card">
-                    <small>RESUME</small><span>Download PDF &darr;</span>
-                    <span style="display:block;font-size:9px;color:#9a8a7a;margin-top:4px">or press [E] to view here</span></a>
+                    <small>RESUME</small><span>Download PDF &darr; <span style="font-size:9px;color:#9a8a7a;margin-left:8px">[E] view here</span></span></a>
             </div>`,
     },
 ];
