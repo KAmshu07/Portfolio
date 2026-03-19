@@ -163,54 +163,49 @@ export const npcs = [
         state: 'idle', idleTimer: 0, idleDuration: 240,
         idleFrames: 6, runFrames: 4, fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
-    // Woodcutter — hauls wood from trees (NW ~100-200) to TECH house (250,650)
-    // Walks along the tree line at y=500
+    // Woodcutter — hauls wood between tree(200,500) and tree(500,550)
     {
-        x: 200, y: 500, patrolA: 100, patrolB: 400,
+        x: 200, y: 520, patrolA: 200, patrolB: 500,
         idleAsset: 'pawnWoodIdle', runAsset: 'pawnWoodRun',
         frame: 0, timer: 0, facing: 1, speed: 0.4,
         state: 'walk', idleTimer: 0, idleDuration: 180,
         fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
-    // Gold carrier — transports gold from monument (1200) toward castle (1650)
-    // The supply route at y=780 between spawn and projects
+    // Gold carrier — monument(1200,820) to castle entrance(1650,650), supply route y=750
     {
-        x: 1300, y: 780, patrolA: 1200, patrolB: 1600,
+        x: 1300, y: 750, patrolA: 1200, patrolB: 1600,
         idleAsset: 'pawnGoldIdle', runAsset: 'pawnGoldRun',
         frame: 0, timer: 0, facing: 1, speed: 0.55,
         state: 'walk', idleTimer: 0, idleDuration: 150,
         fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
-    // Shepherd — tends to the sheep at (500,480), tiny patrol around the flock
+    // Shepherd — tends to sheep(500,480), tiny circle around the flock
     {
-        x: 520, y: 480, patrolA: 470, patrolB: 580,
+        x: 520, y: 480, patrolA: 470, patrolB: 540,
         idleAsset: 'pawnMeatIdle', runAsset: 'pawnMeatRun',
         frame: 0, timer: 0, facing: 1, speed: 0.3,
         state: 'idle', idleTimer: 0, idleDuration: 300,
         fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
-    // Border guard — patrols the waterline between contact house (900) and monument south
-    // y=1400, just above WATER_Y, guarding the crossing
+    // Border guard — patrols waterline from contact house(900,1350) to water tree(1500,1350)
     {
-        x: 1100, y: 1400, patrolA: 850, patrolB: 1400,
+        x: 1100, y: 1380, patrolA: 900, patrolB: 1500,
         idleAsset: 'blackLancerIdle', runAsset: 'blackLancerRun',
         frame: 0, timer: 0, facing: 1, speed: 0.9,
         state: 'walk', idleTimer: 0, idleDuration: 60,
         idleFrames: 12, runFrames: 6, fw: 320, fh: 320, scale: 0.5, yOffset: 60,
     },
-    // Miner — works between barracks (2050) and tower (2350) in the projects quarry
-    // y=500, between both buildings
+    // Miner — works between tower(2350,700) and border rocks/trees(2550,850)
     {
-        x: 2150, y: 500, patrolA: 2050, patrolB: 2350,
+        x: 2400, y: 750, patrolA: 2350, patrolB: 2550,
         idleAsset: 'pawnPickIdle', runAsset: 'pawnPickRun',
         frame: 0, timer: 0, facing: -1, speed: 0.45,
         state: 'walk', idleTimer: 0, idleDuration: 200,
         fw: 192, fh: 192, scale: 0.5, yOffset: 30,
     },
-    // Gate warrior — guards the gap between about quarter and the monument
-    // Stands at (~800,700), the natural corridor between TECH house and the path to monument
+    // Gate warrior — guards between tree(700,500) and path deco(800,750)
     {
-        x: 800, y: 700, patrolA: 700, patrolB: 900,
+        x: 750, y: 650, patrolA: 700, patrolB: 850,
         idleAsset: 'yellowWarriorIdle', runAsset: 'yellowWarriorRun',
         frame: 0, timer: 0, facing: 1, speed: 0.5,
         state: 'idle', idleTimer: 0, idleDuration: 250,
