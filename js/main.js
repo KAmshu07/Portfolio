@@ -145,8 +145,11 @@ document.getElementById('muteBtn').addEventListener('click', () => {
     document.getElementById('muteBtn').textContent = m ? '🔇' : '🔊';
 });
 
+let gameStartTime = 0;
+
 function startGame() {
     setMode('PLAYING');
+    gameStartTime = Date.now();
     document.getElementById('intro').classList.add('hidden');
     document.querySelector('.hud').classList.add('visible');
     canvas.style.cursor = "url('Assets/Tiny Swords (Free Pack)/UI Elements/UI Elements/Cursors/Cursor_01.png') 0 0, auto";
@@ -154,6 +157,29 @@ function startGame() {
     introZoom.startTime = Date.now();
     play('click');
     startLoops();
+
+    // Auto-trigger wind toward nearest building after 2 seconds (Journey's mountain principle)
+    setTimeout(() => {
+        if (!wind.guiding && !isAllVisited()) {
+            let minDist = Infinity, target = null;
+            for (const b of buildings) {
+                if (visitedBuildings.has(b.label)) continue;
+                const dx = (b.x + b.w / 2) - player.x;
+                const dy = (b.y + b.h / 2) - player.y;
+                const d = dx * dx + dy * dy;
+                if (d < minDist) { minDist = d; target = b; }
+            }
+            if (target) {
+                const dx = (target.x + target.w / 2) - player.x;
+                const dy = (target.y + target.h / 2) - player.y;
+                const len = Math.sqrt(dx * dx + dy * dy) || 1;
+                wind.targetX = dx / len;
+                wind.targetY = dy / len;
+                wind.guiding = true;
+                wind.guideTimer = wind.guideDuration;
+            }
+        }
+    }, 2000);
 }
 
 // Update

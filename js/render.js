@@ -200,11 +200,14 @@ export function render() {
     const ox = -camera.x, oy = -camera.y;
     const now = Date.now();
 
-    // Intro zoom effect
+    // Cinematic camera reveal — start zoomed in, slowly pull back to show the world
     if (introZoom.active) {
-        const elapsed = (now - introZoom.startTime) / 400;
+        const elapsed = (now - introZoom.startTime) / 2000;
         if (elapsed >= 1) { introZoom.active = false; introZoom.scale = 1; }
-        else { introZoom.scale = 1 + 0.05 * Math.sin(elapsed * Math.PI); }
+        else {
+            const ease = 1 - Math.pow(1 - elapsed, 3);
+            introZoom.scale = 1.3 - 0.3 * ease;
+        }
     }
     if (introZoom.scale !== 1) {
         ctx.save();
