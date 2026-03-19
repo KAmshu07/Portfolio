@@ -142,74 +142,103 @@ export const foamSpots = [
     { x: 1800, y: WATER_Y + 160 }, { x: 2400, y: WATER_Y + 110 },
 ];
 
-// NPC villagers — patrol paths tied to actual world landmarks
-// patrolA/B = X coords of real objects they walk between
+// Landmarks — single source of truth for world positions that NPCs reference
+// Derived from actual world objects above. Move a building/tree → NPCs auto-update.
+const L = {
+    // Buildings (center X of each)
+    castle:     { x: buildings[3].x + buildings[3].w / 2, y: buildings[3].y + buildings[3].h },
+    barracks:   { x: buildings[4].x + buildings[4].w / 2, y: buildings[4].y + buildings[4].h },
+    tower:      { x: buildings[5].x, y: buildings[5].y + buildings[5].h },
+    archery:    { x: buildings[6].x + buildings[6].w / 2, y: buildings[6].y },
+    monastery:  { x: buildings[7].x + buildings[7].w / 2, y: buildings[7].y },
+    contact:    { x: buildings[8].x, y: buildings[8].y },
+    techHouse:  { x: buildings[2].x, y: buildings[2].y + buildings[2].h },
+    // Key objects
+    monument:   monument,
+    sheep:      sheep,
+    torch1:     fires[0],
+    torch2:     fires[1],
+    // Named trees (by index in treeSpots: about quarter trees are indices 7-11)
+    treeNW1:    { x: treeSpots[9][0], y: treeSpots[9][1] },   // (200,500)
+    treeNW2:    { x: treeSpots[10][0], y: treeSpots[10][1] },  // (500,550)
+    treeGate:   { x: treeSpots[11][0], y: treeSpots[11][1] },  // (700,500)
+    treeBorder: { x: treeSpots[19][0], y: treeSpots[19][1] },  // (2550,850)
+    treeWater:  { x: treeSpots[25][0], y: treeSpots[25][1] },  // (1500,1350)
+    // Path decorations
+    pathDeco:   { x: 800, y: 750 },
+};
+
+// NPC villagers — patrol paths derived from landmarks
+// Change a building/tree position → NPC route updates automatically
+const NPC_DEFAULTS = { frame: 0, timer: 0, facing: 1, state: 'walk', idleTimer: 0, fw: 192, fh: 192, scale: 0.5, yOffset: 30 };
+
 export const npcs = [
-    // Castle guard — patrols between the two fire torches at the castle gate
-    // Torch 1: x=1630, Torch 2: x=1950 → walks the castle frontage at y=680
+    // Castle guard — patrols between fire torches at the castle gate
     {
-        x: 1700, y: 680, patrolA: 1630, patrolB: 1950,
+        ...NPC_DEFAULTS,
+        x: L.torch1.x + 70, y: L.torch1.y,
+        patrolA: L.torch1.x, patrolB: L.torch2.x,
         idleAsset: 'archerIdle', runAsset: 'archerRun',
-        frame: 0, timer: 0, facing: 1, speed: 0.8,
-        state: 'walk', idleTimer: 0, idleDuration: 80,
-        idleFrames: 6, runFrames: 4, fw: 192, fh: 192, scale: 0.5, yOffset: 30,
+        speed: 0.8, idleDuration: 80,
+        idleFrames: 6, runFrames: 4,
     },
-    // Monk — walks between monastery (2200) and archery range (1800), contemplating
-    // y=1050 matches both buildings' Y level
+    // Monk — contemplates between archery range and monastery
     {
-        x: 2100, y: 1050, patrolA: 1850, patrolB: 2250,
+        ...NPC_DEFAULTS,
+        x: L.archery.x + 100, y: L.archery.y,
+        patrolA: L.archery.x + 50, patrolB: L.monastery.x + 50,
         idleAsset: 'monkIdle', runAsset: 'monkRun',
-        frame: 0, timer: 0, facing: -1, speed: 0.35,
-        state: 'idle', idleTimer: 0, idleDuration: 240,
-        idleFrames: 6, runFrames: 4, fw: 192, fh: 192, scale: 0.5, yOffset: 30,
+        facing: -1, speed: 0.35, state: 'idle', idleDuration: 240,
+        idleFrames: 6, runFrames: 4,
     },
-    // Woodcutter — hauls wood between tree(200,500) and tree(500,550)
+    // Woodcutter — hauls wood between two NW trees
     {
-        x: 200, y: 520, patrolA: 200, patrolB: 500,
+        ...NPC_DEFAULTS,
+        x: L.treeNW1.x, y: (L.treeNW1.y + L.treeNW2.y) / 2,
+        patrolA: L.treeNW1.x, patrolB: L.treeNW2.x,
         idleAsset: 'pawnWoodIdle', runAsset: 'pawnWoodRun',
-        frame: 0, timer: 0, facing: 1, speed: 0.4,
-        state: 'walk', idleTimer: 0, idleDuration: 180,
-        fw: 192, fh: 192, scale: 0.5, yOffset: 30,
+        speed: 0.4, idleDuration: 180,
     },
-    // Gold carrier — monument(1200,820) to castle entrance(1650,650), supply route y=750
+    // Gold carrier — transports gold from monument toward castle
     {
-        x: 1300, y: 750, patrolA: 1200, patrolB: 1600,
+        ...NPC_DEFAULTS,
+        x: L.monument.x + 100, y: L.monument.y - 70,
+        patrolA: L.monument.x, patrolB: L.castle.x - 50,
         idleAsset: 'pawnGoldIdle', runAsset: 'pawnGoldRun',
-        frame: 0, timer: 0, facing: 1, speed: 0.55,
-        state: 'walk', idleTimer: 0, idleDuration: 150,
-        fw: 192, fh: 192, scale: 0.5, yOffset: 30,
+        speed: 0.55, idleDuration: 150,
     },
-    // Shepherd — tends to sheep(500,480), tiny circle around the flock
+    // Shepherd — tends to the sheep, tiny circle around the flock
     {
-        x: 520, y: 480, patrolA: 470, patrolB: 540,
+        ...NPC_DEFAULTS,
+        x: L.sheep.x + 20, y: L.sheep.y,
+        patrolA: L.sheep.x - 30, patrolB: L.sheep.x + 40,
         idleAsset: 'pawnMeatIdle', runAsset: 'pawnMeatRun',
-        frame: 0, timer: 0, facing: 1, speed: 0.3,
-        state: 'idle', idleTimer: 0, idleDuration: 300,
-        fw: 192, fh: 192, scale: 0.5, yOffset: 30,
+        speed: 0.3, state: 'idle', idleDuration: 300,
     },
-    // Border guard — patrols waterline from contact house(900,1350) to water tree(1500,1350)
+    // Border guard — patrols waterline from contact house to water tree
     {
-        x: 1100, y: 1380, patrolA: 900, patrolB: 1500,
+        ...NPC_DEFAULTS,
+        x: L.contact.x + 200, y: L.contact.y + 30,
+        patrolA: L.contact.x, patrolB: L.treeWater.x,
         idleAsset: 'blackLancerIdle', runAsset: 'blackLancerRun',
-        frame: 0, timer: 0, facing: 1, speed: 0.9,
-        state: 'walk', idleTimer: 0, idleDuration: 60,
-        idleFrames: 12, runFrames: 6, fw: 320, fh: 320, scale: 0.5, yOffset: 60,
+        speed: 0.9, idleDuration: 60,
+        idleFrames: 12, runFrames: 6, fw: 320, fh: 320, yOffset: 60,
     },
-    // Miner — works between tower(2350,700) and border rocks/trees(2550,850)
+    // Miner — works between tower and border rocks
     {
-        x: 2400, y: 750, patrolA: 2350, patrolB: 2550,
+        ...NPC_DEFAULTS,
+        x: L.tower.x + 50, y: L.tower.y - 200,
+        patrolA: L.tower.x, patrolB: L.treeBorder.x,
         idleAsset: 'pawnPickIdle', runAsset: 'pawnPickRun',
-        frame: 0, timer: 0, facing: -1, speed: 0.45,
-        state: 'walk', idleTimer: 0, idleDuration: 200,
-        fw: 192, fh: 192, scale: 0.5, yOffset: 30,
+        facing: -1, speed: 0.45, idleDuration: 200,
     },
-    // Gate warrior — guards between tree(700,500) and path deco(800,750)
+    // Gate warrior — guards the path between tree and path decoration
     {
-        x: 750, y: 650, patrolA: 700, patrolB: 850,
+        ...NPC_DEFAULTS,
+        x: L.treeGate.x + 50, y: (L.treeGate.y + L.pathDeco.y) / 2,
+        patrolA: L.treeGate.x, patrolB: L.pathDeco.x + 50,
         idleAsset: 'yellowWarriorIdle', runAsset: 'yellowWarriorRun',
-        frame: 0, timer: 0, facing: 1, speed: 0.5,
-        state: 'idle', idleTimer: 0, idleDuration: 250,
-        fw: 192, fh: 192, scale: 0.5, yOffset: 30,
+        speed: 0.5, state: 'idle', idleDuration: 250,
     },
 ];
 
