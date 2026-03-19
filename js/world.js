@@ -174,14 +174,14 @@ const L = {
 const NPC_DEFAULTS = { frame: 0, timer: 0, facing: 1, state: 'walk', idleTimer: 0, currentWP: 0, fw: 192, fh: 192, scale: 0.5, yOffset: 30 };
 
 export const npcs = [
-    // Castle guard — patrols the castle perimeter: torch1 → torch2 → lower torch → back
+    // Castle guard — patrols OUTSIDE the castle: left side → front → right side
     {
         ...NPC_DEFAULTS,
-        x: L.torch1.x, y: L.torch1.y,
+        x: buildings[3].x - 30, y: L.castle.y,
         waypoints: [
-            { x: L.torch1.x, y: L.torch1.y, idle: 60 },
-            { x: L.torch2.x, y: L.torch2.y, idle: 60 },
-            { x: fires[2].x, y: fires[2].y, idle: 80 },
+            { x: buildings[3].x - 30, y: buildings[3].y + buildings[3].h + 20, idle: 60 },
+            { x: buildings[3].x + buildings[3].w / 2, y: buildings[3].y + buildings[3].h + 30, idle: 80 },
+            { x: buildings[3].x + buildings[3].w + 30, y: buildings[3].y + buildings[3].h + 20, idle: 60 },
         ],
         idleAsset: 'archerIdle', runAsset: 'archerRun',
         speed: 0.8, idleFrames: 6, runFrames: 4,
@@ -191,8 +191,8 @@ export const npcs = [
         ...NPC_DEFAULTS,
         x: L.monastery.x, y: L.monastery.y,
         waypoints: [
-            { x: L.monastery.x + 50, y: L.monastery.y + 50, idle: 300 },
-            { x: L.archery.x + 50, y: L.archery.y + 50, idle: 200 },
+            { x: L.monastery.x + 50, y: buildings[7].y + buildings[7].h + 30, idle: 300 },
+            { x: L.archery.x + 50, y: buildings[6].y + buildings[6].h + 30, idle: 200 },
             { x: L.monument.x + 100, y: L.monument.y, idle: 250 },
         ],
         idleAsset: 'monkIdle', runAsset: 'monkRun',
@@ -205,7 +205,7 @@ export const npcs = [
         waypoints: [
             { x: L.treeNW1.x + 30, y: L.treeNW1.y + 50, idle: 200 },
             { x: L.treeNW2.x + 30, y: L.treeNW2.y + 50, idle: 120 },
-            { x: L.techHouse.x + 50, y: L.techHouse.y + 30, idle: 100 },
+            { x: buildings[2].x + buildings[2].w + 30, y: buildings[2].y + buildings[2].h + 20, idle: 100 },
         ],
         idleAsset: 'pawnWoodIdle', runAsset: 'pawnWoodRun',
         speed: 0.4,
@@ -217,7 +217,7 @@ export const npcs = [
         waypoints: [
             { x: L.monument.x + 30, y: L.monument.y - 30, idle: 120 },
             { x: 1400, y: 720, idle: 40 },
-            { x: L.castle.x - 30, y: L.castle.y - 50, idle: 150 },
+            { x: buildings[3].x + buildings[3].w / 2, y: buildings[3].y + buildings[3].h + 30, idle: 150 },
         ],
         idleAsset: 'pawnGoldIdle', runAsset: 'pawnGoldRun',
         speed: 0.55,
@@ -252,7 +252,7 @@ export const npcs = [
         waypoints: [
             { x: L.tower.x + 30, y: L.tower.y - 100, idle: 200 },
             { x: L.treeBorder.x - 30, y: L.treeBorder.y, idle: 180 },
-            { x: L.barracks.x - 30, y: L.barracks.y, idle: 100 },
+            { x: buildings[4].x - 30, y: buildings[4].y + buildings[4].h + 20, idle: 100 },
         ],
         idleAsset: 'pawnPickIdle', runAsset: 'pawnPickRun',
         speed: 0.45,
@@ -264,7 +264,7 @@ export const npcs = [
         waypoints: [
             { x: L.treeGate.x + 30, y: L.treeGate.y + 50, idle: 200 },
             { x: L.pathDeco.x, y: L.pathDeco.y, idle: 100 },
-            { x: L.techHouse.x + 100, y: L.techHouse.y - 30, idle: 150 },
+            { x: buildings[2].x + buildings[2].w + 40, y: buildings[2].y + buildings[2].h + 20, idle: 150 },
         ],
         idleAsset: 'yellowWarriorIdle', runAsset: 'yellowWarriorRun',
         speed: 0.5, state: 'idle',
