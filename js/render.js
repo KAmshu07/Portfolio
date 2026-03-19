@@ -7,6 +7,7 @@ import { buildings, trees, decos, monument, fires, sheep, npcs, waterRocks, foam
 import { drawFrame, drawImg } from './sprites.js';
 import { getNearBuilding, zoneAnnouncement } from './ui.js';
 import { getParticles, drawParticle } from './particles.js';
+import { getActiveToast } from './achievements.js';
 
 /* ─── Viewport culling ─── */
 function inView(sx, sy, margin) {
@@ -194,6 +195,41 @@ function drawZoneAnnouncement(w, h, now) {
     ctx.globalAlpha = 1;
 }
 
+/* ─── Achievement toast ─── */
+function drawAchievementToast(w, h) {
+    const toast = getActiveToast();
+    if (!toast || !toast.active) return;
+    const elapsed = (Date.now() - toast.startTime) / 1000;
+    let alpha;
+    if (elapsed < 0.4) alpha = elapsed / 0.4;
+    else if (elapsed < 2.5) alpha = 1;
+    else if (elapsed < 3.0) alpha = 1 - (elapsed - 2.5) / 0.5;
+    else return;
+
+    const bw = 280, bh = 44;
+    const bx = w / 2 - bw / 2, by = 60;
+
+    ctx.globalAlpha = alpha * 0.85;
+    ctx.fillStyle = '#2a1a0a';
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(bx, by, bw, bh, 6);
+    else ctx.rect(bx, by, bw, bh);
+    ctx.fill();
+    ctx.strokeStyle = '#eec941';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.globalAlpha = alpha;
+    ctx.font = "700 9px 'Press Start 2P',monospace";
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#eec941';
+    ctx.fillText(toast.title, w / 2, by + 18);
+    ctx.font = "400 10px 'Outfit',sans-serif";
+    ctx.fillStyle = 'rgba(232,228,224,0.8)';
+    ctx.fillText(toast.desc, w / 2, by + 34);
+    ctx.globalAlpha = 1;
+}
+
 /* ─── Main render ─── */
 export function render() {
     const { w, h } = viewport;
@@ -307,6 +343,7 @@ export function render() {
     const nearB = getNearBuilding();
     if (nearB && mode === 'PLAYING') drawProximityIndicator(nearB, ox, oy, now);
     if (mode === 'PLAYING') drawBottomHUD(nearB, w, h);
+    if (mode === 'PLAYING') drawAchievementToast(w, h);
 
     if (introZoom.scale !== 1) ctx.restore();
 }

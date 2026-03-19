@@ -8,10 +8,15 @@ import { updatePanel, getNearBuilding, updateZone } from './ui.js';
 import { updateParticles, spawnParticle } from './particles.js';
 import { render } from './render.js';
 import { initAudio, play, startLoops, toggleMute } from './audio.js';
+import { checkAchievements, markWindUsed, markScrollOpened, achievements, getCompleted } from './achievements.js';
 
 // Scroll overlay
 const scrollOverlay = document.getElementById('scrollOverlay');
 let scrollOpen = false;
+
+// Achievement panel
+const achievePanel = document.getElementById('achievePanel');
+let achievePanelOpen = false;
 
 // Wind system — ambient weather that pivots toward objectives on demand
 const wind = {
@@ -32,6 +37,7 @@ let windSpawnTimer = 0;
 function updateWind() {
     // On Space press: pivot wind toward nearest unvisited building
     if (keys.Space && !wind.guiding && !isAllVisited()) {
+        markWindUsed();
         let minDist = Infinity, target = null;
         for (const b of buildings) {
             if (visitedBuildings.has(b.label)) continue;
@@ -128,7 +134,30 @@ addEventListener('keydown', e => {
         } else if (getNearBuilding()?.label === 'CONTACT') {
             scrollOverlay.classList.remove('hidden');
             scrollOpen = true;
+            markScrollOpened();
         }
+    }
+    if (e.code === 'Tab' && mode === 'PLAYING') {
+        e.preventDefault();
+        if (achievePanelOpen) {
+            achievePanel.classList.add('hidden');
+            achievePanelOpen = false;
+        } else {
+            // Refresh panel content
+            const completed = getCompleted();
+            achievePanel.querySelector('.achieve-list').innerHTML = achievements.map(a =>
+                `<div class="achieve-item ${completed.has(a.id) ? 'done' : ''}">
+                    <span class="achieve-check">${completed.has(a.id) ? '★' : '☆'}</span>
+                    <div><strong>${a.title}</strong><br><small>${a.desc}</small></div>
+                </div>`
+            ).join('');
+            achievePanel.classList.remove('hidden');
+            achievePanelOpen = true;
+        }
+    }
+    if (e.code === 'Escape' && achievePanelOpen) {
+        achievePanel.classList.add('hidden');
+        achievePanelOpen = false;
     }
     if (e.code === 'Escape' && scrollOpen) {
         scrollOverlay.classList.add('hidden');
@@ -193,7 +222,7 @@ function update() {
         return;
     }
     if (mode !== 'PLAYING') return;
-    if (scrollOpen) return;
+    if (scrollOpen || achievePanelOpen) return;
 
     updatePlayer();
     updateParticles();
@@ -221,6 +250,7 @@ function update() {
     }
 
     updateZone();
+    checkAchievements();
 }
 
 // Game loop — starts immediately so intro camera pan shows terrain loading in
