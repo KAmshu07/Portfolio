@@ -142,19 +142,63 @@ export const foamSpots = [
     { x: 1800, y: WATER_Y + 160 }, { x: 2400, y: WATER_Y + 110 },
 ];
 
-// NPC villagers (decorative, non-collidable)
+// NPC villagers — each has a purpose and place in the village
 export const npcs = [
+    // Castle guard — Red Archer patrols the castle entrance briskly
     {
-        x: 1700, y: 580, patrolA: 1650, patrolB: 1800,
+        x: 1700, y: 580, patrolA: 1620, patrolB: 1820,
         idleAsset: 'archerIdle', runAsset: 'archerRun',
         frame: 0, timer: 0, facing: 1, speed: 0.8,
-        state: 'walk', idleTimer: 0,
+        state: 'walk', idleTimer: 0, idleDuration: 80,
     },
+    // Monastery monk — contemplative, slow, long pauses
     {
-        x: 2250, y: 1100, patrolA: 2200, patrolB: 2350,
+        x: 2250, y: 1100, patrolA: 2180, patrolB: 2350,
         idleAsset: 'monkIdle', runAsset: 'monkRun',
-        frame: 0, timer: 0, facing: 1, speed: 0.6,
-        state: 'walk', idleTimer: 0,
+        frame: 0, timer: 0, facing: 1, speed: 0.35,
+        state: 'idle', idleTimer: 0, idleDuration: 240,
+    },
+    // Woodcutter — hauls wood from trees to monument area, slow and heavy
+    {
+        x: 300, y: 500, patrolA: 150, patrolB: 550,
+        idleAsset: 'pawnWoodIdle', runAsset: 'pawnWoodRun',
+        frame: 0, timer: 0, facing: 1, speed: 0.4,
+        state: 'walk', idleTimer: 0, idleDuration: 180,
+    },
+    // Gold carrier — transports gold near the monument, medium pace
+    {
+        x: 1100, y: 750, patrolA: 1000, patrolB: 1350,
+        idleAsset: 'pawnGoldIdle', runAsset: 'pawnGoldRun',
+        frame: 0, timer: 0, facing: -1, speed: 0.55,
+        state: 'walk', idleTimer: 0, idleDuration: 150,
+    },
+    // Shepherd — tends to the sheep, very short patrol, long rests
+    {
+        x: 530, y: 430, patrolA: 480, patrolB: 600,
+        idleAsset: 'pawnMeatIdle', runAsset: 'pawnMeatRun',
+        frame: 0, timer: 0, facing: 1, speed: 0.3,
+        state: 'idle', idleTimer: 0, idleDuration: 300,
+    },
+    // Border guard — Black Lancer patrols south near the river, fast and alert
+    {
+        x: 1200, y: 1300, patrolA: 950, patrolB: 1500,
+        idleAsset: 'blackLancerIdle', runAsset: 'blackLancerRun',
+        frame: 0, timer: 0, facing: 1, speed: 0.9,
+        state: 'walk', idleTimer: 0, idleDuration: 60,
+    },
+    // Miner — works the rocks in the projects district
+    {
+        x: 2100, y: 550, patrolA: 2050, patrolB: 2250,
+        idleAsset: 'pawnPickIdle', runAsset: 'pawnPickRun',
+        frame: 0, timer: 0, facing: -1, speed: 0.45,
+        state: 'walk', idleTimer: 0, idleDuration: 200,
+    },
+    // Gate warrior — guards the path between about quarter and projects
+    {
+        x: 850, y: 400, patrolA: 800, patrolB: 950,
+        idleAsset: 'yellowWarriorIdle', runAsset: 'yellowWarriorRun',
+        frame: 0, timer: 0, facing: 1, speed: 0.5,
+        state: 'idle', idleTimer: 0, idleDuration: 250,
     },
 ];
 
@@ -163,7 +207,7 @@ export function updateNPCs() {
         if (npc.state === 'idle') {
             npc.idleTimer++;
             npc.timer++; if (npc.timer >= 10) { npc.timer = 0; npc.frame = (npc.frame + 1) % 8; }
-            if (npc.idleTimer > 120) { npc.state = 'walk'; npc.idleTimer = 0; }
+            if (npc.idleTimer > (npc.idleDuration || 120)) { npc.state = 'walk'; npc.idleTimer = 0; }
         } else {
             const target = npc.facing === 1 ? npc.patrolB : npc.patrolA;
             npc.x += npc.speed * npc.facing;
