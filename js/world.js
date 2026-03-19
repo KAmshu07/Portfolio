@@ -307,7 +307,7 @@ export function updateNPCs() {
                 // Building collision — same footprint as player uses
                 let blocked = false;
                 for (const b of buildings) {
-                    const bx = b.x + b.w * 0.15, by = b.y + b.h * 0.6, bw = b.w * 0.7, bh = b.h * 0.35;
+                    const bx = b.x + b.w * 0.1, by = b.y + b.h * 0.3, bw = b.w * 0.8, bh = b.h * 0.65;
                     if (nx > bx && nx < bx + bw && ny > by && ny < by + bh) { blocked = true; break; }
                 }
                 if (!blocked) { npc.x = nx; npc.y = ny; }

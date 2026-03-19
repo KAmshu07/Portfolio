@@ -48,7 +48,7 @@ export function updatePlayer() {
     // Axis-independent collision — test X and Y separately for wall sliding
     let blockedX = false, blockedY = false;
     for (const b of buildings) {
-        const bx = b.x + b.w * 0.15, by = b.y + b.h * 0.6, bw = b.w * 0.7, bh = b.h * 0.35;
+        const bx = b.x + b.w * 0.1, by = b.y + b.h * 0.3, bw = b.w * 0.8, bh = b.h * 0.65;
         if (nx < bx + bw && nx + player.w > bx && player.y < by + bh && player.y + player.h > by) blockedX = true;
         if (player.x < bx + bw && player.x + player.w > bx && ny < by + bh && ny + player.h > by) blockedY = true;
     }
