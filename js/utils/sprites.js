@@ -10,6 +10,6 @@ export function drawFrame(img, frame, fw, fh, x, y, scale, flip) {
     ctx.restore();
 }
 
-export function drawImg(img, x, y, s) {
-    if (img) ctx.drawImage(img, x, y, img.width * s, img.height * s);
+export function drawImg(img, x, y, scale) {
+    if (img) ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
 }

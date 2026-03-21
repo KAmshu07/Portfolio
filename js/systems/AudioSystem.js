@@ -43,7 +43,7 @@ export function startLoops() {
     for (const el of Object.values(loops)) { el.play().catch(() => {}); }
 }
 
-export function stopLoops() {
+function stopLoops() {
     for (const el of Object.values(loops)) { el.pause(); el.currentTime = 0; }
 }
 
@@ -54,7 +54,6 @@ export function toggleMute() {
     return muted;
 }
 
-export function isMuted() { return muted; }
 
 export function initAudio() {
     for (const { key, src, loop, volume } of audioPaths) {

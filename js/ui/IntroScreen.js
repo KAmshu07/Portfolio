@@ -5,6 +5,7 @@ import { GameMode, AudioKey, DomId, DomClass, UIText, FilePath } from '../data/e
 import { introZoom } from '../core/Camera.js';
 import { play, startLoops } from '../systems/AudioSystem.js';
 import { triggerGuideWind } from '../systems/WindSystem.js';
+import { ZOOM_DURATION } from '../rendering/RenderConfig.js';
 
 const btn = document.getElementById(DomId.INTRO_START);
 const loadingBar = document.getElementById(DomId.LOADING_BAR);
@@ -42,7 +43,7 @@ export function startGame() {
     introZoom.startTime = Date.now();
     play(AudioKey.CLICK);
     startLoops();
-    setTimeout(() => triggerGuideWind(), 2000);
+    setTimeout(() => triggerGuideWind(), ZOOM_DURATION);
 }
 
 function handleIntroClick() {
