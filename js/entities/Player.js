@@ -18,16 +18,24 @@ const DUST_COUNT_START = 3;
 const DUST_SPREAD = 10;
 const DUST_LIFE_START = 20;
 const DUST_SCALE_START = 0.4;
+const DUST_VX_START = 0.5;
+const DUST_VY_START = 0.5;
 const DUST_LIFE_TURN = 15;
 const DUST_SCALE_TURN = 0.3;
+const DUST_VX_TURN = 1.5;
+const DUST_VY_TURN = 0.8;
 const DUST_LIFE_SPRINT = 15;
 const DUST_SCALE_SPRINT = 0.35;
+const SPRINT_DUST_SPREAD = 8;
+const SPRINT_DUST_VX = 1.5;
+const SPRINT_DUST_VY = 0.8;
 const SPRINT_DUST_MODULUS = 3;
 
 // Splash
 const SPLASH_Y_OFFSET = 10;
 const SPLASH_LIFE = 25;
 const SPLASH_SCALE = 0.6;
+const SPLASH_VY = 0.5;
 
 // Animation
 const WALK_FRAME_RATE = 5;
@@ -65,12 +73,12 @@ export function updatePlayer(dt) {
     if (player.walking && !player.wasWalking) {
         for (let i = 0; i < DUST_COUNT_START; i++) {
             spawnParticle(ParticleType.DUST, player.x + player.w / 2 + (Math.random() - 0.5) * DUST_SPREAD,
-                player.y + player.h, { vx: -mx * 0.5 + (Math.random() - 0.5), vy: -0.5 - Math.random(), life: DUST_LIFE_START, scale: DUST_SCALE_START });
+                player.y + player.h, { vx: -mx * DUST_VX_START + (Math.random() - 0.5), vy: -DUST_VY_START - Math.random(), life: DUST_LIFE_START, scale: DUST_SCALE_START });
         }
     }
     if (player.walking && player.facing !== player.lastFacing) {
         spawnParticle(ParticleType.DUST, player.x + player.w / 2, player.y + player.h,
-            { vx: -mx * 1.5, vy: -0.8, life: DUST_LIFE_TURN, scale: DUST_SCALE_TURN });
+            { vx: -mx * DUST_VX_TURN, vy: -DUST_VY_TURN, life: DUST_LIFE_TURN, scale: DUST_SCALE_TURN });
     }
     player.wasWalking = player.walking;
     player.lastFacing = player.facing;
@@ -79,8 +87,8 @@ export function updatePlayer(dt) {
     const speed = sprinting ? SPEED * SPRINT_MULTIPLIER * dt : SPEED * dt;
 
     if (sprinting && player.walking && Math.floor(player.ft) % SPRINT_DUST_MODULUS === 0 && Math.floor(player.ft) !== Math.floor(player.ft - dt)) {
-        spawnParticle(ParticleType.DUST, player.x + player.w / 2 + (Math.random() - 0.5) * 8,
-            player.y + player.h, { vx: (Math.random() - 0.5) * 1.5, vy: -0.8 - Math.random(), life: DUST_LIFE_SPRINT, scale: DUST_SCALE_SPRINT });
+        spawnParticle(ParticleType.DUST, player.x + player.w / 2 + (Math.random() - 0.5) * SPRINT_DUST_SPREAD,
+            player.y + player.h, { vx: (Math.random() - 0.5) * SPRINT_DUST_VX, vy: -SPRINT_DUST_VY - Math.random(), life: DUST_LIFE_SPRINT, scale: DUST_SCALE_SPRINT });
     }
 
     const nx = player.x + mx * speed;
@@ -95,7 +103,7 @@ export function updatePlayer(dt) {
 
     if (ny + player.h > WATER_Y && !player.splashed) {
         spawnParticle(ParticleType.SPLASH, player.x + player.w / 2, WATER_Y - SPLASH_Y_OFFSET,
-            { vx: 0, vy: -0.5, life: SPLASH_LIFE, scale: SPLASH_SCALE });
+            { vx: 0, vy: -SPLASH_VY, life: SPLASH_LIFE, scale: SPLASH_SCALE });
         play(AudioKey.SPLASH);
         player.splashed = true;
     }

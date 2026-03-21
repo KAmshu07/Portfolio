@@ -1,10 +1,24 @@
 /* Camera state and follow logic */
 import { viewport } from './Canvas.js';
+import {
+    ZOOM_DURATION, ZOOM_START_SCALE, ZOOM_RANGE, ZOOM_EASE_POWER,
+} from '../rendering/RenderConfig.js';
 
 export const camera = { x: 0, y: 0 };
 
 // Intro zoom state
 export const introZoom = { scale: 1, active: false, startTime: 0 };
+
+// Intro zoom state progression (call during update, not render)
+export function updateIntroZoom(now) {
+    if (!introZoom.active) return;
+    const elapsed = (now - introZoom.startTime) / ZOOM_DURATION;
+    if (elapsed >= 1) { introZoom.active = false; introZoom.scale = 1; }
+    else {
+        const ease = 1 - Math.pow(1 - elapsed, ZOOM_EASE_POWER);
+        introZoom.scale = ZOOM_START_SCALE - ZOOM_RANGE * ease;
+    }
+}
 
 // Camera lerp speed
 const FOLLOW_LERP = 0.08;

@@ -3,6 +3,7 @@ import { ctx } from '../core/Canvas.js';
 import { IMG } from './AssetLoader.js';
 import { drawFrame } from '../utils/sprites.js';
 import { ParticleType } from '../data/enums.js';
+import { PARTICLE_FRAME_SIZE } from '../rendering/RenderConfig.js';
 
 const MAX_PARTICLES = 120;
 const PARTICLE_ANIM_RATE = 4;
@@ -51,9 +52,9 @@ export function drawParticle(item) {
     const p = item.data;
     ctx.globalAlpha = p.alpha;
     if (p.type === ParticleType.DUST && IMG.dust1) {
-        drawFrame(IMG.dust1, p.frame, 64, 64, item.sx, item.sy, p.scale, false);
+        drawFrame(IMG.dust1, p.frame, PARTICLE_FRAME_SIZE, PARTICLE_FRAME_SIZE, item.sx, item.sy, p.scale, false);
     } else if (p.type === ParticleType.SPLASH && IMG.splash) {
-        drawFrame(IMG.splash, p.frame, 64, 64, item.sx, item.sy, p.scale, false);
+        drawFrame(IMG.splash, p.frame, PARTICLE_FRAME_SIZE, PARTICLE_FRAME_SIZE, item.sx, item.sy, p.scale, false);
     } else if (p.type === ParticleType.LEAF) {
         const angle = Math.atan2(p.vy, p.vx);
         const len = p.scale;

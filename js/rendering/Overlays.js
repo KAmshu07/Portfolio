@@ -9,14 +9,19 @@ import {
     COLOR_GOLD, COLOR_TOAST_BG, FONT_PIXEL, FONT_BODY,
 } from './RenderConfig.js';
 
-/* ─── Zone announcement ─── */
-export function drawZoneAnnouncement(za, w, h, now) {
+/* ─── Zone announcement state progression (call during update, not render) ─── */
+export function updateZoneAnnouncementAnim(za, now) {
     if (!za.active) return;
     const elapsed = (now - za.startTime) / 1000;
     if (elapsed < ZONE_FADE_IN) za.alpha = elapsed / ZONE_FADE_IN;
     else if (elapsed < ZONE_HOLD_END) za.alpha = 1;
     else if (elapsed < ZONE_FADE_OUT) za.alpha = 1 - (elapsed - ZONE_HOLD_END) / (ZONE_FADE_OUT - ZONE_HOLD_END);
-    else { za.active = false; za.alpha = 0; return; }
+    else { za.active = false; za.alpha = 0; }
+}
+
+/* ─── Zone announcement ─── */
+export function drawZoneAnnouncement(za, w, h) {
+    if (!za.active) return;
 
     ctx.globalAlpha = za.alpha * ZONE_MAX_ALPHA;
     ctx.font = `700 ${ZONE_FONT_SIZE}px ${FONT_PIXEL}`;
@@ -30,10 +35,10 @@ export function drawZoneAnnouncement(za, w, h, now) {
 }
 
 /* ─── Achievement toast ─── */
-export function drawAchievementToast(w, h) {
+export function drawAchievementToast(w, h, now) {
     const toast = getActiveToast();
     if (!toast || !toast.active) return;
-    const elapsed = (Date.now() - toast.startTime) / 1000;
+    const elapsed = (now - toast.startTime) / 1000;
     let alpha;
     if (elapsed < TOAST_FADE_IN) alpha = elapsed / TOAST_FADE_IN;
     else if (elapsed < TOAST_HOLD_END) alpha = 1;

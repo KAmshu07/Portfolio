@@ -99,8 +99,6 @@ export const clouds = [...cloudDefs];
 
 // Helper: derive a position relative to a building's footprint
 function bCenter(label) { const bld = b(label); return { x: bld.x + bld.w / 2, y: bld.y + bld.h }; }
-function bFoot(label, ox = 0, oy = 0) { const bld = b(label); return { x: bld.x + bld.w / 2 + ox, y: bld.y + bld.h + oy }; }
-function bEdge(label, ox, oy) { const bld = b(label); return { x: bld.x + ox, y: bld.y + oy }; }
 
 // Landmarks — label-based, no index access
 const T = namedTrees;
@@ -125,7 +123,7 @@ export const landmarks = {
 };
 
 // NPC villagers — all positions derived from labels and named landmarks
-const NPC_DEFAULTS = { frame: 0, timer: 0, facing: 1, state: NPCState.WALK, idleTimer: 0, currentWP: 0, fw: 192, fh: 192, scale: 0.5, yOffset: 30 };
+const NPC_DEFAULTS = { frame: 0, timer: 0, facing: 1, state: NPCState.WALK, idleTimer: 0, chatCooldown: 0, currentWP: 0, fw: 192, fh: 192, scale: 0.5, yOffset: 30 };
 const L = landmarks;
 
 export const npcs = [

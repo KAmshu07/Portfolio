@@ -10,6 +10,7 @@ import { EntityType, NPCState, PlayerAnim, FlowerAssets } from '../data/enums.js
 import {
     TREE_FRAME_W, TREE_FRAME_H, TREE_DRAW_Y_OFFSET, TREE_BEHIND_ALPHA,
     TREE_DEFAULT_FADE, TREE_TRUNK_X_OFFSET, NPC_BEHIND_CHECK,
+    DECO_FRAME_SIZE,
     FIRE_FRAME_SIZE, FIRE_Y_OFFSET, FIRE_SCALE,
     SHEEP_FRAME_SIZE, SHEEP_SCALE, FLOWER_PULSE_SPEED,
     NPC_DEFAULT_FW, NPC_DEFAULT_FH, NPC_DEFAULT_SCALE, NPC_DEFAULT_Y_OFFSET,
@@ -81,9 +82,9 @@ export const renderers = {
             ctx.globalAlpha = 0.5 + pulse * 0.5;
         }
         if (d.isStatic) {
-            if (IMG[d.asset]) drawImg(IMG[d.asset], item.sx, item.sy, d.scale || 0.8);
+            if (IMG[d.asset]) drawImg(IMG[d.asset], item.sx, item.sy, d.scale);
         } else {
-            if (IMG[d.asset]) drawFrame(IMG[d.asset], d.frame, 128, 128, item.sx, item.sy, d.scale || 0.6, false);
+            if (IMG[d.asset]) drawFrame(IMG[d.asset], d.frame, DECO_FRAME_SIZE, DECO_FRAME_SIZE, item.sx, item.sy, d.scale, false);
         }
         ctx.globalAlpha = 1;
     },

@@ -75,8 +75,12 @@ export const NPC_SHADOW_RX = 14;
 export const NPC_SHADOW_RY = 4;
 
 // Foam / water rock frame sizes
+export const FOAM_DRAW_SCALE = 0.5;
 export const FOAM_FRAME_SIZE = 192;
 export const WATER_ROCK_FRAME_SIZE = 128;
+
+export const DECO_FRAME_SIZE = 128;
+export const PARTICLE_FRAME_SIZE = 64;
 
 export const FIRE_FRAME_SIZE = 64;
 export const FIRE_Y_OFFSET = -20;

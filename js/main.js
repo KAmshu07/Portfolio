@@ -1,7 +1,7 @@
 /* Entry point — init, input bindings, game loop */
 import { canvas, resize } from './core/Canvas.js';
 import { mode, setMode } from './core/GameState.js';
-import { camera, introZoom, followTarget, introPan } from './core/Camera.js';
+import { camera, introZoom, followTarget, introPan, updateIntroZoom } from './core/Camera.js';
 import { keys, initInput } from './core/Input.js';
 import { loadAssets } from './systems/AssetLoader.js';
 import { initAudio, toggleMute } from './systems/AudioSystem.js';
@@ -15,6 +15,7 @@ import { toggleAchievePanel, closeAchievePanel, isAchievePanelOpen } from './ui/
 import { initIntroScreen, isAssetsReady, startGame, onLoadProgress, onLoadComplete, onLoadFailed } from './ui/IntroScreen.js';
 import { updateParticles } from './systems/ParticleSystem.js';
 import { render, setRenderDeps } from './rendering/Renderer.js';
+import { updateZoneAnnouncementAnim } from './rendering/Overlays.js';
 import { checkAchievements } from './systems/AchievementSystem.js';
 import { updateWind, spawnWindParticles } from './systems/WindSystem.js';
 import { WORLD_W, WORLD_H } from './data/gameConfig.js';
@@ -49,6 +50,8 @@ document.getElementById(DomId.MUTE_BTN).addEventListener('click', () => {
 
 // Update — dt normalizes all frame-counter logic to 60fps regardless of display refresh rate
 function update(dt) {
+    updateIntroZoom(Date.now());
+
     if (mode === GameMode.INTRO) {
         introPan(WORLD_W, WORLD_H);
         animateWorld(dt);
@@ -79,6 +82,7 @@ function update(dt) {
     }
 
     updateZone();
+    updateZoneAnnouncementAnim(zoneAnnouncement, Date.now());
     checkAchievements();
 }
 

@@ -15,12 +15,11 @@ import { drawProximityIndicator, drawBottomHUD } from './HUD.js';
 import { drawZoneAnnouncement, drawAchievementToast } from './Overlays.js';
 import { drawClouds } from './Clouds.js';
 import {
-    ZOOM_DURATION, ZOOM_START_SCALE, ZOOM_RANGE, ZOOM_EASE_POWER,
     ANIM_SPEED, ANIM_FRAMES, COLOR_GRASS,
     CULL_FOAM, CULL_WATER_ROCKS, CULL_BUILDING, CULL_TREE_X, CULL_TREE_Y_TOP, CULL_TREE_Y_BOT,
     CULL_DECO, CULL_MONUMENT, CULL_FIRE, CULL_NPC, CULL_SHEEP,
     YSORT_TREE, YSORT_DECO, YSORT_MONUMENT, YSORT_FIRE, YSORT_SHEEP,
-    FOAM_FRAME_SIZE, WATER_ROCK_FRAME_SIZE,
+    FOAM_DRAW_SCALE, FOAM_FRAME_SIZE, WATER_ROCK_FRAME_SIZE,
     NPC_DEFAULT_FH, NPC_DEFAULT_SCALE,
 } from './RenderConfig.js';
 
@@ -42,15 +41,7 @@ export function render() {
     const ox = -camera.x, oy = -camera.y;
     const now = Date.now();
 
-    // Intro zoom
-    if (introZoom.active) {
-        const elapsed = (now - introZoom.startTime) / ZOOM_DURATION;
-        if (elapsed >= 1) { introZoom.active = false; introZoom.scale = 1; }
-        else {
-            const ease = 1 - Math.pow(1 - elapsed, ZOOM_EASE_POWER);
-            introZoom.scale = ZOOM_START_SCALE - ZOOM_RANGE * ease;
-        }
-    }
+    // Intro zoom (state updated in Camera.updateIntroZoom during update phase)
     if (introZoom.scale !== 1) {
         ctx.save();
         ctx.translate(w / 2, h / 2);
@@ -141,13 +132,13 @@ export function render() {
 
     // Cloud layer (above entities, below HUD)
     drawClouds(ox, oy, now);
-    drawZoneAnnouncement(_zoneAnnouncement, w, h, now);
+    drawZoneAnnouncement(_zoneAnnouncement, w, h);
 
     // Overlays (only during gameplay)
     const nearB = _getNearBuilding();
     if (nearB && mode === GameMode.PLAYING) drawProximityIndicator(nearB, ox, oy, now);
     if (mode === GameMode.PLAYING) drawBottomHUD(nearB, w, h);
-    if (mode === GameMode.PLAYING) drawAchievementToast(w, h);
+    if (mode === GameMode.PLAYING) drawAchievementToast(w, h, now);
 
     if (introZoom.scale !== 1) ctx.restore();
 }
