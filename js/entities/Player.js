@@ -1,25 +1,11 @@
-/* Player state, movement, collision, animation, and drawing */
-import { ctx } from '../core/Canvas.js';
+/* Player state, movement, collision, and animation */
 import { keys } from '../core/Input.js';
-import { IMG } from '../systems/AssetLoader.js';
 import { buildings } from '../world/WorldBuilder.js';
 import { spawnParticle } from '../systems/ParticleSystem.js';
 import { play } from '../systems/AudioSystem.js';
 import { isRectCollidingBuilding } from '../world/Collision.js';
 import { WATER_Y } from '../data/terrain.js';
-
-// Game constants
-const SPEED = 2.5;
-const WORLD_W = 2800;
-const WORLD_H = 2000;
-
-// Player rendering
-const FRAME_W = 96;
-const FRAME_H = 80;
-const DRAW_SCALE = 2.0;
-const DRAW_Y_OFFSET = 42;
-const SHADOW_RX = 16;
-const SHADOW_RY = 5;
+import { SPEED, WORLD_W, WORLD_H } from '../data/gameConfig.js';
 
 // Player physics
 const SPRINT_MULTIPLIER = 2;
@@ -126,18 +112,3 @@ export function updatePlayer() {
     }
 }
 
-export function drawPlayer(sx, sy) {
-    const dirMap = player.walking
-        ? { up: 'runUp', down: 'runDown', left: 'runLeft', right: 'runRight' }
-        : { up: 'idleUp', down: 'idleDown', left: 'idleLeft', right: 'idleRight' };
-    const img = IMG[dirMap[player.facing]];
-    if (!img) return;
-    const dw = FRAME_W * DRAW_SCALE, dh = FRAME_H * DRAW_SCALE;
-    const drawX = sx + player.w / 2 - dw / 2;
-    const drawY = sy + player.h - dh + DRAW_Y_OFFSET;
-    ctx.fillStyle = 'rgba(0,0,0,0.2)';
-    ctx.beginPath();
-    ctx.ellipse(sx + player.w / 2, sy + player.h, SHADOW_RX, SHADOW_RY, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.drawImage(img, player.frame * FRAME_W, 0, FRAME_W, FRAME_H, drawX, drawY, dw, dh);
-}

@@ -15,11 +15,6 @@ export function getBuildingCollisionRect(b) {
     };
 }
 
-export function isPointInBuilding(px, py, b) {
-    const r = getBuildingCollisionRect(b);
-    return px > r.x && px < r.x + r.w && py > r.y && py < r.y + r.h;
-}
-
 export function isRectCollidingBuilding(rx, ry, rw, rh, b) {
     const c = getBuildingCollisionRect(b);
     return rx < c.x + c.w && rx + rw > c.x && ry < c.y + c.h && ry + rh > c.y;

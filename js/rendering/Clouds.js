@@ -4,8 +4,7 @@ import { IMG } from '../systems/AssetLoader.js';
 import { clouds } from '../world/WorldBuilder.js';
 import { drawImg } from '../utils/sprites.js';
 import { CLOUD_ALPHA, CLOUD_DRIFT_SPEED, CLOUD_WRAP_PAD, CLOUD_PARALLAX } from './RenderConfig.js';
-
-const WORLD_W = 2800;
+import { WORLD_W } from '../data/gameConfig.js';
 
 export function drawClouds(ox, oy, now) {
     ctx.globalAlpha = CLOUD_ALPHA;

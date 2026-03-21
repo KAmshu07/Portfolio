@@ -2,7 +2,7 @@
 import { ctx } from '../core/Canvas.js';
 import { isAllVisited } from '../core/GameState.js';
 import { IMG } from '../systems/AssetLoader.js';
-import { player, drawPlayer } from '../entities/Player.js';
+import { player } from '../entities/Player.js';
 import { npcs } from '../world/WorldBuilder.js';
 import { drawFrame, drawImg } from '../utils/sprites.js';
 import { drawParticle } from '../systems/ParticleSystem.js';
@@ -32,6 +32,14 @@ function drawNameplate(label, cx, cy) {
     ctx.textAlign = 'center';
     ctx.fillText(label, cx, cy);
 }
+
+// Player rendering constants
+const PLAYER_FRAME_W = 96;
+const PLAYER_FRAME_H = 80;
+const PLAYER_DRAW_SCALE = 2.0;
+const PLAYER_DRAW_Y_OFFSET = 42;
+const PLAYER_SHADOW_RX = 16;
+const PLAYER_SHADOW_RY = 5;
 
 /* ─── Dispatch map ─── */
 export const renderers = {
@@ -101,7 +109,19 @@ export const renderers = {
         drawFrame(img, n.frame, fw, fh, item.sx, footY - dh + yo, s, n.facing === -1);
     },
     player(item) {
-        drawPlayer(item.sx, item.sy);
+        const dirMap = player.walking
+            ? { up: 'runUp', down: 'runDown', left: 'runLeft', right: 'runRight' }
+            : { up: 'idleUp', down: 'idleDown', left: 'idleLeft', right: 'idleRight' };
+        const img = IMG[dirMap[player.facing]];
+        if (!img) return;
+        const dw = PLAYER_FRAME_W * PLAYER_DRAW_SCALE, dh = PLAYER_FRAME_H * PLAYER_DRAW_SCALE;
+        const drawX = item.sx + player.w / 2 - dw / 2;
+        const drawY = item.sy + player.h - dh + PLAYER_DRAW_Y_OFFSET;
+        ctx.fillStyle = 'rgba(0,0,0,0.2)';
+        ctx.beginPath();
+        ctx.ellipse(item.sx + player.w / 2, item.sy + player.h, PLAYER_SHADOW_RX, PLAYER_SHADOW_RY, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.drawImage(img, player.frame * PLAYER_FRAME_W, 0, PLAYER_FRAME_W, PLAYER_FRAME_H, drawX, drawY, dw, dh);
     },
     particle: drawParticle,
 };

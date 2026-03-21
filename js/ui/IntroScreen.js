@@ -13,7 +13,7 @@ let loadFailed = false;
 
 export function isAssetsReady() { return assetsReady; }
 
-export function onLoadProgress(done, total) {
+export function onLoadProgress(done, total, failed = 0) {
     const pct = Math.round(done / total * 100);
     btn.textContent = `Loading... ${pct}%`;
     loadingBar.style.width = pct + '%';
@@ -44,7 +44,7 @@ export function startGame() {
     setTimeout(() => triggerGuideWind(), 2000);
 }
 
-export function handleIntroClick() {
+function handleIntroClick() {
     if (loadFailed) { window.open('Amritanshu_Kumar_Resume.pdf'); return; }
     if (assetsReady) startGame();
 }

@@ -13,7 +13,7 @@ let cachedNearB = null;
 function findNearBuilding() {
     const pcx = player.x + player.w / 2;
     const pcy = player.y + player.h / 2;
-    let nearest = null, dist = 999;
+    let nearest = null, dist = Infinity;
     for (const b of buildings) {
         const bcx = b.x + b.w / 2;
         const bcy = b.y + b.h / 2;

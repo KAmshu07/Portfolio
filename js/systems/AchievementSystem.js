@@ -1,7 +1,6 @@
 /* Achievement system — evaluates declarative conditions, tracks completion, manages toast queue */
 import { achievementDefs } from '../data/achievements.js';
 import { visitedBuildings, isAllVisited } from '../core/GameState.js';
-import { TOTAL_BUILDINGS } from '../data/buildings.js';
 
 // State
 const completed = new Set();

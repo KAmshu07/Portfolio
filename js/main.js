@@ -17,9 +17,7 @@ import { updateParticles } from './systems/ParticleSystem.js';
 import { render, setRenderDeps } from './rendering/Renderer.js';
 import { checkAchievements } from './systems/AchievementSystem.js';
 import { updateWind, spawnWindParticles } from './systems/WindSystem.js';
-
-const WORLD_W = 2800;
-const WORLD_H = 2000;
+import { WORLD_W, WORLD_H } from './data/gameConfig.js';
 
 // Init
 resize();
