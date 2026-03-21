@@ -5,6 +5,8 @@ import { drawFrame } from '../utils/sprites.js';
 import { ParticleType } from '../data/enums.js';
 
 const MAX_PARTICLES = 120;
+const PARTICLE_ANIM_RATE = 4;
+const PARTICLE_ANIM_FRAMES = 8;
 const pool = [];
 
 export function spawnParticle(type, x, y, opts = {}) {
@@ -36,7 +38,7 @@ export function updateParticles() {
 
         if (p.type === ParticleType.DUST || p.type === ParticleType.SPLASH) {
             p.frameTimer++;
-            if (p.frameTimer >= 4) { p.frameTimer = 0; p.frame = (p.frame + 1) % 8; }
+            if (p.frameTimer >= PARTICLE_ANIM_RATE) { p.frameTimer = 0; p.frame = (p.frame + 1) % PARTICLE_ANIM_FRAMES; }
         }
 
         if (p.life <= 0) { pool.splice(i, 1); }

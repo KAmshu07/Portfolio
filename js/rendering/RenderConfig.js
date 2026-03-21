@@ -15,6 +15,10 @@ export const NAMEPLATE_PAD_X = 10;
 export const NAMEPLATE_PAD_Y = 4;
 export const NAMEPLATE_RADIUS = 6;
 export const NAMEPLATE_STROKE_WIDTH = 1.5;
+export const NAMEPLATE_LINE_HEIGHT = 16;
+export const NAMEPLATE_Y_OFFSET = 12;
+export const NAMEPLATE_FADE_IN_STEP = 0.05;
+export const NAMEPLATE_FADE_OUT_STEP = 0.08;
 
 // Proximity indicator
 export const PROX_Y_OFFSET = 30;
@@ -61,6 +65,18 @@ export const TREE_BEHIND_ALPHA = 0.4;
 export const TREE_DEFAULT_FADE = { xR: 70, yD: 160, base: 200 };
 export const TREE_TRUNK_X_OFFSET = 96;
 export const NPC_BEHIND_CHECK = { x: 48, y: 80 };
+
+// NPC defaults
+export const NPC_DEFAULT_FW = 192;
+export const NPC_DEFAULT_FH = 192;
+export const NPC_DEFAULT_SCALE = 0.5;
+export const NPC_DEFAULT_Y_OFFSET = 5;
+export const NPC_SHADOW_RX = 14;
+export const NPC_SHADOW_RY = 4;
+
+// Foam / water rock frame sizes
+export const FOAM_FRAME_SIZE = 192;
+export const WATER_ROCK_FRAME_SIZE = 128;
 
 export const FIRE_FRAME_SIZE = 64;
 export const FIRE_Y_OFFSET = -20;

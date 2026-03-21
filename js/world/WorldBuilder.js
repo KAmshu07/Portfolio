@@ -5,6 +5,16 @@ import { flowerSpots, pathDecos, bushGeneration, rockGeneration } from '../data/
 import { WATER_Y, monument as monumentDef, fires as fireDefs, sheep as sheepDef, waterRocks as waterRockDefs, foamSpots as foamSpotDefs, clouds as cloudDefs } from '../data/terrain.js';
 import { NPCState, FlowerAssets } from '../data/enums.js';
 
+// Animation rates and frame counts for animateWorld()
+const TREE_ANIM_RATE = 10;
+const TREE_ANIM_FRAMES = 8;
+const DECO_ANIM_RATE = 12;
+const DECO_ANIM_FRAMES = 8;
+const FIRE_ANIM_RATE = 6;
+const FIRE_ANIM_FRAMES = 8;
+const SHEEP_ANIM_RATE = 10;
+const SHEEP_ANIM_FRAMES = 6;
+
 // Buildings — pure data + runtime state (nameplateAlpha)
 export const buildings = buildingDefs.map(b => ({ ...b, nameplateAlpha: 0 }));
 
@@ -265,8 +275,8 @@ export const npcs = [
 
 // Animate all world objects (trees, decos, fires, sheep)
 export function animateWorld() {
-    for (const tr of trees) { tr.timer++; if (tr.timer >= 10) { tr.timer = 0; tr.frame = (tr.frame + 1) % 8; } }
-    for (const d of decos) { if (!d.isStatic) { d.timer++; if (d.timer >= 12) { d.timer = 0; d.frame = (d.frame + 1) % 8; } } }
-    for (const f of fires) { f.timer++; if (f.timer >= 6) { f.timer = 0; f.frame = (f.frame + 1) % 8; } }
-    sheep.timer++; if (sheep.timer >= 10) { sheep.timer = 0; sheep.frame = (sheep.frame + 1) % 6; }
+    for (const tr of trees) { tr.timer++; if (tr.timer >= TREE_ANIM_RATE) { tr.timer = 0; tr.frame = (tr.frame + 1) % TREE_ANIM_FRAMES; } }
+    for (const d of decos) { if (!d.isStatic) { d.timer++; if (d.timer >= DECO_ANIM_RATE) { d.timer = 0; d.frame = (d.frame + 1) % DECO_ANIM_FRAMES; } } }
+    for (const f of fires) { f.timer++; if (f.timer >= FIRE_ANIM_RATE) { f.timer = 0; f.frame = (f.frame + 1) % FIRE_ANIM_FRAMES; } }
+    sheep.timer++; if (sheep.timer >= SHEEP_ANIM_RATE) { sheep.timer = 0; sheep.frame = (sheep.frame + 1) % SHEEP_ANIM_FRAMES; }
 }

@@ -12,7 +12,10 @@ import {
     TREE_DEFAULT_FADE, TREE_TRUNK_X_OFFSET, NPC_BEHIND_CHECK,
     FIRE_FRAME_SIZE, FIRE_Y_OFFSET, FIRE_SCALE,
     SHEEP_FRAME_SIZE, SHEEP_SCALE, FLOWER_PULSE_SPEED,
-    COLOR_NPC_SHADOW, COLOR_NAMEPLATE_BG, COLOR_NAMEPLATE_BORDER, COLOR_GOLD,
+    NPC_DEFAULT_FW, NPC_DEFAULT_FH, NPC_DEFAULT_SCALE, NPC_DEFAULT_Y_OFFSET,
+    NPC_SHADOW_RX, NPC_SHADOW_RY,
+    NAMEPLATE_LINE_HEIGHT, NAMEPLATE_Y_OFFSET,
+    COLOR_SHADOW, COLOR_NPC_SHADOW, COLOR_NAMEPLATE_BG, COLOR_NAMEPLATE_BORDER, COLOR_GOLD,
     NAMEPLATE_FONT_SIZE, NAMEPLATE_PAD_X, NAMEPLATE_PAD_Y, NAMEPLATE_RADIUS, NAMEPLATE_STROKE_WIDTH,
     FONT_PIXEL,
 } from './RenderConfig.js';
@@ -23,8 +26,8 @@ function drawNameplate(label, cx, cy) {
     const tw = ctx.measureText(label).width;
     ctx.fillStyle = COLOR_NAMEPLATE_BG;
     ctx.beginPath();
-    if (ctx.roundRect) ctx.roundRect(cx - tw / 2 - NAMEPLATE_PAD_X, cy - NAMEPLATE_FONT_SIZE - NAMEPLATE_PAD_Y, tw + NAMEPLATE_PAD_X * 2, 16 + NAMEPLATE_PAD_Y * 2, NAMEPLATE_RADIUS);
-    else ctx.rect(cx - tw / 2 - NAMEPLATE_PAD_X, cy - NAMEPLATE_FONT_SIZE - NAMEPLATE_PAD_Y, tw + NAMEPLATE_PAD_X * 2, 16 + NAMEPLATE_PAD_Y * 2);
+    if (ctx.roundRect) ctx.roundRect(cx - tw / 2 - NAMEPLATE_PAD_X, cy - NAMEPLATE_FONT_SIZE - NAMEPLATE_PAD_Y, tw + NAMEPLATE_PAD_X * 2, NAMEPLATE_LINE_HEIGHT + NAMEPLATE_PAD_Y * 2, NAMEPLATE_RADIUS);
+    else ctx.rect(cx - tw / 2 - NAMEPLATE_PAD_X, cy - NAMEPLATE_FONT_SIZE - NAMEPLATE_PAD_Y, tw + NAMEPLATE_PAD_X * 2, NAMEPLATE_LINE_HEIGHT + NAMEPLATE_PAD_Y * 2);
     ctx.fill();
     ctx.strokeStyle = COLOR_NAMEPLATE_BORDER;
     ctx.lineWidth = NAMEPLATE_STROKE_WIDTH;
@@ -49,7 +52,7 @@ export const renderers = {
         if (IMG[b.asset]) drawImg(IMG[b.asset], item.sx, item.sy, 1.0);
         if (b.nameplateAlpha > 0.01) {
             ctx.globalAlpha = b.nameplateAlpha;
-            drawNameplate(b.label, item.sx + b.w / 2, item.sy - 12);
+            drawNameplate(b.label, item.sx + b.w / 2, item.sy - NAMEPLATE_Y_OFFSET);
             ctx.globalAlpha = 1;
         }
     },
@@ -97,15 +100,15 @@ export const renderers = {
         const n = item.data;
         const img = n.state === NPCState.WALK ? IMG[n.runAsset] : IMG[n.idleAsset];
         if (!img) return;
-        const fw = n.fw || 192, fh = n.fh || 192;
-        const s = n.scale ?? 0.5;
-        const yo = n.yOffset ?? 5;
+        const fw = n.fw || NPC_DEFAULT_FW, fh = n.fh || NPC_DEFAULT_FH;
+        const s = n.scale ?? NPC_DEFAULT_SCALE;
+        const yo = n.yOffset ?? NPC_DEFAULT_Y_OFFSET;
         const dw = fw * s, dh = fh * s;
         const footX = item.sx + dw / 2;
         const footY = item.sy + dh - yo;
         ctx.fillStyle = COLOR_NPC_SHADOW;
         ctx.beginPath();
-        ctx.ellipse(footX, footY, 14, 4, 0, 0, Math.PI * 2);
+        ctx.ellipse(footX, footY, NPC_SHADOW_RX, NPC_SHADOW_RY, 0, 0, Math.PI * 2);
         ctx.fill();
         drawFrame(img, n.frame, fw, fh, item.sx, footY - dh + yo, s, n.facing === -1);
     },
@@ -116,7 +119,7 @@ export const renderers = {
         const dw = PLAYER_FRAME_W * PLAYER_DRAW_SCALE, dh = PLAYER_FRAME_H * PLAYER_DRAW_SCALE;
         const drawX = item.sx + player.w / 2 - dw / 2;
         const drawY = item.sy + player.h - dh + PLAYER_DRAW_Y_OFFSET;
-        ctx.fillStyle = 'rgba(0,0,0,0.2)';
+        ctx.fillStyle = COLOR_SHADOW;
         ctx.beginPath();
         ctx.ellipse(item.sx + player.w / 2, item.sy + player.h, PLAYER_SHADOW_RX, PLAYER_SHADOW_RY, 0, 0, Math.PI * 2);
         ctx.fill();

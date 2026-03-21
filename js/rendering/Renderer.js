@@ -20,6 +20,8 @@ import {
     CULL_FOAM, CULL_WATER_ROCKS, CULL_BUILDING, CULL_TREE_X, CULL_TREE_Y_TOP, CULL_TREE_Y_BOT,
     CULL_DECO, CULL_MONUMENT, CULL_FIRE, CULL_NPC, CULL_SHEEP,
     YSORT_TREE, YSORT_DECO, YSORT_MONUMENT, YSORT_FIRE, YSORT_SHEEP,
+    FOAM_FRAME_SIZE, WATER_ROCK_FRAME_SIZE,
+    NPC_DEFAULT_FH, NPC_DEFAULT_SCALE,
 } from './RenderConfig.js';
 
 function inView(sx, sy, margin) {
@@ -77,7 +79,7 @@ export function render() {
     if (IMG.foam) {
         for (const fs of foamSpots) {
             const fx = fs.x + ox, fy = fs.y + oy;
-            if (inView(fx, fy, CULL_FOAM)) drawFrame(IMG.foam, animFrame, 192, 192, fx, fy, 0.5, false);
+            if (inView(fx, fy, CULL_FOAM)) drawFrame(IMG.foam, animFrame, FOAM_FRAME_SIZE, FOAM_FRAME_SIZE, fx, fy, 0.5, false);
         }
     }
 
@@ -85,7 +87,7 @@ export function render() {
     for (const wr of waterRocks) {
         const rx = wr.x + ox, ry = wr.y + oy;
         if (inView(rx, ry, CULL_WATER_ROCKS) && IMG[wr.asset]) {
-            drawFrame(IMG[wr.asset], animFrame, 128, 128, rx, ry, 1.0, false);
+            drawFrame(IMG[wr.asset], animFrame, WATER_ROCK_FRAME_SIZE, WATER_ROCK_FRAME_SIZE, rx, ry, 1.0, false);
         }
     }
 
@@ -116,7 +118,7 @@ export function render() {
     }
     for (const n of npcs) {
         const sx = n.x + ox, sy = n.y + oy;
-        const sortY = n.y + (n.fh || 192) * (n.scale ?? 0.5);
+        const sortY = n.y + (n.fh || NPC_DEFAULT_FH) * (n.scale ?? NPC_DEFAULT_SCALE);
         if (inView(sx, sy, CULL_NPC)) drawList.push({ y: sortY, type: EntityType.NPC, data: n, sx, sy });
     }
     {

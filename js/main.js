@@ -19,6 +19,7 @@ import { checkAchievements } from './systems/AchievementSystem.js';
 import { updateWind, spawnWindParticles } from './systems/WindSystem.js';
 import { WORLD_W, WORLD_H } from './data/gameConfig.js';
 import { GameMode, KeyCode, DomId, UIText } from './data/enums.js';
+import { NAMEPLATE_FADE_IN_STEP, NAMEPLATE_FADE_OUT_STEP } from './rendering/RenderConfig.js';
 
 // Init
 resize();
@@ -67,9 +68,9 @@ function update() {
     const nearB = getNearBuilding();
     for (const b of buildings) {
         if (nearB && b.label === nearB.label) {
-            b.nameplateAlpha = Math.min(1, b.nameplateAlpha + 0.05);
+            b.nameplateAlpha = Math.min(1, b.nameplateAlpha + NAMEPLATE_FADE_IN_STEP);
         } else {
-            b.nameplateAlpha = Math.max(0, b.nameplateAlpha - 0.08);
+            b.nameplateAlpha = Math.max(0, b.nameplateAlpha - NAMEPLATE_FADE_OUT_STEP);
         }
     }
 
