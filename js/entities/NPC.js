@@ -1,7 +1,11 @@
 /* NPC AI — state machine (idle/walk/chat), waypoint movement, collision, meetings */
 import { buildings } from '../world/WorldBuilder.js';
-import { getBuildingCollisionRect } from '../world/Collision.js';
+import { isRectCollidingBuilding } from '../world/Collision.js';
 import { NPCState } from '../data/enums.js';
+
+// NPC collision hitbox (centered on position)
+const NPC_HITBOX_W = 20;
+const NPC_HITBOX_H = 20;
 
 // NPC behavior constants
 const IDLE_FRAME_RATE = 10;
@@ -48,8 +52,7 @@ export function updateNPCs(npcs) {
                 const ny = npc.y + (dy / dist) * npc.speed;
                 let blocked = false;
                 for (const b of buildings) {
-                    const c = getBuildingCollisionRect(b);
-                    if (nx > c.x && nx < c.x + c.w && ny > c.y && ny < c.y + c.h) { blocked = true; break; }
+                    if (isRectCollidingBuilding(nx - NPC_HITBOX_W / 2, ny - NPC_HITBOX_H / 2, NPC_HITBOX_W, NPC_HITBOX_H, b)) { blocked = true; break; }
                 }
                 if (!blocked) { npc.x = nx; npc.y = ny; }
                 else { npc.state = NPCState.IDLE; npc.idleTimer = 0; npc.currentWP = (npc.currentWP + 1) % npc.waypoints.length; }

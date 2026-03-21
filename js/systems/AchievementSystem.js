@@ -2,6 +2,7 @@
 import { achievementDefs } from '../data/achievements.js';
 import { visitedBuildings, isAllVisited } from '../core/GameState.js';
 import { AchievementCondition, AchievementFlag } from '../data/enums.js';
+import { TOAST_FADE_OUT } from '../rendering/RenderConfig.js';
 
 // State
 const completed = new Set();
@@ -51,7 +52,7 @@ export function checkAchievements() {
     }
     if (activeToast) {
         const elapsed = (Date.now() - activeToast.startTime) / 1000;
-        if (elapsed > 3) activeToast = null;
+        if (elapsed > TOAST_FADE_OUT) activeToast = null;
     }
 }
 

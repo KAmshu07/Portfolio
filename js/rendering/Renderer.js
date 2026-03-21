@@ -3,6 +3,7 @@ import { ctx, viewport } from '../core/Canvas.js';
 import { camera, introZoom } from '../core/Camera.js';
 import { mode } from '../core/GameState.js';
 import { GameMode, EntityType } from '../data/enums.js';
+import { TILE } from '../data/gameConfig.js';
 import { IMG } from '../systems/AssetLoader.js';
 import { player } from '../entities/Player.js';
 import { buildings, trees, decos, monument, fires, sheep, npcs, waterRocks, foamSpots } from '../world/WorldBuilder.js';
@@ -20,8 +21,6 @@ import {
     CULL_DECO, CULL_MONUMENT, CULL_FIRE, CULL_NPC, CULL_SHEEP,
     YSORT_TREE, YSORT_DECO, YSORT_MONUMENT, YSORT_FIRE, YSORT_SHEEP,
 } from './RenderConfig.js';
-
-const TILE = 64;
 
 function inView(sx, sy, margin) {
     return sx > -margin && sx < viewport.w + margin && sy > -margin && sy < viewport.h + margin;
@@ -65,9 +64,9 @@ export function render() {
         for (let gx = sx; gx < w + TILE; gx += TILE) {
             for (let gy = sy; gy < h + TILE; gy += TILE) {
                 if (gy + camera.y >= WATER_Y) {
-                    if (IMG.water) ctx.drawImage(IMG.water, 0, 0, 64, 64, gx, gy, TILE, TILE);
+                    if (IMG.water) ctx.drawImage(IMG.water, 0, 0, TILE, TILE, gx, gy, TILE, TILE);
                 } else {
-                    ctx.drawImage(IMG.tilemap, 64, 64, 64, 64, gx, gy, TILE, TILE);
+                    ctx.drawImage(IMG.tilemap, TILE, TILE, TILE, TILE, gx, gy, TILE, TILE);
                 }
             }
         }
