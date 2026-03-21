@@ -63,7 +63,7 @@ export function updateNPCs(npcs, dt) {
         }
     }
 
-    for (const npc of npcs) { if (npc.chatCooldown > 0) npc.chatCooldown -= dt; }
+    for (const npc of npcs) { if (npc.chatCooldown > 0) npc.chatCooldown = Math.max(0, npc.chatCooldown - dt); }
 
     for (let i = 0; i < npcs.length; i++) {
         for (let j = i + 1; j < npcs.length; j++) {

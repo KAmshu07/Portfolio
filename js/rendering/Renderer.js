@@ -70,7 +70,7 @@ export function render() {
     if (IMG.foam) {
         for (const fs of foamSpots) {
             const fx = fs.x + ox, fy = fs.y + oy;
-            if (inView(fx, fy, CULL_FOAM)) drawFrame(IMG.foam, animFrame, FOAM_FRAME_SIZE, FOAM_FRAME_SIZE, fx, fy, 0.5, false);
+            if (inView(fx, fy, CULL_FOAM)) drawFrame(IMG.foam, animFrame, FOAM_FRAME_SIZE, FOAM_FRAME_SIZE, fx, fy, FOAM_DRAW_SCALE, false);
         }
     }
 

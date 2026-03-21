@@ -88,6 +88,7 @@ function update(dt) {
 
 // Game loop — calculates delta-time normalized to 60fps
 function loop(timestamp) {
+    if (!lastTime) { lastTime = timestamp; requestAnimationFrame(loop); return; }
     const elapsed = timestamp - lastTime;
     lastTime = timestamp;
     const dt = elapsed / TARGET_FRAME_MS;

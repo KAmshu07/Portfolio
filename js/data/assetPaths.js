@@ -46,7 +46,6 @@ export const assetPaths = {
     wrocks4: 'Assets/Tiny Swords (Update 010)/Terrain/Water/Rocks/Rocks_04.png',
     // Particle effects
     dust1:   'Assets/Tiny Swords (Free Pack)/Particle FX/Dust_01.png',
-    dust2:   'Assets/Tiny Swords (Free Pack)/Particle FX/Dust_02.png',
     splash:  'Assets/Tiny Swords (Free Pack)/Particle FX/Water Splash.png',
     // Clouds
     cloud1:  'Assets/Tiny Swords (Free Pack)/Terrain/Decorations/Clouds/Clouds_01.png',
