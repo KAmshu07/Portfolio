@@ -79,7 +79,7 @@ export function updatePlayer() {
     // Animation (8 frames for both idle and run)
     if (player.walking) {
         player.ft++;
-        if (player.ft > 5) { player.ft = 0; player.frame = (player.frame + 1) % 8; play('footstep'); }
+        if (player.ft > 5) { player.ft = 0; player.frame = (player.frame + 1) % 8; if (player.frame % 4 === 0) play('footstep'); }
     } else {
         player.ft++;
         if (player.ft > 8) { player.ft = 0; player.frame = (player.frame + 1) % 8; }
