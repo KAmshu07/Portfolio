@@ -2,8 +2,8 @@
 import { viewport } from '../core/Canvas.js';
 import { keys } from '../core/Input.js';
 import { visitedBuildings, isAllVisited } from '../core/GameState.js';
-import { player } from '../player.js';
-import { buildings } from '../world.js';
+import { player } from '../entities/Player.js';
+import { buildings } from '../world/WorldBuilder.js';
 import { spawnParticle } from './ParticleSystem.js';
 import { markWindUsed } from './AchievementSystem.js';
 
