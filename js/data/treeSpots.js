@@ -21,3 +21,15 @@ export const treeSpots = [
     // Near water
     [300,1400],[1500,1350],[2000,1350],[2400,1400],
 ];
+
+// Named tree references for NPC waypoints — keyed by purpose, not index
+export const namedTrees = {
+    nw1:          { x: 200,  y: 500 },   // About quarter — woodcutter start
+    nw2:          { x: 500,  y: 550 },   // About quarter — woodcutter/shepherd
+    gate:         { x: 700,  y: 500 },   // Gate between about & projects
+    projectTree1: { x: 1550, y: 300 },   // Projects district — lumberjack
+    projectTree2: { x: 2000, y: 200 },   // Projects district — lumberjack
+    projectTree3: { x: 1400, y: 700 },   // Path to projects — lumberjack
+    border:       { x: 2550, y: 850 },   // East border — miner destination
+    water:        { x: 1500, y: 1350 },  // Near water — border guard route
+};
