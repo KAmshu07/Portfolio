@@ -1,0 +1,27 @@
+/* Base — CSS variables, reset, canvas, typography */
+
+:root {
+    --bg: #0b0b0d;
+    --accent: #c7003d;
+    --teal: #75f0c8;
+    --gold: #d4a853;
+    --text: #e8e4e0;
+    --text-muted: rgba(232, 228, 224, 0.5);
+    --font-pixel: 'Press Start 2P', monospace;
+    --font-body: 'Outfit', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+body { font-family: var(--font-body); color: var(--text); }
+a { color: inherit; text-decoration: none; }
+
+/* Game Canvas */
+#game {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 1;
+}

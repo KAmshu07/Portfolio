@@ -1,0 +1,177 @@
+/* Info Panel — game dialogue box for building content */
+
+.info-panel {
+    position: fixed;
+    top: 12%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 80;
+    width: 90%;
+    max-width: 660px;
+    pointer-events: none;
+}
+.info-panel-inner {
+    width: 100%;
+    max-height: 45vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 22px 28px;
+    background: linear-gradient(160deg, #f0e2c8 0%, #e8d8b8 50%, #f0e0c0 100%);
+    border: 3px solid #b8956a;
+    border-radius: 4px;
+    outline: 2px solid #3a2a1a;
+    outline-offset: -1px;
+    color: #3a2a1a;
+    box-shadow:
+        inset 0 0 0 1px #d8c8a8,
+        inset 0 2px 8px rgba(0,0,0,0.1),
+        0 0 0 4px rgba(10,5,0,0.4),
+        0 6px 24px rgba(0,0,0,0.4);
+    pointer-events: auto;
+    clip-path: inset(50% 50% 50% 50% round 4px);
+    opacity: 0;
+    transition: clip-path 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.4s ease;
+}
+.info-panel-inner::-webkit-scrollbar { display: none; }
+.info-panel.visible .info-panel-inner {
+    clip-path: inset(0% 0% 0% 0% round 4px);
+    opacity: 1;
+    max-height: 45vh;
+}
+
+/* Popup content typography */
+.info-panel-inner h2 {
+    font-family: var(--font-pixel);
+    font-size: 11px;
+    color: #3a2a1a;
+    margin-bottom: 4px;
+    line-height: 1.5;
+    text-shadow: 1px 1px 0 rgba(240,220,180,0.5);
+}
+.info-panel-inner .popup-badge {
+    display: inline-block;
+    font-family: var(--font-pixel);
+    font-size: 7px;
+    color: #8a2020;
+    border: 1px solid rgba(140,30,30,0.3);
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+    background: rgba(140,30,30,0.08);
+}
+.info-panel-inner .popup-metrics {
+    font-family: var(--font-pixel);
+    font-size: 8px;
+    color: #8a6a30;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+.info-panel-inner p {
+    font-size: 12px;
+    font-weight: 400;
+    color: #4a3a2a;
+    line-height: 1.55;
+    margin-bottom: 8px;
+}
+.info-panel-inner ul { padding-left: 14px; margin-bottom: 8px; }
+.info-panel-inner li {
+    font-size: 11px;
+    color: #5a4a3a;
+    line-height: 1.5;
+    padding-bottom: 2px;
+    list-style: disc;
+}
+.info-panel-inner .popup-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin: 6px 0;
+}
+.info-panel-inner .popup-pills span {
+    font-family: var(--font-pixel);
+    font-size: 7px;
+    padding: 3px 7px;
+    border-radius: 8px;
+    background: rgba(60,40,20,0.1);
+    border: 1px solid rgba(60,40,20,0.25);
+    color: #5a4030;
+}
+.info-panel-inner .popup-link {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #6a4a20;
+    margin-top: 8px;
+    transition: color 0.3s;
+    text-decoration: underline;
+}
+.info-panel-inner .highlight { color: #8a6a30; }
+.info-panel-inner .popup-link:hover { color: #3a2a10; }
+.info-panel-inner .popup-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin: 8px 0;
+}
+.info-panel-inner .popup-tags span {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 12px;
+    border: 1px solid;
+}
+.info-panel-inner .popup-tags .t-lang {
+    background: rgba(140,30,30,0.1);
+    border-color: rgba(140,30,30,0.3);
+    color: #8a3030;
+}
+.info-panel-inner .popup-tags .t-engine {
+    background: rgba(120,90,30,0.12);
+    border-color: rgba(120,90,30,0.3);
+    color: #7a5a20;
+}
+.info-panel-inner .popup-tags .t-infra {
+    background: rgba(60,40,20,0.08);
+    border-color: rgba(60,40,20,0.2);
+    color: #6a5a4a;
+}
+.info-panel-inner .popup-tags .t-devops {
+    background: rgba(30,80,130,0.1);
+    border-color: rgba(30,80,130,0.25);
+    color: #2a5a8a;
+}
+.info-panel-inner .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-top: 8px;
+}
+.info-panel-inner .contact-card {
+    padding: 10px;
+    background: rgba(60,40,20,0.08);
+    border: 1px solid #c8b898;
+    border-radius: 3px;
+    transition: border-color 0.3s, background 0.3s;
+    text-decoration: none;
+    display: block;
+}
+.info-panel-inner .contact-card:hover {
+    border-color: #8a6a30;
+    background: rgba(60,40,20,0.15);
+}
+.info-panel-inner .contact-card small {
+    display: block;
+    font-family: var(--font-pixel);
+    font-size: 6px;
+    color: #8a6a30;
+    margin-bottom: 3px;
+    letter-spacing: 1px;
+}
+.info-panel-inner .contact-card span {
+    font-size: 11px;
+    color: #4a3a2a;
+}

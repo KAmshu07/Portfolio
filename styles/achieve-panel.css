@@ -1,0 +1,73 @@
+/* Achievement Panel — checklist overlay */
+
+.achieve-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(0,0,0,0.6);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.4s, visibility 0.4s;
+}
+.achieve-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+.achieve-content {
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 28px 32px;
+    background: #f0e2c8;
+    color: #3a2a1a;
+    border: 4px solid #3a2a1a;
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 2px #d8c8a8, 0 6px 0 #2a1a0a, 0 8px 24px rgba(0,0,0,0.4);
+}
+.achieve-content::-webkit-scrollbar { display: none; }
+.achieve-title {
+    font-family: var(--font-pixel);
+    font-size: 12px;
+    color: #3a2a1a;
+    text-align: center;
+    margin-bottom: 16px;
+}
+.achieve-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    margin-bottom: 6px;
+    background: rgba(60,40,20,0.06);
+    border: 1px solid #d8c8a8;
+    border-radius: 4px;
+    transition: background 0.3s, border-color 0.3s;
+}
+.achieve-item.done {
+    background: rgba(238,201,65,0.12);
+    border-color: #d4a853;
+}
+.achieve-check {
+    font-size: 18px;
+    color: #c8b898;
+    flex-shrink: 0;
+}
+.achieve-item.done .achieve-check { color: #eec941; }
+.achieve-item strong { font-size: 12px; color: #3a2a1a; display: block; }
+.achieve-item small { font-size: 10px; color: #8a7a6a; }
+.achieve-item.done strong { color: #5a4020; }
+.achieve-hint {
+    display: block;
+    text-align: center;
+    margin-top: 14px;
+    font-family: var(--font-pixel);
+    font-size: 7px;
+    color: #b8a888;
+    letter-spacing: 1px;
+}

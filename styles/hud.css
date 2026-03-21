@@ -1,0 +1,73 @@
+/* HUD — top bar with name, title, resume link, mute button */
+
+.hud {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    background: linear-gradient(180deg, rgba(15,10,5,0.7) 0%, rgba(15,10,5,0.3) 70%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+.hud.visible { opacity: 1; }
+.hud-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.hud-name {
+    font-family: var(--font-pixel);
+    font-size: 10px;
+    color: #eec941;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.6);
+}
+.hud-title {
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.8);
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+}
+.hud-right {
+    text-align: right;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.hud-resume {
+    font-family: var(--font-pixel);
+    font-size: 8px;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+    padding: 6px 14px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    background: rgba(15,10,5,0.4);
+    transition: color 0.3s, border-color 0.3s, background 0.3s;
+    text-decoration: none;
+}
+.hud-resume:hover {
+    color: #eec941;
+    border-color: #eec941;
+    background: rgba(15,10,5,0.6);
+}
+.hud-mute {
+    font-size: 14px;
+    background: rgba(15,10,5,0.4);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s;
+    line-height: 1;
+}
+.hud-mute:hover {
+    border-color: #eec941;
+    background: rgba(15,10,5,0.6);
+}

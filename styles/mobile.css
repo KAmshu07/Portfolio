@@ -1,0 +1,56 @@
+/* Mobile Warning — redirect to resume on small screens */
+
+.mobile-warning {
+    display: none;
+}
+@media (max-width: 768px) {
+    .mobile-warning {
+        display: flex;
+        position: fixed;
+        inset: 0;
+        z-index: 400;
+        background: linear-gradient(180deg, #80b7f7 0%, #6eac51 100%);
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .intro, .hud, #game { display: none; }
+    .mobile-warning-content { padding: 30px; max-width: 400px; }
+    .mobile-warning-content h2 {
+        font-family: var(--font-pixel);
+        font-size: 14px;
+        color: var(--teal);
+        margin-bottom: 16px;
+        line-height: 1.6;
+    }
+    .mobile-warning-content p {
+        font-size: 14px;
+        color: var(--text-muted);
+        margin-bottom: 24px;
+        line-height: 1.6;
+    }
+    .mobile-resume-btn {
+        display: inline-block;
+        font-family: var(--font-pixel);
+        font-size: 10px;
+        color: var(--bg);
+        background: var(--teal);
+        padding: 14px 24px;
+        border-radius: 4px;
+        margin-bottom: 24px;
+        letter-spacing: 1px;
+    }
+    .mobile-links {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+    .mobile-links a {
+        font-size: 13px;
+        color: var(--text-muted);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding-bottom: 2px;
+        transition: color 0.3s;
+    }
+    .mobile-links a:hover { color: var(--teal); }
+}

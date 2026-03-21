@@ -1,0 +1,113 @@
+/* Scroll Overlay — resume scroll parchment */
+
+.scroll-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(0,0,0,0.6);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.4s, visibility 0.4s;
+}
+.scroll-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+.scroll-content {
+    width: 90%;
+    max-width: 520px;
+    max-height: 80vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 32px 36px;
+    background: #f0e2c8;
+    color: #4a3a2a;
+    border: 4px solid #3a2a1a;
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 2px #d8c8a8, 0 6px 0 #2a1a0a, 0 8px 24px rgba(0,0,0,0.4);
+    transform: translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.scroll-overlay:not(.hidden) .scroll-content {
+    transform: translateY(0);
+}
+.scroll-content::-webkit-scrollbar { display: none; }
+.scroll-title {
+    font-family: var(--font-pixel);
+    font-size: 14px;
+    color: #3a2a1a;
+    text-align: center;
+    margin-bottom: 4px;
+    line-height: 1.6;
+}
+.scroll-subtitle {
+    text-align: center;
+    font-size: 13px;
+    color: #6a5a4a;
+    margin-bottom: 16px;
+}
+.scroll-divider {
+    width: 60px;
+    height: 2px;
+    background: #b8956a;
+    margin: 0 auto 20px;
+}
+.scroll-section { margin-bottom: 16px; }
+.scroll-section h3 {
+    font-family: var(--font-pixel);
+    font-size: 9px;
+    color: #8a6a40;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #d8c8a8;
+    padding-bottom: 4px;
+}
+.scroll-entry { margin-bottom: 12px; }
+.scroll-entry strong { color: #3a2a1a; font-size: 13px; }
+.scroll-entry small { display: block; font-size: 11px; color: #8a7a6a; margin: 2px 0 4px; }
+.scroll-entry p { font-size: 12px; color: #5a4a3a; line-height: 1.5; }
+.scroll-entry ul { padding-left: 16px; margin: 4px 0 0; }
+.scroll-entry li { font-size: 11px; color: #5a4a3a; line-height: 1.5; padding-bottom: 2px; }
+.scroll-entry li strong { color: #3a2a1a; }
+.scroll-summary { font-size: 12px; color: #5a4a3a; line-height: 1.6; }
+.scroll-summary strong { color: #3a2a1a; }
+.scroll-skills { font-size: 11px; color: #5a4a3a; line-height: 1.6; margin-bottom: 4px; }
+.scroll-skills strong { color: #6a5a3a; font-size: 10px; }
+.scroll-footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid #d8c8a8;
+}
+.scroll-download {
+    display: inline-block;
+    font-family: var(--font-pixel);
+    font-size: 9px;
+    color: #fff;
+    background: linear-gradient(180deg, #6ab8b0, #4a9a92);
+    border: 2px solid #3a6a62;
+    border-bottom-width: 4px;
+    border-radius: 4px;
+    padding: 10px 20px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: transform 0.15s;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+}
+.scroll-download:hover {
+    transform: scale(1.03);
+    background: linear-gradient(180deg, #7ac8c0, #5aaaa2);
+}
+.scroll-hint {
+    display: block;
+    margin-top: 10px;
+    font-family: var(--font-pixel);
+    font-size: 7px;
+    color: #b8a888;
+    letter-spacing: 1px;
+}

@@ -1,0 +1,119 @@
+/* Intro Screen — parchment card with start button and loading bar */
+
+.intro {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: rgba(0,0,0,0.55);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: opacity 0.6s, visibility 0.6s;
+}
+.intro.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+.intro-content {
+    max-width: 500px;
+    padding: 32px 36px;
+    background: #f0e2c8;
+    border: 4px solid #3a2a1a;
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 2px #d8c8a8, 0 6px 0 #2a1a0a, 0 8px 24px rgba(0,0,0,0.3);
+}
+.intro-title {
+    font-family: var(--font-pixel);
+    font-size: clamp(16px, 3vw, 24px);
+    color: #3a2a1a;
+    margin-bottom: 12px;
+    line-height: 1.6;
+    text-shadow: 1px 1px 0 rgba(240,220,180,0.5);
+}
+.intro-sub {
+    font-size: 16px;
+    font-weight: 500;
+    color: #5a4a3a;
+    margin-bottom: 24px;
+}
+.intro-divider {
+    width: 40px;
+    height: 2px;
+    background: #b8956a;
+    margin: 0 auto 24px;
+}
+.intro-hint {
+    font-size: 13px;
+    font-weight: 400;
+    color: #6a5a4a;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+.intro-controls {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+.intro-controls span {
+    font-family: var(--font-pixel);
+    font-size: 9px;
+    color: #8a6a40;
+    letter-spacing: 0.5px;
+}
+.intro-start {
+    display: inline-block;
+    font-family: var(--font-pixel);
+    font-size: 10px;
+    color: #fff;
+    background: linear-gradient(180deg, #6ab8b0, #4a9a92);
+    border: 3px solid #3a6a62;
+    border-bottom-width: 5px;
+    border-radius: 4px;
+    padding: 14px 28px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: transform 0.15s, border-bottom-width 0.1s;
+    animation: none;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 8px rgba(0,0,0,0.2);
+}
+.intro-start:hover {
+    background: linear-gradient(180deg, #7ac8c0, #5aaaa2);
+    transform: scale(1.03);
+}
+.intro-start:active {
+    background: linear-gradient(180deg, #4a8a82, #3a7a72);
+    border-bottom-width: 3px;
+    transform: translateY(2px);
+}
+.intro-skip {
+    display: block;
+    margin-top: 16px;
+    font-size: 12px;
+    color: #8a7a6a;
+    text-decoration: underline;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+.intro-skip:hover { opacity: 1; color: #5a4a3a; }
+.loading-bar-container {
+    width: 200px;
+    height: 8px;
+    margin: 16px auto 0;
+    background: #3a2a1a;
+    border: 2px solid #2a1a0a;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.loading-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #b8956a, #eec941);
+    transition: width 0.2s ease;
+    border-radius: 1px;
+}
