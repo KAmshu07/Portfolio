@@ -5,7 +5,7 @@ import { IMG } from './assets.js';
 import { buildings } from './world.js';
 import { spawnParticle } from './particles.js';
 import { play } from './audio.js';
-import { COLLISION_X_INSET, COLLISION_Y_INSET, COLLISION_W_RATIO, COLLISION_H_RATIO } from './npc.js';
+import { isRectCollidingBuilding } from './world/Collision.js';
 
 // Player rendering
 const FRAME_W = 96;
@@ -64,13 +64,11 @@ export function updatePlayer() {
     if (mx && my) { mx *= DIAGONAL_FACTOR; my *= DIAGONAL_FACTOR; }
     player.walking = mx !== 0 || my !== 0;
 
-    // Determine facing direction (4-way)
     if (my < 0) player.facing = 'up';
     else if (my > 0) player.facing = 'down';
     else if (mx < 0) player.facing = 'left';
     else if (mx > 0) player.facing = 'right';
 
-    // Dust on movement start or direction change
     if (player.walking && !player.wasWalking) {
         for (let i = 0; i < DUST_COUNT_START; i++) {
             spawnParticle('dust', player.x + player.w / 2 + (Math.random() - 0.5) * DUST_SPREAD,
@@ -84,11 +82,9 @@ export function updatePlayer() {
     player.wasWalking = player.walking;
     player.lastFacing = player.facing;
 
-    // Sprint — hold Shift for 2x speed
     const sprinting = player.walking && (keys.ShiftLeft || keys.ShiftRight);
     const speed = sprinting ? SPEED * SPRINT_MULTIPLIER : SPEED;
 
-    // Extra dust when sprinting
     if (sprinting && player.walking && player.ft % SPRINT_DUST_MODULUS === 0) {
         spawnParticle('dust', player.x + player.w / 2 + (Math.random() - 0.5) * 8,
             player.y + player.h, { vx: (Math.random() - 0.5) * 1.5, vy: -0.8 - Math.random(), life: DUST_LIFE_SPRINT, scale: DUST_SCALE_SPRINT });
@@ -100,13 +96,11 @@ export function updatePlayer() {
     // Axis-independent collision — test X and Y separately for wall sliding
     let blockedX = false, blockedY = false;
     for (const b of buildings) {
-        const bx = b.x + b.w * COLLISION_X_INSET, by = b.y + b.h * COLLISION_Y_INSET, bw = b.w * COLLISION_W_RATIO, bh = b.h * COLLISION_H_RATIO;
-        if (nx < bx + bw && nx + player.w > bx && player.y < by + bh && player.y + player.h > by) blockedX = true;
-        if (player.x < bx + bw && player.x + player.w > bx && ny < by + bh && ny + player.h > by) blockedY = true;
+        if (isRectCollidingBuilding(nx, player.y, player.w, player.h, b)) blockedX = true;
+        if (isRectCollidingBuilding(player.x, ny, player.w, player.h, b)) blockedY = true;
     }
     if (ny + player.h > WATER_Y) blockedY = true;
 
-    // Water splash on collision
     if (ny + player.h > WATER_Y && !player.splashed) {
         spawnParticle('splash', player.x + player.w / 2, WATER_Y - SPLASH_Y_OFFSET,
             { vx: 0, vy: -0.5, life: SPLASH_LIFE, scale: SPLASH_SCALE });
@@ -118,7 +112,6 @@ export function updatePlayer() {
     if (!blockedX) player.x = Math.max(WORLD_PADDING, Math.min(WORLD_W - player.w - WORLD_PADDING, nx));
     if (!blockedY) player.y = Math.max(WORLD_PADDING, Math.min(WORLD_H - player.h - WORLD_PADDING, ny));
 
-    // Animation (8 frames for both idle and run)
     if (player.walking) {
         player.ft++;
         if (player.ft > WALK_FRAME_RATE) { player.ft = 0; player.frame = (player.frame + 1) % TOTAL_FRAMES; if (player.frame % FOOTSTEP_INTERVAL === 0) play('footstep'); }
@@ -134,11 +127,9 @@ export function drawPlayer(sx, sy) {
         : { up: 'idleUp', down: 'idleDown', left: 'idleLeft', right: 'idleRight' };
     const img = IMG[dirMap[player.facing]];
     if (!img) return;
-    // Draw sprite anchored so feet sit on the ground
     const dw = FRAME_W * DRAW_SCALE, dh = FRAME_H * DRAW_SCALE;
     const drawX = sx + player.w / 2 - dw / 2;
     const drawY = sy + player.h - dh + DRAW_Y_OFFSET;
-    // Shadow (directly under feet)
     ctx.fillStyle = 'rgba(0,0,0,0.2)';
     ctx.beginPath();
     ctx.ellipse(sx + player.w / 2, sy + player.h, SHADOW_RX, SHADOW_RY, 0, 0, Math.PI * 2);
