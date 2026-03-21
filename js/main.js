@@ -18,6 +18,7 @@ import { render, setRenderDeps } from './rendering/Renderer.js';
 import { checkAchievements } from './systems/AchievementSystem.js';
 import { updateWind, spawnWindParticles } from './systems/WindSystem.js';
 import { WORLD_W, WORLD_H } from './data/gameConfig.js';
+import { GameMode, KeyCode, DomId, UIText } from './data/enums.js';
 
 // Init
 resize();
@@ -31,25 +32,25 @@ setRenderDeps(getNearBuilding, zoneAnnouncement);
 
 // Input bindings
 addEventListener('keydown', e => {
-    if (e.code === 'Enter' && isAssetsReady() && mode === 'INTRO') startGame();
-    if (e.code === 'KeyE' && mode === 'PLAYING') toggleScroll();
-    if (e.code === 'Tab' && mode === 'PLAYING') { e.preventDefault(); toggleAchievePanel(); }
-    if (e.code === 'Escape') { closeAchievePanel(); closeScroll(); }
+    if (e.code === KeyCode.ENTER && isAssetsReady() && mode === GameMode.INTRO) startGame();
+    if (e.code === KeyCode.E && mode === GameMode.PLAYING) toggleScroll();
+    if (e.code === KeyCode.TAB && mode === GameMode.PLAYING) { e.preventDefault(); toggleAchievePanel(); }
+    if (e.code === KeyCode.ESCAPE) { closeAchievePanel(); closeScroll(); }
 });
-document.getElementById('muteBtn').addEventListener('click', () => {
+document.getElementById(DomId.MUTE_BTN).addEventListener('click', () => {
     const m = toggleMute();
-    document.getElementById('muteBtn').textContent = m ? '🔇' : '🔊';
+    document.getElementById(DomId.MUTE_BTN).textContent = m ? UIText.MUTE_ON : UIText.MUTE_OFF;
 });
 
 // Update
 function update() {
-    if (mode === 'INTRO') {
+    if (mode === GameMode.INTRO) {
         introPan(WORLD_W, WORLD_H);
         animateWorld();
         updateNPCs(npcs);
         return;
     }
-    if (mode !== 'PLAYING') return;
+    if (mode !== GameMode.PLAYING) return;
     if (isScrollOpen() || isAchievePanelOpen()) return;
 
     updatePlayer();

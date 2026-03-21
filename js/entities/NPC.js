@@ -1,6 +1,7 @@
 /* NPC AI — state machine (idle/walk/chat), waypoint movement, collision, meetings */
 import { buildings } from '../world/WorldBuilder.js';
 import { getBuildingCollisionRect } from '../world/Collision.js';
+import { NPCState } from '../data/enums.js';
 
 // NPC behavior constants
 const IDLE_FRAME_RATE = 10;
@@ -18,20 +19,20 @@ export function updateNPCs(npcs) {
     for (const npc of npcs) {
         const wp = npc.waypoints[npc.currentWP];
 
-        if (npc.state === 'idle') {
+        if (npc.state === NPCState.IDLE) {
             npc.idleTimer++;
             npc.timer++;
             if (npc.timer >= IDLE_FRAME_RATE) { npc.timer = 0; npc.frame = (npc.frame + 1) % (npc.idleFrames || IDLE_DEFAULT_FRAMES); }
             if (npc.idleTimer > (wp.idle || DEFAULT_IDLE_DURATION)) {
-                npc.state = 'walk';
+                npc.state = NPCState.WALK;
                 npc.idleTimer = 0;
                 npc.currentWP = (npc.currentWP + 1) % npc.waypoints.length;
             }
-        } else if (npc.state === 'chat') {
+        } else if (npc.state === NPCState.CHAT) {
             npc.idleTimer++;
             npc.timer++;
             if (npc.timer >= CHAT_FRAME_RATE) { npc.timer = 0; npc.frame = (npc.frame + 1) % (npc.idleFrames || IDLE_DEFAULT_FRAMES); }
-            if (npc.idleTimer > CHAT_DURATION) { npc.state = 'walk'; npc.idleTimer = 0; npc.chatCooldown = CHAT_COOLDOWN; }
+            if (npc.idleTimer > CHAT_DURATION) { npc.state = NPCState.WALK; npc.idleTimer = 0; npc.chatCooldown = CHAT_COOLDOWN; }
         } else {
             const target = npc.waypoints[npc.currentWP];
             const dx = target.x - npc.x;
@@ -39,7 +40,7 @@ export function updateNPCs(npcs) {
             const dist = Math.sqrt(dx * dx + dy * dy);
 
             if (dist < ARRIVAL_THRESHOLD) {
-                npc.state = 'idle';
+                npc.state = NPCState.IDLE;
                 npc.frame = 0;
                 npc.idleTimer = 0;
             } else {
@@ -51,7 +52,7 @@ export function updateNPCs(npcs) {
                     if (nx > c.x && nx < c.x + c.w && ny > c.y && ny < c.y + c.h) { blocked = true; break; }
                 }
                 if (!blocked) { npc.x = nx; npc.y = ny; }
-                else { npc.state = 'idle'; npc.idleTimer = 0; npc.currentWP = (npc.currentWP + 1) % npc.waypoints.length; }
+                else { npc.state = NPCState.IDLE; npc.idleTimer = 0; npc.currentWP = (npc.currentWP + 1) % npc.waypoints.length; }
                 npc.facing = dx > 0 ? 1 : -1;
                 npc.timer++;
                 if (npc.timer >= WALK_FRAME_RATE) { npc.timer = 0; npc.frame = (npc.frame + 1) % (npc.runFrames || WALK_DEFAULT_FRAMES); }
@@ -64,11 +65,11 @@ export function updateNPCs(npcs) {
     for (let i = 0; i < npcs.length; i++) {
         for (let j = i + 1; j < npcs.length; j++) {
             const a = npcs[i], b = npcs[j];
-            if (a.state === 'walk' && b.state === 'walk' && !a.chatCooldown && !b.chatCooldown) {
+            if (a.state === NPCState.WALK && b.state === NPCState.WALK && !a.chatCooldown && !b.chatCooldown) {
                 const dist = Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);
                 if (dist < MEETING_PROXIMITY) {
-                    a.state = 'chat'; a.idleTimer = 0; a.frame = 0;
-                    b.state = 'chat'; b.idleTimer = 0; b.frame = 0;
+                    a.state = NPCState.CHAT; a.idleTimer = 0; a.frame = 0;
+                    b.state = NPCState.CHAT; b.idleTimer = 0; b.frame = 0;
                     a.facing = b.x > a.x ? 1 : -1;
                     b.facing = a.x > b.x ? 1 : -1;
                 }

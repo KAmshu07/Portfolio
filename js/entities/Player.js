@@ -6,6 +6,7 @@ import { play } from '../systems/AudioSystem.js';
 import { isRectCollidingBuilding } from '../world/Collision.js';
 import { WATER_Y } from '../data/terrain.js';
 import { SPEED, WORLD_W, WORLD_H } from '../data/gameConfig.js';
+import { Direction, ParticleType, AudioKey, KeyCode } from '../data/enums.js';
 
 // Player physics
 const SPRINT_MULTIPLIER = 2;
@@ -42,43 +43,43 @@ const PLAYER_H = 40;
 
 export const player = {
     x: SPAWN_X, y: SPAWN_Y, w: PLAYER_W, h: PLAYER_H,
-    vx: 0, vy: 0, facing: 'down', walking: false,
+    vx: 0, vy: 0, facing: Direction.DOWN, walking: false,
     frame: 0, ft: 0,
-    wasWalking: false, lastFacing: 'down', splashed: false,
+    wasWalking: false, lastFacing: Direction.DOWN, splashed: false,
 };
 
 export function updatePlayer() {
     let mx = 0, my = 0;
-    if (keys.ArrowLeft || keys.KeyA) mx = -1;
-    if (keys.ArrowRight || keys.KeyD) mx = 1;
-    if (keys.ArrowUp || keys.KeyW) my = -1;
-    if (keys.ArrowDown || keys.KeyS) my = 1;
+    if (keys[KeyCode.LEFT] || keys[KeyCode.A]) mx = -1;
+    if (keys[KeyCode.RIGHT] || keys[KeyCode.D]) mx = 1;
+    if (keys[KeyCode.UP] || keys[KeyCode.W]) my = -1;
+    if (keys[KeyCode.DOWN] || keys[KeyCode.S]) my = 1;
     if (mx && my) { mx *= DIAGONAL_FACTOR; my *= DIAGONAL_FACTOR; }
     player.walking = mx !== 0 || my !== 0;
 
-    if (my < 0) player.facing = 'up';
-    else if (my > 0) player.facing = 'down';
-    else if (mx < 0) player.facing = 'left';
-    else if (mx > 0) player.facing = 'right';
+    if (my < 0) player.facing = Direction.UP;
+    else if (my > 0) player.facing = Direction.DOWN;
+    else if (mx < 0) player.facing = Direction.LEFT;
+    else if (mx > 0) player.facing = Direction.RIGHT;
 
     if (player.walking && !player.wasWalking) {
         for (let i = 0; i < DUST_COUNT_START; i++) {
-            spawnParticle('dust', player.x + player.w / 2 + (Math.random() - 0.5) * DUST_SPREAD,
+            spawnParticle(ParticleType.DUST, player.x + player.w / 2 + (Math.random() - 0.5) * DUST_SPREAD,
                 player.y + player.h, { vx: -mx * 0.5 + (Math.random() - 0.5), vy: -0.5 - Math.random(), life: DUST_LIFE_START, scale: DUST_SCALE_START });
         }
     }
     if (player.walking && player.facing !== player.lastFacing) {
-        spawnParticle('dust', player.x + player.w / 2, player.y + player.h,
+        spawnParticle(ParticleType.DUST, player.x + player.w / 2, player.y + player.h,
             { vx: -mx * 1.5, vy: -0.8, life: DUST_LIFE_TURN, scale: DUST_SCALE_TURN });
     }
     player.wasWalking = player.walking;
     player.lastFacing = player.facing;
 
-    const sprinting = player.walking && (keys.ShiftLeft || keys.ShiftRight);
+    const sprinting = player.walking && (keys[KeyCode.SHIFT_LEFT] || keys[KeyCode.SHIFT_RIGHT]);
     const speed = sprinting ? SPEED * SPRINT_MULTIPLIER : SPEED;
 
     if (sprinting && player.walking && player.ft % SPRINT_DUST_MODULUS === 0) {
-        spawnParticle('dust', player.x + player.w / 2 + (Math.random() - 0.5) * 8,
+        spawnParticle(ParticleType.DUST, player.x + player.w / 2 + (Math.random() - 0.5) * 8,
             player.y + player.h, { vx: (Math.random() - 0.5) * 1.5, vy: -0.8 - Math.random(), life: DUST_LIFE_SPRINT, scale: DUST_SCALE_SPRINT });
     }
 
@@ -93,9 +94,9 @@ export function updatePlayer() {
     if (ny + player.h > WATER_Y) blockedY = true;
 
     if (ny + player.h > WATER_Y && !player.splashed) {
-        spawnParticle('splash', player.x + player.w / 2, WATER_Y - SPLASH_Y_OFFSET,
+        spawnParticle(ParticleType.SPLASH, player.x + player.w / 2, WATER_Y - SPLASH_Y_OFFSET,
             { vx: 0, vy: -0.5, life: SPLASH_LIFE, scale: SPLASH_SCALE });
-        play('splash');
+        play(AudioKey.SPLASH);
         player.splashed = true;
     }
     if (ny + player.h <= WATER_Y) player.splashed = false;
@@ -105,7 +106,7 @@ export function updatePlayer() {
 
     if (player.walking) {
         player.ft++;
-        if (player.ft > WALK_FRAME_RATE) { player.ft = 0; player.frame = (player.frame + 1) % TOTAL_FRAMES; if (player.frame % FOOTSTEP_INTERVAL === 0) play('footstep'); }
+        if (player.ft > WALK_FRAME_RATE) { player.ft = 0; player.frame = (player.frame + 1) % TOTAL_FRAMES; if (player.frame % FOOTSTEP_INTERVAL === 0) play(AudioKey.FOOTSTEP); }
     } else {
         player.ft++;
         if (player.ft > IDLE_FRAME_RATE) { player.ft = 0; player.frame = (player.frame + 1) % TOTAL_FRAMES; }

@@ -1,7 +1,8 @@
 /* Shared game state — mode, visited buildings, zone tracking */
 import { TOTAL_BUILDINGS } from '../data/buildings.js';
+import { GameMode } from '../data/enums.js';
 
-export let mode = 'INTRO';
+export let mode = GameMode.INTRO;
 export function setMode(m) { mode = m; }
 
 // Visited building tracking (session-only)

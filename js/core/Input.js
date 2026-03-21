@@ -1,4 +1,5 @@
 /* Keyboard state — tracks which keys are currently pressed */
+
 export const keys = {};
 
 export function initInput() {

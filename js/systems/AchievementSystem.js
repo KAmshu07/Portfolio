@@ -1,6 +1,7 @@
 /* Achievement system — evaluates declarative conditions, tracks completion, manages toast queue */
 import { achievementDefs } from '../data/achievements.js';
 import { visitedBuildings, isAllVisited } from '../core/GameState.js';
+import { AchievementCondition, AchievementFlag } from '../data/enums.js';
 
 // State
 const completed = new Set();
@@ -17,17 +18,17 @@ export function markScrollOpened() { scrollOpened = true; }
 // Evaluate a declarative achievement condition
 function evaluateCondition(def) {
     switch (def.type) {
-        case 'visit':
+        case AchievementCondition.VISIT:
             return visitedBuildings.has(def.building);
-        case 'visitAll':
+        case AchievementCondition.VISIT_ALL:
             return def.buildings.every(l => visitedBuildings.has(l));
-        case 'visitCount':
+        case AchievementCondition.VISIT_COUNT:
             return def.buildings.filter(l => visitedBuildings.has(l)).length >= def.count;
-        case 'visitAllBuildings':
+        case AchievementCondition.VISIT_ALL_BUILDINGS:
             return isAllVisited();
-        case 'flag':
-            if (def.flag === 'windUsed') return windUsed;
-            if (def.flag === 'scrollOpened') return scrollOpened;
+        case AchievementCondition.FLAG:
+            if (def.flag === AchievementFlag.WIND_USED) return windUsed;
+            if (def.flag === AchievementFlag.SCROLL_OPENED) return scrollOpened;
             return false;
         default:
             return false;

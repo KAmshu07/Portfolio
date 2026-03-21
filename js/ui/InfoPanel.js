@@ -4,9 +4,10 @@ import { buildings } from '../world/WorldBuilder.js';
 import { interactables } from '../data/content.js';
 import { visitedBuildings } from '../core/GameState.js';
 import { play } from '../systems/AudioSystem.js';
+import { AudioKey, DomId, DomClass } from '../data/enums.js';
 
-const infoPanel = document.getElementById('infoPanel');
-const infoPanelInner = document.getElementById('infoPanelInner');
+const infoPanel = document.getElementById(DomId.INFO_PANEL);
+const infoPanelInner = document.getElementById(DomId.INFO_PANEL_INNER);
 let activeLabel = null;
 let cachedNearB = null;
 
@@ -30,19 +31,19 @@ export function updatePanel() {
     cachedNearB = findNearBuilding();
     if (cachedNearB) {
         if (cachedNearB.label !== activeLabel) {
-            play('panelOpen');
+            play(AudioKey.PANEL_OPEN);
             activeLabel = cachedNearB.label;
             const data = interactables.find(i => i.label === cachedNearB.label);
             if (data) {
-                if (!visitedBuildings.has(cachedNearB.label)) play('chime');
+                if (!visitedBuildings.has(cachedNearB.label)) play(AudioKey.CHIME);
                 visitedBuildings.add(cachedNearB.label);
                 infoPanelInner.innerHTML = data.content;
             }
         }
-        infoPanel.classList.add('visible');
+        infoPanel.classList.add(DomClass.VISIBLE);
     } else {
-        if (activeLabel) play('panelClose');
-        infoPanel.classList.remove('visible');
+        if (activeLabel) play(AudioKey.PANEL_CLOSE);
+        infoPanel.classList.remove(DomClass.VISIBLE);
         activeLabel = null;
     }
 }

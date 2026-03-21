@@ -2,6 +2,7 @@
 import { ctx, viewport } from '../core/Canvas.js';
 import { camera, introZoom } from '../core/Camera.js';
 import { mode } from '../core/GameState.js';
+import { GameMode, EntityType } from '../data/enums.js';
 import { IMG } from '../systems/AssetLoader.js';
 import { player } from '../entities/Player.js';
 import { buildings, trees, decos, monument, fires, sheep, npcs, waterRocks, foamSpots } from '../world/WorldBuilder.js';
@@ -95,39 +96,39 @@ export function render() {
     for (const b of buildings) {
         const sx = b.x + ox, sy = b.y + oy;
         if (sx < -b.w - CULL_BUILDING || sx > w + CULL_BUILDING || sy < -b.h - CULL_BUILDING || sy > h + CULL_BUILDING) continue;
-        drawList.push({ y: b.y + b.h, type: 'building', data: b, sx, sy });
+        drawList.push({ y: b.y + b.h, type: EntityType.BUILDING, data: b, sx, sy });
     }
     for (const tr of trees) {
         const sx = tr.x + ox, sy = tr.y + oy;
         if (sx < -CULL_TREE_X || sx > w + CULL_TREE_X || sy < -CULL_TREE_Y_TOP || sy > h + CULL_TREE_Y_BOT) continue;
-        drawList.push({ y: tr.y + YSORT_TREE, type: 'tree', data: tr, sx, sy });
+        drawList.push({ y: tr.y + YSORT_TREE, type: EntityType.TREE, data: tr, sx, sy });
     }
     for (const d of decos) {
         const sx = d.x + ox, sy = d.y + oy;
-        if (inView(sx, sy, CULL_DECO)) drawList.push({ y: d.y + YSORT_DECO, type: 'deco', data: d, sx, sy });
+        if (inView(sx, sy, CULL_DECO)) drawList.push({ y: d.y + YSORT_DECO, type: EntityType.DECO, data: d, sx, sy });
     }
     {
         const sx = monument.x + ox, sy = monument.y + oy;
-        if (inView(sx, sy, CULL_MONUMENT)) drawList.push({ y: monument.y + YSORT_MONUMENT, type: 'monument', sx, sy });
+        if (inView(sx, sy, CULL_MONUMENT)) drawList.push({ y: monument.y + YSORT_MONUMENT, type: EntityType.MONUMENT, sx, sy });
     }
     for (const f of fires) {
         const sx = f.x + ox, sy = f.y + oy;
-        if (inView(sx, sy, CULL_FIRE)) drawList.push({ y: f.y + YSORT_FIRE, type: 'fire', data: f, sx, sy });
+        if (inView(sx, sy, CULL_FIRE)) drawList.push({ y: f.y + YSORT_FIRE, type: EntityType.FIRE, data: f, sx, sy });
     }
     for (const n of npcs) {
         const sx = n.x + ox, sy = n.y + oy;
         const sortY = n.y + (n.fh || 192) * (n.scale ?? 0.5);
-        if (inView(sx, sy, CULL_NPC)) drawList.push({ y: sortY, type: 'npc', data: n, sx, sy });
+        if (inView(sx, sy, CULL_NPC)) drawList.push({ y: sortY, type: EntityType.NPC, data: n, sx, sy });
     }
     {
         const sx = sheep.x + ox, sy = sheep.y + oy;
-        if (inView(sx, sy, CULL_SHEEP)) drawList.push({ y: sheep.y + YSORT_SHEEP, type: 'sheep', data: sheep, sx, sy });
+        if (inView(sx, sy, CULL_SHEEP)) drawList.push({ y: sheep.y + YSORT_SHEEP, type: EntityType.SHEEP, data: sheep, sx, sy });
     }
-    drawList.push({ y: player.y + player.h, type: 'player', sx: player.x + ox, sy: player.y + oy });
+    drawList.push({ y: player.y + player.h, type: EntityType.PLAYER, sx: player.x + ox, sy: player.y + oy });
 
     for (const p of getParticles()) {
         const sx = p.x + ox, sy = p.y + oy;
-        drawList.push({ y: p.y, type: 'particle', data: p, sx, sy });
+        drawList.push({ y: p.y, type: EntityType.PARTICLE, data: p, sx, sy });
     }
 
     // Y-sort and dispatch
@@ -143,9 +144,9 @@ export function render() {
 
     // Overlays (only during gameplay)
     const nearB = _getNearBuilding();
-    if (nearB && mode === 'PLAYING') drawProximityIndicator(nearB, ox, oy, now);
-    if (mode === 'PLAYING') drawBottomHUD(nearB, w, h);
-    if (mode === 'PLAYING') drawAchievementToast(w, h);
+    if (nearB && mode === GameMode.PLAYING) drawProximityIndicator(nearB, ox, oy, now);
+    if (mode === GameMode.PLAYING) drawBottomHUD(nearB, w, h);
+    if (mode === GameMode.PLAYING) drawAchievementToast(w, h);
 
     if (introZoom.scale !== 1) ctx.restore();
 }

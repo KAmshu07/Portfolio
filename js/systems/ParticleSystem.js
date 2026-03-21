@@ -2,6 +2,7 @@
 import { ctx } from '../core/Canvas.js';
 import { IMG } from './AssetLoader.js';
 import { drawFrame } from '../utils/sprites.js';
+import { ParticleType } from '../data/enums.js';
 
 const MAX_PARTICLES = 120;
 const pool = [];
@@ -33,7 +34,7 @@ export function updateParticles() {
         p.life--;
         p.alpha = Math.max(0, p.life / p.maxLife);
 
-        if (p.type === 'dust' || p.type === 'splash') {
+        if (p.type === ParticleType.DUST || p.type === ParticleType.SPLASH) {
             p.frameTimer++;
             if (p.frameTimer >= 4) { p.frameTimer = 0; p.frame = (p.frame + 1) % 8; }
         }
@@ -47,11 +48,11 @@ export function getParticles() { return pool; }
 export function drawParticle(item) {
     const p = item.data;
     ctx.globalAlpha = p.alpha;
-    if (p.type === 'dust' && IMG.dust1) {
+    if (p.type === ParticleType.DUST && IMG.dust1) {
         drawFrame(IMG.dust1, p.frame, 64, 64, item.sx, item.sy, p.scale, false);
-    } else if (p.type === 'splash' && IMG.splash) {
+    } else if (p.type === ParticleType.SPLASH && IMG.splash) {
         drawFrame(IMG.splash, p.frame, 64, 64, item.sx, item.sy, p.scale, false);
-    } else if (p.type === 'leaf') {
+    } else if (p.type === ParticleType.LEAF) {
         const angle = Math.atan2(p.vy, p.vx);
         const len = p.scale;
         const curve = (p.curve ?? 0.5) * len;

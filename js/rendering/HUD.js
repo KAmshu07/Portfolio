@@ -6,6 +6,7 @@ import {
     PROX_Y_OFFSET, PROX_BOB_SPEED, PROX_BOB_AMP, PROX_SHADOW_BLUR, PROX_HALF_W, PROX_ARROW_H,
     COLOR_GOLD, FONT_PIXEL,
 } from './RenderConfig.js';
+import { BuildingLabel, UIText } from '../data/enums.js';
 
 /* ─── Cached HUD gradient (recreated on resize) ─── */
 let hudGradient = null;
@@ -50,10 +51,10 @@ export function drawBottomHUD(nearB, w, h) {
         ctx.fillText(nearB.label, w / 2, h - HUD_LABEL_Y_OFFSET);
         ctx.font = `400 ${HUD_HINT_FONT_SIZE}px ${FONT_PIXEL}`;
         ctx.fillStyle = 'rgba(255,255,255,0.6)';
-        ctx.fillText(nearB.label === 'CONTACT' ? '[E] Open resume' : 'Walk closer to explore', w / 2, h - HUD_HINT_Y_OFFSET);
+        ctx.fillText(nearB.label === BuildingLabel.CONTACT ? UIText.HUD_CONTACT_HINT : UIText.HUD_EXPLORE_HINT, w / 2, h - HUD_HINT_Y_OFFSET);
     } else {
         ctx.font = `400 ${HUD_HINT_FONT_SIZE}px ${FONT_PIXEL}`;
         ctx.fillStyle = 'rgba(255,255,255,0.4)';
-        ctx.fillText('WASD to move  •  SHIFT to sprint  •  SPACE to follow the wind', w / 2, h - HUD_DEFAULT_Y_OFFSET);
+        ctx.fillText(UIText.HUD_DEFAULT_HINT, w / 2, h - HUD_DEFAULT_Y_OFFSET);
     }
 }

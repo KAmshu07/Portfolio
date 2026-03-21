@@ -5,6 +5,7 @@ import { visitedBuildings, isAllVisited } from '../core/GameState.js';
 import { player } from '../entities/Player.js';
 import { buildings } from '../world/WorldBuilder.js';
 import { spawnParticle } from './ParticleSystem.js';
+import { ParticleType, KeyCode } from '../data/enums.js';
 import { markWindUsed } from './AchievementSystem.js';
 
 // Ambient default direction (gentle right-to-left breeze)
@@ -85,7 +86,7 @@ export function triggerGuideWind() {
 }
 
 export function updateWind() {
-    if (keys.Space && !wind.guiding && !isAllVisited()) {
+    if (keys[KeyCode.SPACE] && !wind.guiding && !isAllVisited()) {
         markWindUsed();
         triggerGuideWind();
     }
@@ -130,7 +131,7 @@ export function spawnWindParticles() {
         const vx = (wind.dirX + wobble) * speed;
         const vy = (wind.dirY + wobble) * speed;
 
-        spawnParticle('leaf', sx, sy, {
+        spawnParticle(ParticleType.LEAF, sx, sy, {
             vx, vy,
             life: LEAF_LIFE_MIN + Math.random() * LEAF_LIFE_RANGE,
             scale: LEAF_SCALE_MIN + Math.random() * LEAF_SCALE_RANGE,

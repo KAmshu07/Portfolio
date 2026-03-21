@@ -6,6 +6,7 @@ import { player } from '../entities/Player.js';
 import { npcs } from '../world/WorldBuilder.js';
 import { drawFrame, drawImg } from '../utils/sprites.js';
 import { drawParticle } from '../systems/ParticleSystem.js';
+import { EntityType, NPCState, PlayerAnim, FlowerAssets } from '../data/enums.js';
 import {
     TREE_FRAME_W, TREE_FRAME_H, TREE_DRAW_Y_OFFSET, TREE_BEHIND_ALPHA,
     TREE_DEFAULT_FADE, TREE_TRUNK_X_OFFSET, NPC_BEHIND_CHECK,
@@ -43,7 +44,7 @@ const PLAYER_SHADOW_RY = 5;
 
 /* ─── Dispatch map ─── */
 export const renderers = {
-    building(item) {
+    [EntityType.BUILDING](item) {
         const b = item.data;
         if (IMG[b.asset]) drawImg(IMG[b.asset], item.sx, item.sy, 1.0);
         if (b.nameplateAlpha > 0.01) {
@@ -52,7 +53,7 @@ export const renderers = {
             ctx.globalAlpha = 1;
         }
     },
-    tree(item) {
+    [EntityType.TREE](item) {
         const tr = item.data;
         if (!IMG[tr.asset]) return;
         const fade = tr.fade || TREE_DEFAULT_FADE;
@@ -70,9 +71,9 @@ export const renderers = {
         drawFrame(IMG[tr.asset], tr.frame, TREE_FRAME_W, TREE_FRAME_H, item.sx, item.sy + TREE_DRAW_Y_OFFSET, 1.0, false);
         if (behindTree) ctx.globalAlpha = 1;
     },
-    deco(item) {
+    [EntityType.DECO](item) {
         const d = item.data;
-        if (!isAllVisited() && (d.asset === 'deco01' || d.asset === 'deco04') && d.scale === 1.0) {
+        if (!isAllVisited() && FlowerAssets.includes(d.asset) && d.scale === 1.0) {
             const pulse = 0.5 + 0.5 * Math.sin(Date.now() * FLOWER_PULSE_SPEED);
             ctx.globalAlpha = 0.5 + pulse * 0.5;
         }
@@ -83,18 +84,18 @@ export const renderers = {
         }
         ctx.globalAlpha = 1;
     },
-    monument(item) {
+    [EntityType.MONUMENT](item) {
         if (IMG.deco18) drawImg(IMG.deco18, item.sx, item.sy, 1.0);
     },
-    fire(item) {
+    [EntityType.FIRE](item) {
         if (IMG.fire) drawFrame(IMG.fire, item.data.frame, FIRE_FRAME_SIZE, FIRE_FRAME_SIZE, item.sx, item.sy + FIRE_Y_OFFSET, FIRE_SCALE, false);
     },
-    sheep(item) {
+    [EntityType.SHEEP](item) {
         if (IMG.sheep) drawFrame(IMG.sheep, item.data.frame, SHEEP_FRAME_SIZE, SHEEP_FRAME_SIZE, item.sx, item.sy, SHEEP_SCALE, false);
     },
-    npc(item) {
+    [EntityType.NPC](item) {
         const n = item.data;
-        const img = n.state === 'walk' ? IMG[n.runAsset] : IMG[n.idleAsset];
+        const img = n.state === NPCState.WALK ? IMG[n.runAsset] : IMG[n.idleAsset];
         if (!img) return;
         const fw = n.fw || 192, fh = n.fh || 192;
         const s = n.scale ?? 0.5;
@@ -108,11 +109,9 @@ export const renderers = {
         ctx.fill();
         drawFrame(img, n.frame, fw, fh, item.sx, footY - dh + yo, s, n.facing === -1);
     },
-    player(item) {
-        const dirMap = player.walking
-            ? { up: 'runUp', down: 'runDown', left: 'runLeft', right: 'runRight' }
-            : { up: 'idleUp', down: 'idleDown', left: 'idleLeft', right: 'idleRight' };
-        const img = IMG[dirMap[player.facing]];
+    [EntityType.PLAYER](item) {
+        const animMap = player.walking ? PlayerAnim.run : PlayerAnim.idle;
+        const img = IMG[animMap[player.facing]];
         if (!img) return;
         const dw = PLAYER_FRAME_W * PLAYER_DRAW_SCALE, dh = PLAYER_FRAME_H * PLAYER_DRAW_SCALE;
         const drawX = item.sx + player.w / 2 - dw / 2;
@@ -123,5 +122,5 @@ export const renderers = {
         ctx.fill();
         ctx.drawImage(img, player.frame * PLAYER_FRAME_W, 0, PLAYER_FRAME_W, PLAYER_FRAME_H, drawX, drawY, dw, dh);
     },
-    particle: drawParticle,
+    [EntityType.PARTICLE]: drawParticle,
 };

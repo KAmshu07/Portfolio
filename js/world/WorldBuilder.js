@@ -3,6 +3,7 @@ import { buildings as buildingDefs } from '../data/buildings.js';
 import { treeSpots, TREE_FADE } from '../data/treeSpots.js';
 import { flowerSpots, pathDecos, bushGeneration, rockGeneration } from '../data/decorations.js';
 import { WATER_Y, monument as monumentDef, fires as fireDefs, sheep as sheepDef, waterRocks as waterRockDefs, foamSpots as foamSpotDefs, clouds as cloudDefs } from '../data/terrain.js';
+import { NPCState, FlowerAssets } from '../data/enums.js';
 
 // Buildings — pure data + runtime state (nameplateAlpha)
 export const buildings = buildingDefs.map(b => ({ ...b, nameplateAlpha: 0 }));
@@ -23,7 +24,7 @@ export const decos = [];
 
 // Flowers around spawn monument
 flowerSpots.forEach(([x, y]) => {
-    decos.push({ x, y, asset: Math.random() > 0.5 ? 'deco01' : 'deco04', frame: 0, timer: 0, isStatic: true, scale: 1.0 });
+    decos.push({ x, y, asset: Math.random() > 0.5 ? FlowerAssets[0] : FlowerAssets[1], frame: 0, timer: 0, isStatic: true, scale: 1.0 });
 });
 
 // Bushes along paths (collision-checked against buildings)
@@ -104,7 +105,7 @@ export const landmarks = {
 };
 
 // NPC villagers — multi-waypoint 2D routes through the village
-const NPC_DEFAULTS = { frame: 0, timer: 0, facing: 1, state: 'walk', idleTimer: 0, currentWP: 0, fw: 192, fh: 192, scale: 0.5, yOffset: 30 };
+const NPC_DEFAULTS = { frame: 0, timer: 0, facing: 1, state: NPCState.WALK, idleTimer: 0, currentWP: 0, fw: 192, fh: 192, scale: 0.5, yOffset: 30 };
 const L = landmarks;
 
 export const npcs = [
@@ -165,7 +166,7 @@ export const npcs = [
             { x: L.treeNW2.x - 20, y: L.treeNW2.y + 60, idle: 150 },
         ],
         idleAsset: 'pawnMeatIdle', runAsset: 'pawnMeatRun',
-        speed: 0.3, state: 'idle',
+        speed: 0.3, state: NPCState.IDLE,
     },
     {
         ...NPC_DEFAULTS,
@@ -204,7 +205,7 @@ export const npcs = [
             { x: buildings[2].x + buildings[2].w + 40, y: buildings[2].y + buildings[2].h + 20, idle: 150 },
         ],
         idleAsset: 'yellowWarriorIdle', runAsset: 'yellowWarriorRun',
-        speed: 0.5, state: 'idle',
+        speed: 0.5, state: NPCState.IDLE,
     },
     {
         ...NPC_DEFAULTS,
