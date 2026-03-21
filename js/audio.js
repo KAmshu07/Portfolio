@@ -1,4 +1,6 @@
 /* Audio system — music, ambient, SFX with mute toggle */
+import { audioPaths } from './data/audioPaths.js';
+
 let audioCtx = null;
 let muted = true;
 const sounds = {};
@@ -9,7 +11,7 @@ function ensureContext() {
     if (audioCtx.state === 'suspended') audioCtx.resume();
 }
 
-export function loadAudio(key, src, opts = {}) {
+function loadAudio(key, src, opts = {}) {
     if (opts.loop) {
         const el = new Audio(src);
         el.loop = true;
@@ -55,12 +57,7 @@ export function toggleMute() {
 export function isMuted() { return muted; }
 
 export function initAudio() {
-    loadAudio('music', 'audio/music.mp3', { loop: true, volume: 0.25 });
-    loadAudio('ambient', 'audio/ambient.mp3', { loop: true, volume: 0.15 });
-    loadAudio('footstep', 'audio/footstep.mp3', { volume: 0.1 });
-    loadAudio('panelOpen', 'audio/panel-open.mp3', { volume: 0.3 });
-    loadAudio('panelClose', 'audio/panel-close.mp3', { volume: 0.3 });
-    loadAudio('click', 'audio/click.mp3', { volume: 0.4 });
-    loadAudio('chime', 'audio/chime.mp3', { volume: 0.3 });
-    loadAudio('splash', 'audio/splash.mp3', { volume: 0.4 });
+    for (const { key, src, loop, volume } of audioPaths) {
+        loadAudio(key, src, { loop, volume });
+    }
 }

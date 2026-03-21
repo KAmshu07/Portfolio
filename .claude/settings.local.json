@@ -1,5 +1,19 @@
 {
   "permissions": {
-    "defaultMode": "dontAsk"
+    "defaultMode": "dontAsk",
+    "allow": [
+      "Read",
+      "Edit",
+      "MultiEdit",
+      "Write",
+      "Glob",
+      "Grep",
+      "Agent",
+      "Skill",
+      "WebSearch",
+      "WebFetch",
+      "Bash",
+      "NotebookEdit"
+    ]
   }
 }

@@ -8,122 +8,27 @@ import { drawFrame, drawImg } from './sprites.js';
 import { getNearBuilding, zoneAnnouncement } from './ui.js';
 import { getParticles, drawParticle } from './particles.js';
 import { getActiveToast } from './achievements.js';
-
-// ─── Render Constants ───
-
-// HUD
-const HUD_BAR_H = 36;
-const HUD_GRADIENT_OFFSET = 10;
-const HUD_LABEL_FONT_SIZE = 11;
-const HUD_HINT_FONT_SIZE = 8;
-const HUD_LABEL_Y_OFFSET = 18;
-const HUD_HINT_Y_OFFSET = 6;
-const HUD_DEFAULT_Y_OFFSET = 12;
-
-// Nameplate
-const NAMEPLATE_FONT_SIZE = 10;
-const NAMEPLATE_PAD_X = 10;
-const NAMEPLATE_PAD_Y = 4;
-const NAMEPLATE_RADIUS = 6;
-const NAMEPLATE_STROKE_WIDTH = 1.5;
-
-// Proximity indicator
-const PROX_Y_OFFSET = 30;
-const PROX_BOB_SPEED = 4;
-const PROX_BOB_AMP = 6;
-const PROX_SHADOW_BLUR = 12;
-const PROX_HALF_W = 8;
-const PROX_ARROW_H = 12;
-
-// Zone announcement
-const ZONE_FADE_IN = 0.5;
-const ZONE_HOLD_END = 2.0;
-const ZONE_FADE_OUT = 2.5;
-const ZONE_MAX_ALPHA = 0.9;
-const ZONE_FONT_SIZE = 16;
-const ZONE_SHADOW_BLUR = 8;
-
-// Achievement toast
-const TOAST_FADE_IN = 0.4;
-const TOAST_HOLD_END = 2.5;
-const TOAST_FADE_OUT = 3.0;
-const TOAST_W = 280;
-const TOAST_H = 44;
-const TOAST_Y = 60;
-const TOAST_MAX_ALPHA = 0.85;
-const TOAST_RADIUS = 6;
-const TOAST_STROKE_W = 2;
-const TOAST_TITLE_SIZE = 9;
-const TOAST_TITLE_Y = 18;
-const TOAST_DESC_SIZE = 10;
-const TOAST_DESC_Y = 34;
-
-// Intro zoom
-const ZOOM_DURATION = 2000;
-const ZOOM_START_SCALE = 1.3;
-const ZOOM_RANGE = 0.3;
-const ZOOM_EASE_POWER = 3;
-
-// Entity rendering
-const TREE_FRAME_W = 192;
-const TREE_FRAME_H = 256;
-const TREE_DRAW_Y_OFFSET = -56;
-const TREE_BEHIND_ALPHA = 0.4;
-const TREE_DEFAULT_FADE = { xR: 70, yD: 160, base: 200 };
-const TREE_TRUNK_X_OFFSET = 96;
-const NPC_BEHIND_CHECK = { x: 48, y: 80 };
-
-const FIRE_FRAME_SIZE = 64;
-const FIRE_Y_OFFSET = -20;
-const FIRE_SCALE = 0.8;
-
-const SHEEP_FRAME_SIZE = 128;
-const SHEEP_SCALE = 0.7;
-
-const FLOWER_PULSE_SPEED = 0.003;
-
-// Clouds
-const CLOUD_ALPHA = 0.35;
-const CLOUD_DRIFT_SPEED = 0.003;
-const CLOUD_WRAP_PAD = 400;
-const CLOUD_PARALLAX = 0.3;
-
-// Animation
-const ANIM_SPEED = 0.002;
-const ANIM_FRAMES = 8;
-
-// Culling margins
-const CULL_FOAM = 200;
-const CULL_WATER_ROCKS = 150;
-const CULL_BUILDING = 20;
-const CULL_TREE_X = 200;
-const CULL_TREE_Y_TOP = 300;
-const CULL_TREE_Y_BOT = 100;
-const CULL_DECO = 100;
-const CULL_MONUMENT = 200;
-const CULL_FIRE = 100;
-const CULL_NPC = 150;
-const CULL_SHEEP = 100;
-
-// Y-sort offsets
-const YSORT_TREE = 240;
-const YSORT_DECO = 30;
-const YSORT_MONUMENT = 180;
-const YSORT_FIRE = 30;
-const YSORT_SHEEP = 60;
-
-// Colors
-const COLOR_GOLD = '#eec941';
-const COLOR_GRASS = '#7ab648';
-const COLOR_SHADOW = 'rgba(0,0,0,0.2)';
-const COLOR_NPC_SHADOW = 'rgba(0,0,0,0.15)';
-const COLOR_NAMEPLATE_BG = 'rgba(20,10,5,0.75)';
-const COLOR_NAMEPLATE_BORDER = 'rgba(238,201,65,0.5)';
-const COLOR_TOAST_BG = '#2a1a0a';
-
-// Fonts
-const FONT_PIXEL = "'Press Start 2P',monospace";
-const FONT_BODY = "'Outfit',sans-serif";
+import {
+    HUD_BAR_H, HUD_GRADIENT_OFFSET, HUD_LABEL_FONT_SIZE, HUD_HINT_FONT_SIZE,
+    HUD_LABEL_Y_OFFSET, HUD_HINT_Y_OFFSET, HUD_DEFAULT_Y_OFFSET,
+    NAMEPLATE_FONT_SIZE, NAMEPLATE_PAD_X, NAMEPLATE_PAD_Y, NAMEPLATE_RADIUS, NAMEPLATE_STROKE_WIDTH,
+    PROX_Y_OFFSET, PROX_BOB_SPEED, PROX_BOB_AMP, PROX_SHADOW_BLUR, PROX_HALF_W, PROX_ARROW_H,
+    ZONE_FADE_IN, ZONE_HOLD_END, ZONE_FADE_OUT, ZONE_MAX_ALPHA, ZONE_FONT_SIZE, ZONE_SHADOW_BLUR,
+    TOAST_FADE_IN, TOAST_HOLD_END, TOAST_FADE_OUT, TOAST_W, TOAST_H, TOAST_Y,
+    TOAST_MAX_ALPHA, TOAST_RADIUS, TOAST_STROKE_W, TOAST_TITLE_SIZE, TOAST_TITLE_Y, TOAST_DESC_SIZE, TOAST_DESC_Y,
+    ZOOM_DURATION, ZOOM_START_SCALE, ZOOM_RANGE, ZOOM_EASE_POWER,
+    TREE_FRAME_W, TREE_FRAME_H, TREE_DRAW_Y_OFFSET, TREE_BEHIND_ALPHA, TREE_DEFAULT_FADE,
+    TREE_TRUNK_X_OFFSET, NPC_BEHIND_CHECK,
+    FIRE_FRAME_SIZE, FIRE_Y_OFFSET, FIRE_SCALE,
+    SHEEP_FRAME_SIZE, SHEEP_SCALE, FLOWER_PULSE_SPEED,
+    CLOUD_ALPHA, CLOUD_DRIFT_SPEED, CLOUD_WRAP_PAD, CLOUD_PARALLAX,
+    ANIM_SPEED, ANIM_FRAMES,
+    CULL_FOAM, CULL_WATER_ROCKS, CULL_BUILDING, CULL_TREE_X, CULL_TREE_Y_TOP, CULL_TREE_Y_BOT,
+    CULL_DECO, CULL_MONUMENT, CULL_FIRE, CULL_NPC, CULL_SHEEP,
+    YSORT_TREE, YSORT_DECO, YSORT_MONUMENT, YSORT_FIRE, YSORT_SHEEP,
+    COLOR_GOLD, COLOR_GRASS, COLOR_NPC_SHADOW, COLOR_NAMEPLATE_BG, COLOR_NAMEPLATE_BORDER, COLOR_TOAST_BG,
+    FONT_PIXEL, FONT_BODY,
+} from './rendering/RenderConfig.js';
 
 /* ─── Viewport culling ─── */
 function inView(sx, sy, margin) {
@@ -215,7 +120,6 @@ const renderers = {
         const fade = tr.fade || TREE_DEFAULT_FADE;
         const trunkX = tr.x + TREE_TRUNK_X_OFFSET;
         const trunkY = tr.y + fade.base;
-        // Check if player OR any NPC is behind this tree
         let behindTree = false;
         const checkBehind = (fx, fy) => fy < trunkY && fy > trunkY - fade.yD && Math.abs(fx - trunkX) < fade.xR;
         if (checkBehind(player.x + player.w / 2, player.y + player.h)) behindTree = true;
@@ -230,7 +134,6 @@ const renderers = {
     },
     deco(item) {
         const d = item.data;
-        // Glowing flowers when unvisited buildings remain
         if (!isAllVisited() && (d.asset === 'deco01' || d.asset === 'deco04') && d.scale === 1.0) {
             const pulse = 0.5 + 0.5 * Math.sin(Date.now() * FLOWER_PULSE_SPEED);
             ctx.globalAlpha = 0.5 + pulse * 0.5;
@@ -261,12 +164,10 @@ const renderers = {
         const dw = fw * s, dh = fh * s;
         const footX = item.sx + dw / 2;
         const footY = item.sy + dh - yo;
-        // Shadow at feet
         ctx.fillStyle = COLOR_NPC_SHADOW;
         ctx.beginPath();
         ctx.ellipse(footX, footY, 14, 4, 0, 0, Math.PI * 2);
         ctx.fill();
-        // Sprite anchored so feet touch shadow
         drawFrame(img, n.frame, fw, fh, item.sx, footY - dh + yo, s, n.facing === -1);
     },
     player(item) {
@@ -349,7 +250,6 @@ export function render() {
     const ox = -camera.x, oy = -camera.y;
     const now = Date.now();
 
-    // Cinematic camera reveal — start zoomed in, slowly pull back to show the world
     if (introZoom.active) {
         const elapsed = (now - introZoom.startTime) / ZOOM_DURATION;
         if (elapsed >= 1) { introZoom.active = false; introZoom.scale = 1; }
@@ -425,7 +325,6 @@ export function render() {
     }
     for (const n of npcs) {
         const sx = n.x + ox, sy = n.y + oy;
-        // Sort at visual foot position: sprite bottom + yOffset shift
         const sortY = n.y + (n.fh || 192) * (n.scale ?? 0.5);
         if (inView(sx, sy, CULL_NPC)) drawList.push({ y: sortY, type: 'npc', data: n, sx, sy });
     }

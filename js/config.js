@@ -1,4 +1,6 @@
 /* Constants, canvas, and viewport */
+import { WATER_Y } from './data/terrain.js';
+
 export const canvas = document.getElementById('game');
 export const ctx = canvas.getContext('2d');
 
@@ -7,7 +9,7 @@ export const WORLD_W = 2800;
 export const WORLD_H = 2000;
 export const TILE = 64;
 export const PSCALE = 0.5;
-export const WATER_Y = 1650;
+export { WATER_Y };
 
 export const viewport = { w: 0, h: 0 };
 
