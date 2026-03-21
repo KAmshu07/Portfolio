@@ -1,5 +1,5 @@
 /* Sprite drawing helpers */
-import { ctx } from '../config.js';
+import { ctx } from '../core/Canvas.js';
 
 export function drawFrame(img, frame, fw, fh, x, y, scale, flip) {
     if (!img) return;

@@ -1,6 +1,8 @@
-/* Entry point — init, input, update loop, game loop */
+/* Entry point — init, input bindings, update loop, game loop */
 import { canvas, WORLD_W, WORLD_H, viewport, resize } from './config.js';
-import { mode, setMode, camera, keys, introZoom } from './state.js';
+import { mode, setMode, introZoom } from './state.js';
+import { camera, followTarget, introPan } from './core/Camera.js';
+import { keys, initInput } from './core/Input.js';
 import { loadAssets } from './assets.js';
 import { player, updatePlayer } from './player.js';
 import { animateWorld, buildings, npcs } from './world.js';
@@ -29,11 +31,11 @@ const loadingBar = document.getElementById('loadingBar');
 // Init
 resize();
 initAudio();
+initInput();
 addEventListener('resize', resize);
 
-// Input
+// Input bindings (layered on top of core Input key tracking)
 addEventListener('keydown', e => {
-    keys[e.code] = true;
     if (e.code === 'Enter' && assetsReady && mode === 'INTRO') startGame();
     if (e.code === 'KeyE' && mode === 'PLAYING') {
         if (scrollOpen) {
@@ -51,7 +53,6 @@ addEventListener('keydown', e => {
             achievePanel.classList.add('hidden');
             achievePanelOpen = false;
         } else {
-            // Refresh panel content
             const completed = getCompleted();
             achievePanel.querySelector('.achieve-list').innerHTML = achievements.map(a =>
                 `<div class="achieve-item ${completed.has(a.id) ? 'done' : ''}">
@@ -72,7 +73,6 @@ addEventListener('keydown', e => {
         scrollOpen = false;
     }
 });
-addEventListener('keyup', e => { keys[e.code] = false; });
 btn.addEventListener('click', () => {
     if (loadFailed) { window.open('Amritanshu_Kumar_Resume.pdf'); return; }
     if (assetsReady) startGame();
@@ -82,11 +82,8 @@ document.getElementById('muteBtn').addEventListener('click', () => {
     document.getElementById('muteBtn').textContent = m ? '🔇' : '🔊';
 });
 
-let gameStartTime = 0;
-
 function startGame() {
     setMode('PLAYING');
-    gameStartTime = Date.now();
     document.getElementById('intro').classList.add('hidden');
     document.querySelector('.hud').classList.add('visible');
     canvas.style.cursor = "url('Assets/Tiny Swords (Free Pack)/UI Elements/UI Elements/Cursors/Cursor_01.png') 0 0, auto";
@@ -94,17 +91,13 @@ function startGame() {
     introZoom.startTime = Date.now();
     play('click');
     startLoops();
-
-    // Auto-trigger wind toward nearest building after 2 seconds (Journey's mountain principle)
     setTimeout(() => triggerGuideWind(), 2000);
 }
 
 // Update
 function update() {
     if (mode === 'INTRO') {
-        const t = Date.now() * 0.0002;
-        camera.x = WORLD_W * 0.3 + Math.sin(t) * 400;
-        camera.y = WORLD_H * 0.25 + Math.cos(t * 0.7) * 300;
+        introPan(WORLD_W, WORLD_H);
         animateWorld();
         updateNPCs(npcs);
         return;
@@ -115,11 +108,7 @@ function update() {
     updatePlayer();
     updateParticles();
 
-    const { w, h } = viewport;
-    camera.x += ((player.x + player.w / 2 - w / 2) - camera.x) * 0.08;
-    camera.y += ((player.y + player.h / 2 - h / 2) - camera.y) * 0.08;
-    camera.x = Math.max(0, Math.min(WORLD_W - w, camera.x));
-    camera.y = Math.max(0, Math.min(WORLD_H - h, camera.y));
+    followTarget(player.x + player.w / 2, player.y + player.h / 2, WORLD_W, WORLD_H);
 
     animateWorld();
     updateNPCs(npcs);
@@ -141,7 +130,7 @@ function update() {
     checkAchievements();
 }
 
-// Game loop — starts immediately so intro camera pan shows terrain loading in
+// Game loop
 function loop() {
     update();
     render();
@@ -149,7 +138,7 @@ function loop() {
 }
 loop();
 
-// Asset loading — DOM updates owned here, not in the loader
+// Asset loading
 btn.textContent = 'Loading...';
 btn.disabled = true;
 
