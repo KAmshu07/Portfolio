@@ -24,8 +24,12 @@ export function loadAudio(key, src, opts = {}) {
     }
 }
 
-export function play(key) {
+const cooldowns = {};
+export function play(key, minInterval = 150) {
     if (muted) return;
+    const now = Date.now();
+    if (cooldowns[key] && now - cooldowns[key] < minInterval) return;
+    cooldowns[key] = now;
     ensureContext();
     const s = sounds[key];
     if (s) { s.currentTime = 0; s.play().catch(() => {}); }

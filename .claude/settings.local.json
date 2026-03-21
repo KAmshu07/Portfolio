@@ -5,7 +5,12 @@
       "WebFetch(domain:supercell.com)",
       "Bash(find /c/Nimrita/Personal/Portfolio -type f \\\\\\(-name *.png -o -name *.jpg -o -name *.jpeg -o -name *.svg -o -name *.gif -o -name *.webp -o -name *.ico \\\\\\))",
       "Bash(identify:*)",
-      "Read(//c/Nimrita/nimrita-site/2025-2026/**)"
+      "Read(//c/Nimrita/nimrita-site/2025-2026/**)",
+      "Bash(mv \"alex_jauk-windy-forest-and-birds-ambience-211720.mp3\" ambient.mp3)",
+      "Bash(mv \"freesound_community-whoosh-6316.mp3\" panel-open.mp3)",
+      "Bash(mv \"dragon-studio-whoosh-cinematic-sound-effect-376889.mp3\" panel-close.mp3)",
+      "Bash(mv \"eaglaxle-grass-footsteps-1-455143.mp3\" footstep.mp3)",
+      "Bash(mv \"Click.mp3\" click.mp3)"
     ]
   }
 }
