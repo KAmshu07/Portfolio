@@ -85,33 +85,33 @@ export function triggerGuideWind() {
     }
 }
 
-export function updateWind() {
+export function updateWind(dt) {
     if (keys[KeyCode.SPACE] && !wind.guiding && !isAllVisited()) {
         markWindUsed();
         triggerGuideWind();
     }
 
     if (wind.guiding) {
-        wind.guideTimer--;
-        wind.intensity = Math.min(MAX_INTENSITY, wind.intensity + INTENSITY_RAMP);
+        wind.guideTimer -= dt;
+        wind.intensity = Math.min(MAX_INTENSITY, wind.intensity + INTENSITY_RAMP * dt);
         if (wind.guideTimer <= 0) {
             wind.guiding = false;
             wind.targetX = AMBIENT_DIR.x;
             wind.targetY = AMBIENT_DIR.y;
         }
     } else {
-        wind.intensity = Math.max(MIN_INTENSITY, wind.intensity - INTENSITY_DECAY);
+        wind.intensity = Math.max(MIN_INTENSITY, wind.intensity - INTENSITY_DECAY * dt);
     }
 
-    wind.dirX += (wind.targetX - wind.dirX) * DIR_LERP_SPEED;
-    wind.dirY += (wind.targetY - wind.dirY) * DIR_LERP_SPEED;
+    wind.dirX += (wind.targetX - wind.dirX) * DIR_LERP_SPEED * dt;
+    wind.dirY += (wind.targetY - wind.dirY) * DIR_LERP_SPEED * dt;
     const len = Math.sqrt(wind.dirX * wind.dirX + wind.dirY * wind.dirY) || 1;
     wind.dirX /= len;
     wind.dirY /= len;
 }
 
-export function spawnWindParticles() {
-    windSpawnTimer++;
+export function spawnWindParticles(dt) {
+    windSpawnTimer += dt;
     const spawnRate = wind.guiding ? SPAWN_RATE_GUIDING : SPAWN_RATE_AMBIENT;
     if (windSpawnTimer < spawnRate) return;
     windSpawnTimer = 0;

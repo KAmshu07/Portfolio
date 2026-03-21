@@ -28,16 +28,16 @@ export function spawnParticle(type, x, y, opts = {}) {
     return p;
 }
 
-export function updateParticles() {
+export function updateParticles(dt) {
     for (let i = pool.length - 1; i >= 0; i--) {
         const p = pool[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.life--;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.life -= dt;
         p.alpha = Math.max(0, p.life / p.maxLife);
 
         if (p.type === ParticleType.DUST || p.type === ParticleType.SPLASH) {
-            p.frameTimer++;
+            p.frameTimer += dt;
             if (p.frameTimer >= PARTICLE_ANIM_RATE) { p.frameTimer = 0; p.frame = (p.frame + 1) % PARTICLE_ANIM_FRAMES; }
         }
 

@@ -48,7 +48,7 @@ export const player = {
     wasWalking: false, lastFacing: Direction.DOWN, splashed: false,
 };
 
-export function updatePlayer() {
+export function updatePlayer(dt) {
     let mx = 0, my = 0;
     if (keys[KeyCode.LEFT] || keys[KeyCode.A]) mx = -1;
     if (keys[KeyCode.RIGHT] || keys[KeyCode.D]) mx = 1;
@@ -76,9 +76,9 @@ export function updatePlayer() {
     player.lastFacing = player.facing;
 
     const sprinting = player.walking && (keys[KeyCode.SHIFT_LEFT] || keys[KeyCode.SHIFT_RIGHT]);
-    const speed = sprinting ? SPEED * SPRINT_MULTIPLIER : SPEED;
+    const speed = sprinting ? SPEED * SPRINT_MULTIPLIER * dt : SPEED * dt;
 
-    if (sprinting && player.walking && player.ft % SPRINT_DUST_MODULUS === 0) {
+    if (sprinting && player.walking && Math.floor(player.ft) % SPRINT_DUST_MODULUS === 0 && Math.floor(player.ft) !== Math.floor(player.ft - dt)) {
         spawnParticle(ParticleType.DUST, player.x + player.w / 2 + (Math.random() - 0.5) * 8,
             player.y + player.h, { vx: (Math.random() - 0.5) * 1.5, vy: -0.8 - Math.random(), life: DUST_LIFE_SPRINT, scale: DUST_SCALE_SPRINT });
     }
@@ -105,10 +105,10 @@ export function updatePlayer() {
     if (!blockedY) player.y = Math.max(WORLD_PADDING, Math.min(WORLD_H - player.h - WORLD_PADDING, ny));
 
     if (player.walking) {
-        player.ft++;
+        player.ft += dt;
         if (player.ft > WALK_FRAME_RATE) { player.ft = 0; player.frame = (player.frame + 1) % TOTAL_FRAMES; if (player.frame % FOOTSTEP_INTERVAL === 0) play(AudioKey.FOOTSTEP); }
     } else {
-        player.ft++;
+        player.ft += dt;
         if (player.ft > IDLE_FRAME_RATE) { player.ft = 0; player.frame = (player.frame + 1) % TOTAL_FRAMES; }
     }
 }
