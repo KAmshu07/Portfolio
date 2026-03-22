@@ -4,6 +4,7 @@ import { treeSpots, TREE_FADE, namedTrees } from '../data/treeSpots.js';
 import { flowerSpots, pathDecos, bushGeneration, rockGeneration } from '../data/decorations.js';
 import { WATER_Y, monument as monumentDef, fires as fireDefs, sheep as sheepDef, waterRocks as waterRockDefs, foamSpots as foamSpotDefs, clouds as cloudDefs } from '../data/terrain.js';
 import { NPCState, FlowerAssets } from '../data/enums.js';
+import { npcDialogue } from '../data/npcDialogue.js';
 
 // Animation rates and frame counts for animateWorld()
 const TREE_ANIM_RATE = 10;
@@ -271,6 +272,14 @@ export const npcs = [
         speed: 0.6,
     },
 ];
+
+// Attach dialogue lines and runtime state to each NPC
+npcs.forEach((npc, i) => {
+    npc.dialogue = npcDialogue[i] || [];
+    npc.dialogueIndex = 0;
+    npc.speechTimer = 0;
+    npc.showSpeech = false;
+});
 
 // Animate all world objects (trees, decos, fires, sheep)
 export function animateWorld(dt) {

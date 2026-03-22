@@ -19,6 +19,11 @@ import {
     COLOR_SHADOW, COLOR_NPC_SHADOW, COLOR_NAMEPLATE_BG, COLOR_NAMEPLATE_BORDER, COLOR_GOLD,
     NAMEPLATE_FONT_SIZE, NAMEPLATE_PAD_X, NAMEPLATE_PAD_Y, NAMEPLATE_RADIUS, NAMEPLATE_STROKE_WIDTH,
     FONT_PIXEL,
+    BUBBLE_MAX_W, BUBBLE_PAD_X, BUBBLE_PAD_Y, BUBBLE_RADIUS,
+    BUBBLE_FONT_SIZE, BUBBLE_LINE_HEIGHT, BUBBLE_Y_OFFSET,
+    BUBBLE_TAIL_W, BUBBLE_TAIL_H, BUBBLE_ALPHA,
+    COLOR_BUBBLE_BG, COLOR_BUBBLE_BORDER, COLOR_BUBBLE_TEXT,
+    FONT_BODY,
 } from './RenderConfig.js';
 
 /* ─── Building nameplate ─── */
@@ -45,6 +50,72 @@ const PLAYER_DRAW_SCALE = 2.0;
 const PLAYER_DRAW_Y_OFFSET = 42;
 const PLAYER_SHADOW_RX = 16;
 const PLAYER_SHADOW_RY = 5;
+
+/* ─── Speech bubble ─── */
+function wrapText(text, maxW) {
+    ctx.font = `400 ${BUBBLE_FONT_SIZE}px ${FONT_BODY}`;
+    const words = text.split(' ');
+    const lines = [];
+    let line = '';
+    for (const word of words) {
+        const test = line ? line + ' ' + word : word;
+        if (ctx.measureText(test).width > maxW) {
+            if (line) lines.push(line);
+            line = word;
+        } else {
+            line = test;
+        }
+    }
+    if (line) lines.push(line);
+    return lines;
+}
+
+function drawSpeechBubble(npc, sx, sy) {
+    if (!npc.showSpeech || !npc.dialogue || npc.dialogue.length === 0) return;
+    const text = npc.dialogue[npc.dialogueIndex];
+    if (!text) return;
+
+    const lines = wrapText(text, BUBBLE_MAX_W - BUBBLE_PAD_X * 2);
+    const textW = Math.min(BUBBLE_MAX_W, Math.max(...lines.map(l => ctx.measureText(l).width)) + BUBBLE_PAD_X * 2);
+    const textH = lines.length * BUBBLE_LINE_HEIGHT + BUBBLE_PAD_Y * 2;
+
+    const fw = npc.fw || NPC_DEFAULT_FW;
+    const s = npc.scale ?? NPC_DEFAULT_SCALE;
+    const bx = sx + (fw * s) / 2 - textW / 2;
+    const by = sy - textH - BUBBLE_Y_OFFSET - BUBBLE_TAIL_H;
+
+    ctx.globalAlpha = BUBBLE_ALPHA;
+
+    // Bubble background
+    ctx.fillStyle = COLOR_BUBBLE_BG;
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(bx, by, textW, textH, BUBBLE_RADIUS);
+    else ctx.rect(bx, by, textW, textH);
+    ctx.fill();
+    ctx.strokeStyle = COLOR_BUBBLE_BORDER;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Tail triangle
+    const tailX = bx + textW / 2;
+    ctx.fillStyle = COLOR_BUBBLE_BG;
+    ctx.beginPath();
+    ctx.moveTo(tailX - BUBBLE_TAIL_W, by + textH);
+    ctx.lineTo(tailX + BUBBLE_TAIL_W, by + textH);
+    ctx.lineTo(tailX, by + textH + BUBBLE_TAIL_H);
+    ctx.closePath();
+    ctx.fill();
+
+    // Text
+    ctx.globalAlpha = 1;
+    ctx.font = `400 ${BUBBLE_FONT_SIZE}px ${FONT_BODY}`;
+    ctx.fillStyle = COLOR_BUBBLE_TEXT;
+    ctx.textAlign = 'left';
+    for (let i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], bx + BUBBLE_PAD_X, by + BUBBLE_PAD_Y + BUBBLE_LINE_HEIGHT * (i + 1) - 2);
+    }
+    ctx.textAlign = 'center';
+}
 
 /* ─── Dispatch map ─── */
 export const renderers = {
@@ -112,6 +183,7 @@ export const renderers = {
         ctx.ellipse(footX, footY, NPC_SHADOW_RX, NPC_SHADOW_RY, 0, 0, Math.PI * 2);
         ctx.fill();
         drawFrame(img, n.frame, fw, fh, item.sx, footY - dh + yo, s, n.facing === -1);
+        drawSpeechBubble(n, item.sx, item.sy);
     },
     [EntityType.PLAYER](item) {
         const animMap = player.walking ? PlayerAnim.run : PlayerAnim.idle;

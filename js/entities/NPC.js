@@ -2,6 +2,8 @@
 import { buildings } from '../world/WorldBuilder.js';
 import { isRectCollidingBuilding } from '../world/Collision.js';
 import { NPCState } from '../data/enums.js';
+import { player } from './Player.js';
+import { SPEECH_PROXIMITY, SPEECH_DISPLAY_FRAMES, SPEECH_CYCLE_FRAMES } from '../data/gameConfig.js';
 
 // NPC collision hitbox (centered on position)
 const NPC_HITBOX_W = 20;
@@ -77,6 +79,30 @@ export function updateNPCs(npcs, dt) {
                     b.facing = a.x > b.x ? 1 : -1;
                 }
             }
+        }
+    }
+
+    // Speech bubble — show dialogue when player is near an idle/chat NPC
+    for (const npc of npcs) {
+        if (!npc.dialogue || npc.dialogue.length === 0) continue;
+        const dx = (player.x + player.w / 2) - npc.x;
+        const dy = (player.y + player.h / 2) - npc.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const near = dist < SPEECH_PROXIMITY;
+
+        if (near && npc.state !== NPCState.WALK) {
+            npc.speechTimer += dt;
+            npc.showSpeech = npc.speechTimer < SPEECH_DISPLAY_FRAMES;
+            if (npc.speechTimer >= SPEECH_CYCLE_FRAMES) {
+                npc.speechTimer = 0;
+                npc.dialogueIndex = (npc.dialogueIndex + 1) % npc.dialogue.length;
+            }
+        } else {
+            if (npc.showSpeech) {
+                npc.dialogueIndex = (npc.dialogueIndex + 1) % npc.dialogue.length;
+            }
+            npc.speechTimer = 0;
+            npc.showSpeech = false;
         }
     }
 }

@@ -121,6 +121,21 @@ export const YSORT_MONUMENT = 180;
 export const YSORT_FIRE = 30;
 export const YSORT_SHEEP = 60;
 
+// Speech bubble
+export const BUBBLE_MAX_W = 180;
+export const BUBBLE_PAD_X = 10;
+export const BUBBLE_PAD_Y = 6;
+export const BUBBLE_RADIUS = 8;
+export const BUBBLE_FONT_SIZE = 9;
+export const BUBBLE_LINE_HEIGHT = 13;
+export const BUBBLE_Y_OFFSET = 20;
+export const BUBBLE_TAIL_W = 6;
+export const BUBBLE_TAIL_H = 8;
+export const BUBBLE_ALPHA = 0.9;
+export const COLOR_BUBBLE_BG = 'rgba(20,10,5,0.85)';
+export const COLOR_BUBBLE_BORDER = 'rgba(238,201,65,0.6)';
+export const COLOR_BUBBLE_TEXT = '#e8e4e0';
+
 // Colors
 export const COLOR_GOLD = '#eec941';
 export const COLOR_GRASS = '#7ab648';
