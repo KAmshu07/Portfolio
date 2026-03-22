@@ -16,7 +16,7 @@ function loadAudio(key, src, opts = {}) {
         const el = new Audio(src);
         el.loop = true;
         el.volume = opts.volume ?? 0.3;
-        el.preload = 'auto';
+        el.preload = 'metadata';
         loops[key] = el;
     } else {
         const el = new Audio(src);
