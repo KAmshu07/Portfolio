@@ -77,6 +77,7 @@ export const KeyCode = {
     E: 'KeyE',
     ENTER: 'Enter',
     ESCAPE: 'Escape',
+    F: 'KeyF',
     TAB: 'Tab',
     SPACE: 'Space',
     SHIFT_LEFT: 'ShiftLeft',
@@ -93,6 +94,8 @@ export const DomId = {
     INFO_PANEL: 'infoPanel',
     INFO_PANEL_INNER: 'infoPanelInner',
     SCROLL_OVERLAY: 'scrollOverlay',
+    STORY_OVERLAY: 'storyOverlay',
+    STORY_CONTENT: 'storyContent',
     ACHIEVE_PANEL: 'achievePanel',
 };
 
@@ -134,6 +137,7 @@ export const UIText = {
     LOAD_FAILED: 'Load failed — Download Resume',
     HUD_CONTACT_HINT: '[E] Open resume',
     HUD_EXPLORE_HINT: 'Walk closer to explore',
+    HUD_STORY_HINT: '[F] Developer story',
     HUD_DEFAULT_HINT: 'WASD to move  •  SHIFT to sprint  •  SPACE to follow the wind',
     MUTE_ON: '🔇',
     MUTE_OFF: '🔊',

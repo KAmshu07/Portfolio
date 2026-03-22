@@ -11,6 +11,7 @@ import { updateNPCs } from './entities/NPC.js';
 import { updatePanel, getNearBuilding } from './ui/InfoPanel.js';
 import { updateZone, zoneAnnouncement } from './ui/ZoneAnnouncement.js';
 import { toggleScroll, closeScroll, isScrollOpen } from './ui/ScrollOverlay.js';
+import { toggleStory, closeStory, isStoryOpen } from './ui/StoryOverlay.js';
 import { toggleAchievePanel, closeAchievePanel, isAchievePanelOpen } from './ui/AchievePanel.js';
 import { initIntroScreen, isAssetsReady, startGame, onLoadProgress, onLoadComplete, onLoadFailed } from './ui/IntroScreen.js';
 import { updateParticles } from './systems/ParticleSystem.js';
@@ -41,7 +42,11 @@ addEventListener('keydown', e => {
     if (e.code === KeyCode.ENTER && !e.repeat && isAssetsReady() && mode === GameMode.INTRO) startGame();
     if (e.code === KeyCode.E && !e.repeat && mode === GameMode.PLAYING) toggleScroll();
     if (e.code === KeyCode.TAB && !e.repeat && mode === GameMode.PLAYING) { e.preventDefault(); toggleAchievePanel(); }
-    if (e.code === KeyCode.ESCAPE && !e.repeat) { closeAchievePanel(); closeScroll(); }
+    if (e.code === KeyCode.F && !e.repeat && mode === GameMode.PLAYING) {
+        const nearB = getNearBuilding();
+        if (nearB) toggleStory(nearB.label);
+    }
+    if (e.code === KeyCode.ESCAPE && !e.repeat) { closeAchievePanel(); closeScroll(); closeStory(); }
 });
 document.getElementById(DomId.MUTE_BTN).addEventListener('click', () => {
     const m = toggleMute();
@@ -59,7 +64,7 @@ function update(dt) {
         return;
     }
     if (mode !== GameMode.PLAYING) return;
-    if (isScrollOpen() || isAchievePanelOpen()) return;
+    if (isScrollOpen() || isAchievePanelOpen() || isStoryOpen()) return;
 
     updatePlayer(dt);
     updateParticles(dt);

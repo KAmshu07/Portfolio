@@ -1,0 +1,76 @@
+/* Story Overlay — project development journey */
+
+.story-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 5, 2, 0.92);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.story-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+.story-content {
+    max-width: 560px;
+    max-height: 80vh;
+    width: 90%;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 32px 36px;
+    background: linear-gradient(135deg, #1a120a 0%, #231a10 100%);
+    border: 2px solid rgba(238, 201, 65, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 0 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(238,201,65,0.1);
+}
+.story-content::-webkit-scrollbar { display: none; }
+.story-title {
+    font-family: var(--font-pixel);
+    font-size: 14px;
+    color: var(--gold);
+    text-align: center;
+    margin: 0 0 4px;
+}
+.story-subtitle {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: rgba(232, 228, 224, 0.6);
+    text-align: center;
+    margin: 0 0 20px;
+    font-style: italic;
+}
+.story-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 16px 0;
+    opacity: 0.4;
+}
+.story-chapter {
+    margin-bottom: 20px;
+}
+.story-chapter-heading {
+    font-family: var(--font-pixel);
+    font-size: 9px;
+    color: var(--gold);
+    margin: 0 0 8px;
+    letter-spacing: 0.5px;
+}
+.story-chapter-text {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: rgba(232, 228, 224, 0.85);
+    line-height: 1.6;
+    margin: 0;
+}
+.story-hint {
+    text-align: center;
+    font-family: var(--font-pixel);
+    font-size: 8px;
+    color: rgba(232, 228, 224, 0.4);
+    margin-top: 20px;
+}

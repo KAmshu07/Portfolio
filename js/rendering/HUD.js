@@ -7,6 +7,7 @@ import {
     COLOR_GOLD, FONT_PIXEL,
 } from './RenderConfig.js';
 import { BuildingLabel, UIText } from '../data/enums.js';
+import { hasStory } from '../ui/StoryOverlay.js';
 
 /* ─── Cached HUD gradient (recreated on resize) ─── */
 let hudGradient = null;
@@ -51,7 +52,9 @@ export function drawBottomHUD(nearB, w, h) {
         ctx.fillText(nearB.label, w / 2, h - HUD_LABEL_Y_OFFSET);
         ctx.font = `400 ${HUD_HINT_FONT_SIZE}px ${FONT_PIXEL}`;
         ctx.fillStyle = 'rgba(255,255,255,0.6)';
-        ctx.fillText(nearB.label === BuildingLabel.CONTACT ? UIText.HUD_CONTACT_HINT : UIText.HUD_EXPLORE_HINT, w / 2, h - HUD_HINT_Y_OFFSET);
+        const hint = nearB.label === BuildingLabel.CONTACT ? UIText.HUD_CONTACT_HINT : UIText.HUD_EXPLORE_HINT;
+        const storyHint = hasStory(nearB.label) ? '  \u2022  ' + UIText.HUD_STORY_HINT : '';
+        ctx.fillText(hint + storyHint, w / 2, h - HUD_HINT_Y_OFFSET);
     } else {
         ctx.font = `400 ${HUD_HINT_FONT_SIZE}px ${FONT_PIXEL}`;
         ctx.fillStyle = 'rgba(255,255,255,0.4)';
