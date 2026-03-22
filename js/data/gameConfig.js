@@ -6,5 +6,5 @@ export const TILE = 64;
 
 // Speech bubble
 export const SPEECH_PROXIMITY = 120;
-export const SPEECH_DISPLAY_FRAMES = 480;
-export const SPEECH_CYCLE_FRAMES = 600;
+export const SPEECH_DISPLAY_FRAMES = 720;
+export const SPEECH_CYCLE_FRAMES = 840;
