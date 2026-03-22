@@ -10,6 +10,7 @@ export const buildings = [
     { x: 2350, y: 700,  asset: 'tower',    w: 128, h: 256, label: 'ENGINE' },
     { x: 1800, y: 1050, asset: 'archery',  w: 192, h: 256, label: 'RECURVE' },
     { x: 2200, y: 1000, asset: 'monastery',w: 192, h: 320, label: 'SYSTEMS' },
+    { x: 1500, y: 1050, asset: 'forge',    w: 192, h: 256, label: 'INSTA_RELOAD' },
     // CONTACT — south near river
     { x: 900,  y: 1350, asset: 'house1',   w: 128, h: 192, label: 'CONTACT' },
 ];

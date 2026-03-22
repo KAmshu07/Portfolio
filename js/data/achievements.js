@@ -19,7 +19,7 @@ export const achievementDefs = [
         title: "The Engineer's Workshop",
         desc: 'Explore 3+ project buildings',
         type: 'visitCount',
-        buildings: ['PONGZ', 'ALNAHSHA', 'ENGINE', 'RECURVE', 'SYSTEMS'],
+        buildings: ['PONGZ', 'ALNAHSHA', 'ENGINE', 'RECURVE', 'SYSTEMS', 'INSTA_RELOAD'],
         count: 3,
     },
     {

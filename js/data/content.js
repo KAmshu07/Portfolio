@@ -86,6 +86,25 @@ export const interactables = [
             <div class="popup-pills"><span>C#</span><span>Unity</span><span>Patterns</span></div>`,
     },
     {
+        label: 'INSTA_RELOAD',
+        content: `<h2>InstaReload</h2>
+        <p class="popup-metrics">7ms Hot Reload &bull; 100x Faster Than Unity</p>
+        <p>Unity Editor hot reload system that patches running code in 7ms
+        without domain reload. 5-stage IL pipeline: detect &rarr; analyze &rarr;
+        compile (Roslyn) &rarr; patch (MonoMod) &rarr; dispatch.</p>
+        <ul>
+            <li>Dual compilation: Debug path (7ms) vs Release path (700ms)</li>
+            <li>IL-level method patching via MonoMod runtime detours</li>
+            <li>Blocks Unity's compilation pipeline to prevent race conditions</li>
+        </ul>
+        <div class="popup-pills">
+            <span>C#</span><span>Roslyn</span><span>MonoMod</span>
+            <span>Mono.Cecil</span><span>IL Patching</span>
+        </div>
+        <a href="https://github.com/nimritagames/Insta_Reload"
+           target="_blank" class="popup-link">GitHub &rarr;</a>`,
+    },
+    {
         label: 'CONTACT',
         content: `<h2>Let's Talk</h2>
             <p>Open to opportunities at studios that value ownership and shipping games people play.</p>

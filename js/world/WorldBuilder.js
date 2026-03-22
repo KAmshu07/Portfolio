@@ -108,6 +108,7 @@ export const landmarks = {
     tower:      { x: b('ENGINE').x, y: b('ENGINE').y + b('ENGINE').h },
     archery:    { x: b('RECURVE').x + b('RECURVE').w / 2, y: b('RECURVE').y },
     monastery:  { x: b('SYSTEMS').x + b('SYSTEMS').w / 2, y: b('SYSTEMS').y },
+    forge:      bCenter('INSTA_RELOAD'),
     contact:    { x: b('CONTACT').x, y: b('CONTACT').y },
     techHouse:  { x: b('TECH').x, y: b('TECH').y + b('TECH').h },
     monument,

@@ -18,6 +18,7 @@ export const assetPaths = {
     tower:     'Assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/Tower.png',
     archery:   'Assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/Archery.png',
     monastery: 'Assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/Monastery.png',
+    forge:     'Assets/Tiny Swords (Update 010)/Factions/Knights/Buildings/Tower/Tower_Blue.png',
     // Trees
     tree1: 'Assets/Tiny Swords (Free Pack)/Terrain/Resources/Wood/Trees/Tree1.png',
     tree2: 'Assets/Tiny Swords (Free Pack)/Terrain/Resources/Wood/Trees/Tree2.png',
