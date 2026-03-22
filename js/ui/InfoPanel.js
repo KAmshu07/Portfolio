@@ -4,6 +4,7 @@ import { buildings } from '../world/WorldBuilder.js';
 import { interactables } from '../data/content.js';
 import { visitedBuildings } from '../core/GameState.js';
 import { play } from '../systems/AudioSystem.js';
+import { saveVisited } from '../systems/SaveSystem.js';
 import { AudioKey, DomId, DomClass } from '../data/enums.js';
 
 const infoPanel = document.getElementById(DomId.INFO_PANEL);
@@ -37,6 +38,7 @@ export function updatePanel() {
             if (data) {
                 if (!visitedBuildings.has(cachedNearB.label)) play(AudioKey.CHIME);
                 visitedBuildings.add(cachedNearB.label);
+                saveVisited(visitedBuildings);
                 infoPanelInner.innerHTML = data.content;
             }
         }

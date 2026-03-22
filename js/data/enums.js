@@ -141,6 +141,13 @@ export const UIText = {
     ACHIEVE_INCOMPLETE: '☆',
 };
 
+// LocalStorage keys
+export const SaveKey = {
+    VISITED: 'portfolio_visited',
+    ACHIEVEMENTS: 'portfolio_achievements',
+    FLAGS: 'portfolio_flags',
+};
+
 // Asset path
 export const FilePath = {
     RESUME: 'Amritanshu_Kumar_Resume.pdf',

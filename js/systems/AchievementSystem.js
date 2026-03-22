@@ -3,18 +3,20 @@ import { achievementDefs } from '../data/achievements.js';
 import { visitedBuildings, isAllVisited, triggerCelebration } from '../core/GameState.js';
 import { AchievementCondition, AchievementFlag } from '../data/enums.js';
 import { TOAST_FADE_OUT } from '../rendering/RenderConfig.js';
+import { loadAchievements, saveAchievements, loadFlags, saveFlags } from '../systems/SaveSystem.js';
 
 // State
-const completed = new Set();
-let windUsed = false;
-let scrollOpened = false;
+const completed = loadAchievements();
+const savedFlags = loadFlags();
+let windUsed = savedFlags.windUsed || false;
+let scrollOpened = savedFlags.scrollOpened || false;
 
 // Toast queue
 const toastQueue = [];
 let activeToast = null;
 
-export function markWindUsed() { windUsed = true; }
-export function markScrollOpened() { scrollOpened = true; }
+export function markWindUsed() { windUsed = true; saveFlags({ windUsed, scrollOpened }); }
+export function markScrollOpened() { scrollOpened = true; saveFlags({ windUsed, scrollOpened }); }
 
 // Evaluate a declarative achievement condition
 function evaluateCondition(def) {
@@ -41,6 +43,7 @@ export function checkAchievements() {
         if (completed.has(a.id)) continue;
         if (evaluateCondition(a)) {
             completed.add(a.id);
+            saveAchievements(completed);
             toastQueue.push({ title: a.title, desc: a.desc, startTime: 0, active: false });
         }
     }
