@@ -175,3 +175,9 @@
     font-size: 11px;
     color: #4a3a2a;
 }
+.popup-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
