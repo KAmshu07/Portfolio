@@ -119,6 +119,7 @@ export const AchievementCondition = {
 export const AchievementFlag = {
     WIND_USED: 'windUsed',
     SCROLL_OPENED: 'scrollOpened',
+    CELEBRATION: '_celebration',
 };
 
 // Building labels used in comparisons

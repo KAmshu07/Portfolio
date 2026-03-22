@@ -6,6 +6,9 @@ import {
     TOAST_FADE_IN, TOAST_HOLD_END, TOAST_FADE_OUT, TOAST_W, TOAST_H, TOAST_Y,
     TOAST_MAX_ALPHA, TOAST_RADIUS, TOAST_STROKE_W, TOAST_TITLE_SIZE, TOAST_TITLE_Y,
     TOAST_DESC_SIZE, TOAST_DESC_Y,
+    CELEB_FADE_IN, CELEB_HOLD_END, CELEB_FADE_OUT,
+    CELEB_TITLE_SIZE, CELEB_SUBTITLE_SIZE, CELEB_CTA_SIZE,
+    CELEB_TITLE_Y_RATIO, CELEB_SUBTITLE_Y_OFFSET, CELEB_CTA_Y_OFFSET,
     COLOR_GOLD, COLOR_TOAST_BG, FONT_PIXEL, FONT_BODY,
 } from './RenderConfig.js';
 
@@ -65,5 +68,50 @@ export function drawAchievementToast(w, h, now) {
     ctx.font = `400 ${TOAST_DESC_SIZE}px ${FONT_BODY}`;
     ctx.fillStyle = 'rgba(232,228,224,0.8)';
     ctx.fillText(toast.desc, w / 2, by + TOAST_DESC_Y);
+    ctx.globalAlpha = 1;
+}
+
+/* ─── Celebration state progression (call during update, not render) ─── */
+export function updateCelebrationAnim(celebration) {
+    if (!celebration.active) return;
+    const elapsed = (Date.now() - celebration.startTime) / 1000;
+    if (elapsed < CELEB_FADE_IN) celebration.alpha = elapsed / CELEB_FADE_IN;
+    else if (elapsed < CELEB_HOLD_END) celebration.alpha = 1;
+    else if (elapsed < CELEB_FADE_OUT) celebration.alpha = 1 - (elapsed - CELEB_HOLD_END) / (CELEB_FADE_OUT - CELEB_HOLD_END);
+    else { celebration.active = false; celebration.alpha = 0; }
+}
+
+/* ─── Celebration overlay (pure draw, no state mutation) ─── */
+export function drawCelebration(celebration, w, h) {
+    if (!celebration.active) return;
+
+    // Dim background
+    ctx.globalAlpha = celebration.alpha * 0.3;
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, w, h);
+
+    ctx.globalAlpha = celebration.alpha;
+    ctx.textAlign = 'center';
+
+    // Title
+    ctx.font = `700 ${CELEB_TITLE_SIZE}px ${FONT_PIXEL}`;
+    ctx.fillStyle = COLOR_GOLD;
+    ctx.shadowColor = 'rgba(0,0,0,0.6)';
+    ctx.shadowBlur = 12;
+    const ty = h * CELEB_TITLE_Y_RATIO;
+    ctx.fillText('Kingdom Complete', w / 2, ty);
+
+    // Subtitle
+    ctx.font = `400 ${CELEB_SUBTITLE_SIZE}px ${FONT_BODY}`;
+    ctx.fillStyle = '#e8e4e0';
+    ctx.shadowBlur = 6;
+    ctx.fillText("You've explored the full kingdom.", w / 2, ty + CELEB_SUBTITLE_Y_OFFSET);
+
+    // CTA
+    ctx.font = `400 ${CELEB_CTA_SIZE}px ${FONT_BODY}`;
+    ctx.fillStyle = COLOR_GOLD;
+    ctx.fillText("Let's build the next one together.", w / 2, ty + CELEB_CTA_Y_OFFSET);
+
+    ctx.shadowBlur = 0;
     ctx.globalAlpha = 1;
 }

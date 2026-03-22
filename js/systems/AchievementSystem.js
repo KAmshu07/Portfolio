@@ -1,6 +1,6 @@
 /* Achievement system — evaluates declarative conditions, tracks completion, manages toast queue */
 import { achievementDefs } from '../data/achievements.js';
-import { visitedBuildings, isAllVisited } from '../core/GameState.js';
+import { visitedBuildings, isAllVisited, triggerCelebration } from '../core/GameState.js';
 import { AchievementCondition, AchievementFlag } from '../data/enums.js';
 import { TOAST_FADE_OUT } from '../rendering/RenderConfig.js';
 
@@ -53,6 +53,11 @@ export function checkAchievements() {
     if (activeToast) {
         const elapsed = (Date.now() - activeToast.startTime) / 1000;
         if (elapsed > TOAST_FADE_OUT) activeToast = null;
+    }
+
+    if (isAllVisited() && !completed.has(AchievementFlag.CELEBRATION)) {
+        completed.add(AchievementFlag.CELEBRATION);
+        triggerCelebration();
     }
 }
 

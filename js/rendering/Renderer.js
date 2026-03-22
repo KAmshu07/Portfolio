@@ -1,7 +1,7 @@
 /* Main render orchestrator — ground, water, Y-sort assembly, dispatch */
 import { ctx, viewport } from '../core/Canvas.js';
 import { camera, introZoom } from '../core/Camera.js';
-import { mode } from '../core/GameState.js';
+import { mode, celebration } from '../core/GameState.js';
 import { GameMode, EntityType } from '../data/enums.js';
 import { TILE } from '../data/gameConfig.js';
 import { IMG } from '../systems/AssetLoader.js';
@@ -12,7 +12,7 @@ import { getParticles } from '../systems/ParticleSystem.js';
 import { WATER_Y } from '../data/terrain.js';
 import { renderers } from './EntityRenderers.js';
 import { drawProximityIndicator, drawBottomHUD } from './HUD.js';
-import { drawZoneAnnouncement, drawAchievementToast } from './Overlays.js';
+import { drawZoneAnnouncement, drawAchievementToast, drawCelebration } from './Overlays.js';
 import { drawClouds } from './Clouds.js';
 import {
     ANIM_SPEED, ANIM_FRAMES, COLOR_GRASS,
@@ -139,6 +139,7 @@ export function render() {
     if (nearB && mode === GameMode.PLAYING) drawProximityIndicator(nearB, ox, oy, now);
     if (mode === GameMode.PLAYING) drawBottomHUD(nearB, w, h);
     if (mode === GameMode.PLAYING) drawAchievementToast(w, h, now);
+    if (mode === GameMode.PLAYING) drawCelebration(celebration, w, h);
 
     if (introZoom.scale !== 1) ctx.restore();
 }

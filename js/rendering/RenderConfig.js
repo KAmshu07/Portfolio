@@ -136,6 +136,17 @@ export const COLOR_BUBBLE_BG = 'rgba(20,10,5,0.85)';
 export const COLOR_BUBBLE_BORDER = 'rgba(238,201,65,0.6)';
 export const COLOR_BUBBLE_TEXT = '#e8e4e0';
 
+// Discovery celebration
+export const CELEB_FADE_IN = 1.0;
+export const CELEB_HOLD_END = 5.0;
+export const CELEB_FADE_OUT = 6.0;
+export const CELEB_TITLE_SIZE = 14;
+export const CELEB_SUBTITLE_SIZE = 10;
+export const CELEB_CTA_SIZE = 9;
+export const CELEB_TITLE_Y_RATIO = 0.4;
+export const CELEB_SUBTITLE_Y_OFFSET = 30;
+export const CELEB_CTA_Y_OFFSET = 60;
+
 // Colors
 export const COLOR_GOLD = '#eec941';
 export const COLOR_GRASS = '#7ab648';

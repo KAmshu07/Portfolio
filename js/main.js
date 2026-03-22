@@ -1,6 +1,6 @@
 /* Entry point — init, input bindings, game loop */
 import { canvas, resize } from './core/Canvas.js';
-import { mode, setMode } from './core/GameState.js';
+import { mode, setMode, celebration } from './core/GameState.js';
 import { camera, introZoom, followTarget, introPan, updateIntroZoom } from './core/Camera.js';
 import { keys, initInput } from './core/Input.js';
 import { loadAssets } from './systems/AssetLoader.js';
@@ -15,7 +15,7 @@ import { toggleAchievePanel, closeAchievePanel, isAchievePanelOpen } from './ui/
 import { initIntroScreen, isAssetsReady, startGame, onLoadProgress, onLoadComplete, onLoadFailed } from './ui/IntroScreen.js';
 import { updateParticles } from './systems/ParticleSystem.js';
 import { render, setRenderDeps } from './rendering/Renderer.js';
-import { updateZoneAnnouncementAnim } from './rendering/Overlays.js';
+import { updateZoneAnnouncementAnim, updateCelebrationAnim } from './rendering/Overlays.js';
 import { checkAchievements } from './systems/AchievementSystem.js';
 import { updateWind, spawnWindParticles } from './systems/WindSystem.js';
 import { WORLD_W, WORLD_H } from './data/gameConfig.js';
@@ -84,6 +84,7 @@ function update(dt) {
     updateZone();
     updateZoneAnnouncementAnim(zoneAnnouncement, Date.now());
     checkAchievements();
+    updateCelebrationAnim(celebration);
 }
 
 // Game loop — calculates delta-time normalized to 60fps

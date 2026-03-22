@@ -13,3 +13,12 @@ export function isAllVisited() { return visitedBuildings.size >= TOTAL_BUILDINGS
 export const announcedZones = new Set();
 export let currentZone = null;
 export function setCurrentZone(z) { currentZone = z; }
+
+// Discovery celebration state
+export const celebration = { active: false, startTime: 0, alpha: 0 };
+
+export function triggerCelebration() {
+    if (celebration.active) return;
+    celebration.active = true;
+    celebration.startTime = Date.now();
+}
