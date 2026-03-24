@@ -24,6 +24,7 @@
 \email{kamshu00@gmail.com}
 \homepage{bit.ly/4hqTcY6}
 \social[linkedin]{linkedin.com/in/amritanshu-kumar-}
+\social[github]{nimritagames}
 
 \begin{document}
 
@@ -33,7 +34,7 @@
 %% ─── Professional Summary ────────────────────────────────────────────
 \section{Professional Summary}
 \cvitem{}{%
-Game Engineer who ships end-to-end — client, server, API, and deployment pipeline. Currently leading a production multiplayer game across the complete stack, from Unity gameplay to TypeScript backend to Google Play. Built a game engine in C++ from first principles. Shipped titles with \textbf{5M+ downloads}.%
+Ships full-stack game systems — client, server, API, infrastructure. Primary contributor on a live multiplayer title serving \textbf{14K+ players}. Built C++ physics engine and Unity hot-reload tool (\textbf{7ms} IL patching) from first principles. \textbf{5M+ downloads} shipped.%
 }
 
 \vspace{0.2em}
@@ -43,11 +44,13 @@ Game Engineer who ships end-to-end — client, server, API, and deployment pipel
 
 \cventry{Oct 2024 -- Present}{Team Lead}{RootHoot Pvt Ltd}{Remote, Hyderabad}{}{%
 \begin{itemize}
-    \item Own the complete technical stack for Pongz, a production multiplayer Mahjong game — \textbf{14K+ players}, \textbf{2,800+ DAU}, and \textbf{62K+ matches} in early access, from Unity 6 gameplay to backend services to Play Store release pipeline.
-    \item Solely built the real-time game server in TypeScript/Socket.IO, handling matchmaking, reconnection, AFK detection with automatic bot stand-ins, and game-state resolution to maintain fair play across unstable connections.
-    \item Designed the ranked matchmaking and 34-tier skill rating system — \textbf{7,400+ ranked players} actively competing, balancing competitive integrity with player retention.
-    \item Built and deployed the REST API (Express, MongoDB) with OAuth, 2FA, and rate limiting — containerized with Docker on Google Cloud Run.
-    \item Developed 8 reusable Unity systems (UI, Event Bus, State Machine, Logging, Save, Pause, Popup, Loading) adopted across team projects, cutting setup time for new development.
+    \item Lead Pongz (multiplayer Mahjong, 7-engineer team) serving \textbf{2,800+ daily sessions}. Own \texttildelow55\% of the 400K-line codebase spanning client, server, and API.
+    \item Architected socket framework — enforced connection state machine, typed event dispatch, TTL-expiring offline message queue, parallel-probe connectivity with adaptive polling.
+    \item Designed server-authoritative protocol resolving race conditions from latency and message reordering — monotonic turn sequencing, fingerprint-based deduplication on reconnect, exponential-backoff with jitter.
+    \item Built three-stage AFK system — warning → server-tracked idle → bot substitution mid-match. Full state resync on player return without interrupting remaining three.
+    \item Engineered hierarchical state controller — 8 phases, 14+ substates — replacing boolean flags with typed queries as single source of truth for gameplay, UI, networking.
+    \item Extracted 8 reusable Unity systems (Event Bus, State Machine, Save, Pause, Logging, UI, Loading, Popup) — split event/message bus, WeakReference lifecycle, atomic-write persistence, bit-flag pause — adopted team-wide.
+    \item Led 7 engineers — architecture, code reviews, sprint planning — while remaining primary code contributor.
 \end{itemize}
 }
 
@@ -55,11 +58,10 @@ Game Engineer who ships end-to-end — client, server, API, and deployment pipel
 
 \cventry{Feb 2023 -- Oct 2024}{Game Developer}{DeftSoft}{Mohali, Punjab}{}{%
 \begin{itemize}
-    \item Shipped an endless runner to \textbf{5M+ downloads} and \textbf{4.6 stars} on Google Play — improved engagement \textbf{30\%} by iterating on live player feedback.
-    \item Introduced test-driven development across the team, improving user ratings by \textbf{1.5 stars} through higher release quality.
-    \item Cut level design time by \textbf{40\%} by building procedural generation tools so designers could focus on creative work instead of manual placement.
-    \item Optimized the rendering pipeline, achieving \textbf{25\%} higher frame rates on the low-end devices most players use.
-    \item Mentored 3 junior developers — code reviews, pair programming, and establishing team coding standards.
+    \item Shipped endless runner — \textbf{5M+ downloads}, \textbf{4.6 stars} on Google Play. Improved engagement \textbf{30\%} via player-data-driven iteration.
+    \item Introduced TDD team-wide — ratings improved \textbf{1.5 stars}. Authored \textbf{25-chapter} technical course on game architecture.
+    \item Built procedural generation tools — \textbf{40\%} faster level design. Optimized rendering — \textbf{25\%} higher FPS on low-end devices.
+    \item Mentored 3 junior developers — technical reviews, pair programming, coding standards.
 \end{itemize}
 }
 
@@ -68,14 +70,26 @@ Game Engineer who ships end-to-end — client, server, API, and deployment pipel
 %% ─── Selected Projects ──────────────────────────────────────────────
 \section{Selected Projects}
 
+\cvitem{\textbf{InstaReload}}{%
+Unity hot reload — domain reload 3--5s → \textbf{7ms}. Two paths: Roslyn debug (90\% of edits), MonoMod detours (structural changes).%
+}
+
+\vspace{0.1em}
+
 \cvitem{\textbf{Nimirta Engine}}{%
-Custom 2D game engine in C++/SFML, built from first principles — physics simulation (collision detection, impulse resolution), ECS architecture, material system, and AI opponents across 3 difficulty levels.%
+Custom 2D engine, C++/SFML — impulse solver with warm starting, Baumgarte correction, semi-implicit Euler, fixed timestep, spiral-of-death prevention, 3 collision algorithms, 8 materials, hand-written vector math, 3-tier AI.%
+}
+
+\vspace{0.1em}
+
+\cvitem{\textbf{FlowUI}}{%
+Open-source Unity UI framework (MIT) — CRTP builders, Roslyn codegen with partial classes, bidirectional O(1) lookups, 8-tab editor. Full documentation site.%
 }
 
 \vspace{0.1em}
 
 \cvitem{\textbf{Recurve 28}}{%
-Hardware-integrated archery game — camera, Arduino, and projector linked through OpenCV for real-time arrow impact detection. Multiple gameplay modes designed around the detection system.%
+Hardware-integrated archery — Unity, Arduino, projector, OpenCV. Real-time arrow impact detection.%
 }
 
 \vspace{0.2em}
@@ -86,8 +100,8 @@ Hardware-integrated archery game — camera, Arduino, and projector linked throu
 \begin{itemize}[itemsep=0pt, topsep=1pt]
     \item \textbf{Languages:} C\#, TypeScript, C++, Go, Python
     \item \textbf{Game Engines:} Unity, Unreal Engine, Custom (C++)
-    \item \textbf{Backend:} Node.js, Express, MongoDB, Redis, Socket.IO, Docker, Google Cloud Run
-    \item \textbf{Specializations:} Game Architecture, Real-Time Multiplayer, CI/CD, TDD, Clean Architecture, ECS
+    \item \textbf{Backend:} Node.js, Express, MongoDB, Redis, Socket.IO, Docker, Google Cloud Run, Firebase
+    \item \textbf{Specializations:} System Architecture, Real-Time Multiplayer, Physics Simulation, State Synchronization, TDD, ECS
 \end{itemize}
 }
 

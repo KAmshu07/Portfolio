@@ -8,6 +8,7 @@ import {
 } from './RenderConfig.js';
 import { BuildingLabel, UIText } from '../data/enums.js';
 import { hasStory } from '../ui/StoryOverlay.js';
+import { visitedBuildings } from '../core/GameState.js';
 
 /* ─── Cached HUD gradient (recreated on resize) ─── */
 let hudGradient = null;
@@ -60,4 +61,10 @@ export function drawBottomHUD(nearB, w, h) {
         ctx.fillStyle = 'rgba(255,255,255,0.4)';
         ctx.fillText(UIText.HUD_DEFAULT_HINT, w / 2, h - HUD_DEFAULT_Y_OFFSET);
     }
+
+    // Progress counter — bottom right
+    ctx.font = `400 8px ${FONT_PIXEL}`;
+    ctx.fillStyle = 'rgba(238,201,65,0.5)';
+    ctx.textAlign = 'right';
+    ctx.fillText(visitedBuildings.size + ' / 10 discovered', w - 16, h - HUD_DEFAULT_Y_OFFSET);
 }

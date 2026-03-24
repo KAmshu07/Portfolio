@@ -133,7 +133,7 @@ export const BuildingLabel = {
 // UI display text
 export const UIText = {
     LOADING: 'Loading...',
-    START_PROMPT: 'Press ENTER or Click to Start',
+    START_PROMPT: 'Enter the Kingdom',
     LOAD_FAILED: 'Load failed — Download Resume',
     HUD_CONTACT_HINT: '[E] Open resume',
     HUD_EXPLORE_HINT: 'Walk closer to explore',
@@ -143,6 +143,7 @@ export const UIText = {
     MUTE_OFF: '🔊',
     ACHIEVE_COMPLETE: '★',
     ACHIEVE_INCOMPLETE: '☆',
+    HUD_PROGRESS: '{count} / 10 discovered',
 };
 
 // LocalStorage keys

@@ -1,62 +1,85 @@
 /* NPC dialogue lines — keyed by NPC index matching WorldBuilder order */
-/* Each NPC gets 2-3 lines that rotate. Lines talk about the player's work. */
-export const npcDialogue = [
-    // 0: Kingdom Ranger (Red Archer) — roams entire map
-    [
-        'This kingdom has 14,000 visitors and counting.',
-        'The lord built everything — client, server, pipeline.',
-        'I patrol from the Archives to the Crossing. Much to guard.',
+
+/* Guide NPC (index 0) dialogue tiers — changes based on visitedBuildings.size */
+export const guideDialogueTiers = {
+    0: [
+        'Welcome to the kingdom, traveler. Every building holds a chapter.',
+        'Start with the Archives nearby. They hold the origin of all this.',
+        'Press SPACE and follow the wind. It knows where to go.',
     ],
+    1: [
+        'You are beginning to see the picture. There is much more east of here.',
+        'The castle holds the flagship — 14,000 players. Worth the walk.',
+        'Every building connects to the others. Watch for the threads.',
+    ],
+    2: [
+        'Halfway through the kingdom. The pattern is becoming clear.',
+        'One engineer, everything from C++ to cloud deployment.',
+        'The forge has a story worth reading. Press [F] when you are close.',
+    ],
+    3: [
+        'Nearly everything explored. The Crossing lies to the south.',
+        'You came in asking how one person builds all this. Getting clearer?',
+        'When you are ready, the contact house has everything you need.',
+    ],
+    4: [
+        'The full kingdom, explored. Not many make it this far.',
+        'The question was how. Now you know the answer.',
+        'The Crossing awaits. Amritanshu is ready to hear from you.',
+    ],
+};
+
+export const npcDialogue = [
+    // 0: Kingdom Ranger (Guide) — roams entire map, dialogue swapped at runtime
+    guideDialogueTiers[0],
     // 1: Monk — monastery/archery/monument
     [
-        '25 chapters on infinite runners. I have read them all.',
-        'FlowUI brings order to chaos. Open source, MIT licensed.',
-        'The systems in the monastery? Eight of them. All reusable.',
+        'Eight systems. All reusable. The monastery holds them.',
+        'FlowUI draws visitors from beyond the kingdom walls.',
     ],
     // 2: Woodcutter — trees, tech house
     [
-        'C++, C#, TypeScript, Go, Python... he never stops learning.',
-        'The tech house holds more tools than I have axes.',
+        'Fifteen tools in the tech house. Every one battle-tested.',
+        'C++ to Docker. Quite the range for one woodsman to guard.',
     ],
     // 3: Gold Carrier — monument to castle
     [
-        'I deliver gold to the castle. 62,000 matches worth.',
-        'Seven builders raised that castle. He leads the charge.',
+        'Gold flows from every match. Sixty-two thousand and counting.',
+        'Seven builders at the castle. One leads the charge.',
     ],
     // 4: Shepherd — sheep area
     [
-        'Even the sheep know about the 5 million downloads.',
-        'Peaceful here by the Archives. Good place to start.',
+        'Peaceful here in the Archives. Good place to begin a journey.',
+        'The wind will guide you when you are ready.',
     ],
     // 5: Border Guard (Black Lancer) — perimeter
     [
-        'The border is secure. Docker on Cloud Run, they say.',
-        'CI/CD pipelines guard this kingdom day and night.',
+        'Docker on Cloud Run keeps the kingdom running.',
+        'CI/CD pipelines never sleep. Neither does the border guard.',
     ],
     // 6: Miner — tower/barracks
     [
-        'The engine tower? C++ and SFML. Built from bedrock.',
-        'I mine resources for the barracks. 5 million downloads need fuel.',
+        'The tower was built from bedrock. C++ and SFML. Nothing borrowed.',
+        'Five million downloads from the barracks. The mine never runs dry.',
     ],
     // 7: Gate Warrior — gate/path/tech house
     [
-        'Socket.IO keeps the gates open for real-time play.',
-        'AFK players get replaced by bots. No idle hands here.',
+        'Sockets keep the gates open. Real-time, all the time.',
+        'The path east leads to the proving grounds. Worth the march.',
     ],
     // 8: Lumberjack — projects district trees
     [
-        'Hot reload in 7 milliseconds. The forge never cools.',
-        'IL patching, Roslyn compilation... the forge is something else.',
+        'The forge heats in seven milliseconds. Blink and you miss it.',
+        'Three failed attempts before the breakthrough. Persistence.',
     ],
     // 9: Builder — barracks/tower
     [
-        'He built a reconnection system. 9 out of 10 rating.',
-        'The event bus carries messages across the whole kingdom.',
+        'The barracks shipped five million. The tower was built from nothing.',
+        'Same engineer, different problems. Both solved.',
     ],
     // 10: Castle Guard (Blue Warrior) — castle perimeter
     [
-        '2,800 players visit the castle every day.',
-        '7,400 ranked warriors compete in the tournament.',
-        'Team Lead of seven. He built 55% of these walls.',
+        'Twenty-eight hundred visitors every day. The castle thrives.',
+        'Seven thousand ranked warriors in the tournament.',
     ],
 ];

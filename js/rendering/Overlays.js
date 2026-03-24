@@ -105,12 +105,12 @@ export function drawCelebration(celebration, w, h) {
     ctx.font = `400 ${CELEB_SUBTITLE_SIZE}px ${FONT_BODY}`;
     ctx.fillStyle = '#e8e4e0';
     ctx.shadowBlur = 6;
-    ctx.fillText("You've explored the full kingdom.", w / 2, ty + CELEB_SUBTITLE_Y_OFFSET);
+    ctx.fillText('One engineer. Three years. Ten projects. Now you know how.', w / 2, ty + CELEB_SUBTITLE_Y_OFFSET);
 
     // CTA
     ctx.font = `400 ${CELEB_CTA_SIZE}px ${FONT_BODY}`;
     ctx.fillStyle = COLOR_GOLD;
-    ctx.fillText("Let's build the next one together.", w / 2, ty + CELEB_CTA_Y_OFFSET);
+    ctx.fillText('Ready for the next build.', w / 2, ty + CELEB_CTA_Y_OFFSET);
 
     ctx.shadowBlur = 0;
     ctx.globalAlpha = 1;

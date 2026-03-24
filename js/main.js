@@ -22,6 +22,8 @@ import { updateWind, spawnWindParticles } from './systems/WindSystem.js';
 import { WORLD_W, WORLD_H } from './data/gameConfig.js';
 import { GameMode, KeyCode, DomId, UIText } from './data/enums.js';
 import { NAMEPLATE_FADE_IN_STEP, NAMEPLATE_FADE_OUT_STEP } from './rendering/RenderConfig.js';
+import { visitedBuildings } from './core/GameState.js';
+import { guideDialogueTiers } from './data/npcDialogue.js';
 
 // Target frame time (60fps baseline — dt=1.0 at 60fps, 0.5 at 120fps, 2.0 at 30fps)
 const TARGET_FRAME_MS = 1000 / 60;
@@ -73,6 +75,12 @@ function update(dt) {
     animateWorld(dt);
     updateNPCs(npcs, dt);
     updatePanel();
+
+    // Guide NPC dialogue tier swap based on exploration progress
+    const v = visitedBuildings.size;
+    const tier = v >= 10 ? 4 : v >= 7 ? 3 : v >= 4 ? 2 : v >= 1 ? 1 : 0;
+    if (npcs[0].dialogue !== guideDialogueTiers[tier]) npcs[0].dialogue = guideDialogueTiers[tier];
+
     updateWind(dt);
     spawnWindParticles(dt);
 
