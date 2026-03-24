@@ -81,7 +81,7 @@ export const interactables = [
         <p>Custom 2D game engine in C++/SFML. Physics simulation, ECS architecture,
         AI opponents across 3 difficulty levels.</p>
         <div class="popup-pills"><span>C++</span><span>SFML</span><span>ECS</span><span>Physics</span></div>
-        <a href="https://github.com/KAmshu07" target="_blank" class="popup-link">GitHub &rarr;</a>`,
+        <a href="https://github.com/nimritagames/NimirtaEngine" target="_blank" class="popup-link">GitHub &rarr;</a>`,
     },
     {
         label: 'RECURVE',

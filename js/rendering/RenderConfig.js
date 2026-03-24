@@ -3,30 +3,32 @@
 // HUD
 export const HUD_BAR_H = 36;
 export const HUD_GRADIENT_OFFSET = 10;
-export const HUD_LABEL_FONT_SIZE = 11;
-export const HUD_HINT_FONT_SIZE = 8;
+export const HUD_LABEL_FONT_SIZE = 15;
+export const HUD_HINT_FONT_SIZE = 10;
 export const HUD_LABEL_Y_OFFSET = 18;
 export const HUD_HINT_Y_OFFSET = 6;
 export const HUD_DEFAULT_Y_OFFSET = 12;
 
 // Nameplate
-export const NAMEPLATE_FONT_SIZE = 10;
-export const NAMEPLATE_PAD_X = 10;
-export const NAMEPLATE_PAD_Y = 4;
+export const NAMEPLATE_FONT_SIZE = 14;
+export const NAMEPLATE_PAD_X = 14;
+export const NAMEPLATE_PAD_Y = 6;
 export const NAMEPLATE_RADIUS = 6;
 export const NAMEPLATE_STROKE_WIDTH = 1.5;
-export const NAMEPLATE_LINE_HEIGHT = 16;
-export const NAMEPLATE_Y_OFFSET = 12;
+export const NAMEPLATE_LINE_HEIGHT = 20;
+export const NAMEPLATE_Y_OFFSET = 24;
 export const NAMEPLATE_FADE_IN_STEP = 0.05;
 export const NAMEPLATE_FADE_OUT_STEP = 0.08;
+export const NAMEPLATE_GLOW_BLUR = 10;
+export const NAMEPLATE_SLIDE_DIST = 8;
 
 // Proximity indicator
-export const PROX_Y_OFFSET = 30;
+export const PROX_Y_OFFSET = 0;
 export const PROX_BOB_SPEED = 4;
 export const PROX_BOB_AMP = 6;
 export const PROX_SHADOW_BLUR = 12;
-export const PROX_HALF_W = 8;
-export const PROX_ARROW_H = 12;
+export const PROX_HALF_W = 11;
+export const PROX_ARROW_H = 16;
 
 // Zone announcement
 export const ZONE_FADE_IN = 0.5;
@@ -153,7 +155,7 @@ export const COLOR_GRASS = '#7ab648';
 export const COLOR_SHADOW = 'rgba(0,0,0,0.2)';
 export const COLOR_NPC_SHADOW = 'rgba(0,0,0,0.15)';
 export const COLOR_NAMEPLATE_BG = 'rgba(20,10,5,0.75)';
-export const COLOR_NAMEPLATE_BORDER = 'rgba(238,201,65,0.5)';
+export const COLOR_NAMEPLATE_BORDER = 'rgba(238,201,65,0.8)';
 export const COLOR_TOAST_BG = '#2a1a0a';
 
 // Fonts

@@ -15,7 +15,7 @@ import {
     SHEEP_FRAME_SIZE, SHEEP_SCALE, FLOWER_PULSE_SPEED,
     NPC_DEFAULT_FW, NPC_DEFAULT_FH, NPC_DEFAULT_SCALE, NPC_DEFAULT_Y_OFFSET,
     NPC_SHADOW_RX, NPC_SHADOW_RY,
-    NAMEPLATE_LINE_HEIGHT, NAMEPLATE_Y_OFFSET,
+    NAMEPLATE_LINE_HEIGHT, NAMEPLATE_Y_OFFSET, NAMEPLATE_GLOW_BLUR, NAMEPLATE_SLIDE_DIST,
     COLOR_SHADOW, COLOR_NPC_SHADOW, COLOR_NAMEPLATE_BG, COLOR_NAMEPLATE_BORDER, COLOR_GOLD,
     NAMEPLATE_FONT_SIZE, NAMEPLATE_PAD_X, NAMEPLATE_PAD_Y, NAMEPLATE_RADIUS, NAMEPLATE_STROKE_WIDTH,
     FONT_PIXEL,
@@ -30,11 +30,18 @@ import {
 function drawNameplate(label, cx, cy) {
     ctx.font = `700 ${NAMEPLATE_FONT_SIZE}px ${FONT_PIXEL}`;
     const tw = ctx.measureText(label).width;
+    const rx = cx - tw / 2 - NAMEPLATE_PAD_X;
+    const ry = cy - NAMEPLATE_FONT_SIZE - NAMEPLATE_PAD_Y;
+    const rw = tw + NAMEPLATE_PAD_X * 2;
+    const rh = NAMEPLATE_LINE_HEIGHT + NAMEPLATE_PAD_Y * 2;
+    ctx.shadowColor = COLOR_GOLD;
+    ctx.shadowBlur = NAMEPLATE_GLOW_BLUR;
     ctx.fillStyle = COLOR_NAMEPLATE_BG;
     ctx.beginPath();
-    if (ctx.roundRect) ctx.roundRect(cx - tw / 2 - NAMEPLATE_PAD_X, cy - NAMEPLATE_FONT_SIZE - NAMEPLATE_PAD_Y, tw + NAMEPLATE_PAD_X * 2, NAMEPLATE_LINE_HEIGHT + NAMEPLATE_PAD_Y * 2, NAMEPLATE_RADIUS);
-    else ctx.rect(cx - tw / 2 - NAMEPLATE_PAD_X, cy - NAMEPLATE_FONT_SIZE - NAMEPLATE_PAD_Y, tw + NAMEPLATE_PAD_X * 2, NAMEPLATE_LINE_HEIGHT + NAMEPLATE_PAD_Y * 2);
+    if (ctx.roundRect) ctx.roundRect(rx, ry, rw, rh, NAMEPLATE_RADIUS);
+    else ctx.rect(rx, ry, rw, rh);
     ctx.fill();
+    ctx.shadowBlur = 0;
     ctx.strokeStyle = COLOR_NAMEPLATE_BORDER;
     ctx.lineWidth = NAMEPLATE_STROKE_WIDTH;
     ctx.stroke();
@@ -124,7 +131,8 @@ export const renderers = {
         if (IMG[b.asset]) drawImg(IMG[b.asset], item.sx, item.sy, 1.0);
         if (b.nameplateAlpha > 0.01) {
             ctx.globalAlpha = b.nameplateAlpha;
-            drawNameplate(b.label, item.sx + b.w / 2, item.sy - NAMEPLATE_Y_OFFSET);
+            const slideY = (1 - b.nameplateAlpha) * NAMEPLATE_SLIDE_DIST;
+            drawNameplate(b.label, item.sx + b.w / 2, item.sy - NAMEPLATE_Y_OFFSET + slideY);
             ctx.globalAlpha = 1;
         }
     },
