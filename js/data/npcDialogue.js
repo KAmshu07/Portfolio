@@ -25,7 +25,7 @@ export const guideDialogueTiers = {
     4: [
         'The full kingdom, explored. Not many make it this far.',
         'The question was how. Now you know the answer.',
-        'The Crossing awaits. Amritanshu is ready to hear from you.',
+        'The Crossing awaits. Everything you need is at the contact house.',
     ],
 };
 

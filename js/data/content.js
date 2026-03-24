@@ -3,7 +3,7 @@ export const interactables = [
     {
         label: 'BIO',
         content: `<h2>The Short Version</h2>
-<p>Most engineers pick a layer and stay there. Client or server. Engine or tools. Amritanshu builds across all of them \u2014 and leads teams that do the same.</p>
+<p>Most engineers pick a layer and stay there. Client or server. Engine or tools. I build across all of them \u2014 and lead teams that do the same.</p>
 <p>Currently <strong class="highlight">Team Lead</strong> at RootHoot, running a production multiplayer game from Unity client through TypeScript game server to cloud deployment. Previously shipped a title to <strong class="highlight">5 million downloads</strong> at DeftSoft.</p>
 <p>The castle to the east tells the full story of Pongz. The tower shows what happens when you start from absolute zero in C++.</p>
 <p><strong>Current:</strong> Team Lead \u2014 RootHoot Pvt Ltd (Remote)<br><strong>Previous:</strong> Game Developer \u2014 DeftSoft</p>`,
@@ -11,7 +11,7 @@ export const interactables = [
     {
         label: 'SKILLS',
         content: `<h2>Three Disciplines, One Engineer</h2>
-<p><strong class="highlight">01 \u2014 Full-Stack Game Dev</strong><br>Client to server to deployment. The castle (Pongz) is the proof \u2014 14K players on infrastructure he built end-to-end.</p><br>
+<p><strong class="highlight">01 \u2014 Full-Stack Game Dev</strong><br>Client to server to deployment. The castle (Pongz) is the proof \u2014 14K players on infrastructure I built end-to-end.</p><br>
 <p><strong class="highlight">02 \u2014 Backend & Multiplayer</strong><br>Node.js, Socket.IO, Express, MongoDB, Docker. Real-time systems that handle 2,800 daily players without flinching.</p><br>
 <p><strong class="highlight">03 \u2014 Engine & Systems</strong><br>C++ engine from first principles. 8 reusable Unity systems. An open-source UI framework. The monastery has the full collection.</p>`,
     },
@@ -35,7 +35,7 @@ export const interactables = [
         label: 'PONGZ',
         content: `<span class="popup-badge">FLAGSHIP \u2014 EARLY ACCESS</span>
 <h2>14,000 Players and Counting</h2>
-<p>This is the full picture. Unity client. TypeScript game server. Express REST API. MongoDB. Docker on Cloud Run. One engineer led the stack, wrote 55% of the code, and manages a team of seven.</p>
+<p>This is the full picture. Unity client. TypeScript game server. Express REST API. MongoDB. Docker on Cloud Run. I lead the stack, wrote 55% of the code, and manage a team of seven.</p>
 <p class="popup-metrics">14K+ Players &bull; 2,800+ DAU &bull; 62K+ Matches</p>
 <ul>
     <li>Socket framework with reconnection \u2014 the same architecture powering the forge's hot reload pipeline</li>
@@ -101,7 +101,7 @@ export const interactables = [
     <li>IL-level method patching via MonoMod runtime detours</li>
     <li>Blocks Unity's compilation pipeline to prevent race conditions</li>
 </ul>
-<p>The C++ engine tower shows <em>why</em> this person thinks at the engine level. Press <strong>[F]</strong> to read the full development story \u2014 three failed attempts before the breakthrough.</p>
+<p>The C++ engine tower shows <em>why</em> I think at the engine level. Press <strong>[F]</strong> to read the full development story \u2014 three failed attempts before the breakthrough.</p>
 <div class="popup-pills"><span>C#</span><span>Roslyn</span><span>MonoMod</span><span>Mono.Cecil</span><span>IL Patching</span></div>
 <a href="https://github.com/nimritagames/Insta_Reload" target="_blank" class="popup-link">GitHub &rarr;</a>`,
     },
@@ -110,7 +110,7 @@ export const interactables = [
         content: `<h2>You've Seen the Kingdom</h2>
 <p>14,000 players. 5 million downloads. A game engine from scratch. A hot reload tool that beats Unity at its own game. 8 reusable systems, an open-source framework, and a 25-chapter course.</p>
 <p><strong class="highlight">One engineer. Three years.</strong></p>
-<p>The question was how one person builds all of this. Now you know. The next question is: what could he build with your team?</p>
+<p>The question was how one person builds all of this. Now you know. The next question is: what could I build with yours?</p>
 <div class="contact-grid">
     <a href="mailto:kamshu00@gmail.com" class="contact-card"><small>EMAIL</small><span>kamshu00@gmail.com</span></a>
     <a href="https://www.linkedin.com/in/amritanshu-kumar-/" target="_blank" class="contact-card"><small>LINKEDIN</small><span>amritanshu-kumar</span></a>

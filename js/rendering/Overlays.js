@@ -105,7 +105,7 @@ export function drawCelebration(celebration, w, h) {
     ctx.font = `400 ${CELEB_SUBTITLE_SIZE}px ${FONT_BODY}`;
     ctx.fillStyle = '#e8e4e0';
     ctx.shadowBlur = 6;
-    ctx.fillText('One engineer. Three years. Ten projects. Now you know how.', w / 2, ty + CELEB_SUBTITLE_Y_OFFSET);
+    ctx.fillText('Three years. Ten projects. Now you know how I build.', w / 2, ty + CELEB_SUBTITLE_Y_OFFSET);
 
     // CTA
     ctx.font = `400 ${CELEB_CTA_SIZE}px ${FONT_BODY}`;

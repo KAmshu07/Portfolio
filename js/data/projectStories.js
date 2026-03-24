@@ -53,7 +53,7 @@ export const projectStories = {
             },
             {
                 heading: 'The Team',
-                text: "Seven engineers. 55% of the codebase is his. Team Lead means architecture decisions, code reviews, sprint planning, and still writing more code than anyone else. The 8 reusable systems were extracted from this project to accelerate the whole team.",
+                text: "Seven engineers. 55% of the codebase is mine. Team Lead means architecture decisions, code reviews, sprint planning, and still writing more code than anyone else. The 8 reusable systems were extracted from this project to accelerate the whole team.",
             },
         ],
     },
@@ -97,7 +97,7 @@ export const projectStories = {
             },
             {
                 heading: 'The Lesson',
-                text: "5 million people used something he built. That changes how you think about code. Every shortcut is a million-user bug. Every optimization reaches millions of devices. The discipline from this project powered everything that came after.",
+                text: "5 million people used something I built. That changes how you think about code. Every shortcut is a million-user bug. Every optimization reaches millions of devices. The discipline from this project powered everything that came after.",
             },
         ],
     },
