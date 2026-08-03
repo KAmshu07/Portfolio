@@ -47,7 +47,7 @@ Unity architect with \textbf{3.5 years} building scalable systems end to end —
 
 \cventry{Dec 2024 -- Present}{Team Lead}{RootHoot Pvt Ltd}{Remote, Hyderabad}{}{%
 \begin{itemize}
-    \item Lead a 7-engineer team on Pongz, a live multiplayer Unity title with \textbf{41K registered / \textasciitilde3.4K daily active} players. Own the architecture across gameplay systems, networking, and API.
+    \item Own the architecture across gameplay systems, networking, and API for Pongz, a live multiplayer Unity title shipping on Android and iOS.
     \item Architected the game's scalable Unity architecture around state machines, event-driven dispatch, and data-driven design. Replaced scattered boolean flags with a hierarchical state controller (8 phases, 14+ substates) — single source of truth for gameplay, UI, and networking.
     \item Engineered a server-authoritative multiplayer protocol that eliminated race conditions from latency and message reordering — monotonic turn sequencing, fingerprint-based dedup on reconnect, and exponential backoff with jitter.
     \item Built the connection layer with state-machine-enforced lifecycle management, typed event dispatch, offline queue with TTL expiry, and adaptive connectivity probing — optimized for stable real-time performance across variable network conditions.

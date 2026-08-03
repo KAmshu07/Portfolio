@@ -37,7 +37,7 @@
 %% ─── Professional Summary ────────────────────────────────────────────
 \section{Professional Summary}
 \cvitem{}{%
-Backend engineer specializing in \textbf{real-time distributed systems}. Owns and operates a live multiplayer platform serving \textbf{41K registered / \textasciitilde3.4K daily active} users — owning the TypeScript socket server and its REST API end to end. Took the platform from single-instance to horizontally scaled: Redis-backed pub/sub fan-out, cross-instance leader election, distributed locking, and failover with zero session loss. \textbf{3,332 tests} under enforced coverage gates. Leads a 7-engineer team spanning client, server, and API.%
+Backend engineer specializing in \textbf{real-time distributed systems}. Owns and operates a live multiplayer platform serving \textbf{41K registered / \textasciitilde3.4K daily active} users on Android and iOS. Took the platform from single-instance to horizontally scaled: Redis-backed pub/sub fan-out, cross-instance leader election, distributed locking, and failover with zero session loss. \textbf{3,332 tests} under enforced coverage gates. Leads a 7-engineer team spanning client, server, and API.%
 }
 
 \vspace{0.2em}
@@ -54,7 +54,7 @@ Backend engineer specializing in \textbf{real-time distributed systems}. Owns an
     \item Engineered a \textbf{server-authoritative protocol} that eliminated race conditions from latency and message reordering — monotonic sequencing, fingerprint-based dedup on reconnect, and exponential backoff with jitter.
     \item Built \textbf{live-ops infrastructure} — graceful maintenance windows with coordinated shutdown, player draining, and admission gating so deploys land without killing in-flight sessions — plus the \textbf{competitive ranking and skill-based matchmaking} systems end to end (rating points, tier progression, pool formation with rank-step widening under low concurrency).
     \item Grew the suite to \textbf{3,332 passing tests} with CI-enforced coverage floors (80\% lines / 85\% functions / 70\% branches), including deterministic real-socket and multi-instance E2E harnesses.
-    \item Directed architecture, code review, and sprint planning across a \textbf{7-engineer team} spanning client, server, and API.
+    \item Directed architecture, code review, and sprint planning across client, server, and API.
 \end{itemize}
 }
 

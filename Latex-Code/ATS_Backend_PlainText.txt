@@ -42,7 +42,7 @@ LinkedIn: linkedin.com/in/amritanshu-kumar- \quad GitHub: github.com/KAmshu07 \q
 
 %% ─── Summary ────────────────────────────────────────────────────────────
 \section*{Professional Summary}
-Backend engineer specializing in real-time distributed systems, with 3.5 years of professional experience. Owns and operates a live multiplayer platform serving 41,000 registered and approximately 3,400 daily active users across Android and iOS, owning the TypeScript socket server and its REST API end to end. Took the platform from a single instance to horizontally scaled: Redis-backed publish/subscribe fan-out, cross-instance leader election, distributed locking, and failover with zero session loss. Maintains 3,332 automated tests under enforced coverage gates. Leads a 7-engineer team spanning client, server, and API.
+Backend engineer specializing in real-time distributed systems, with 3.5 years of professional experience. Owns and operates a live multiplayer platform serving 41,000 registered and approximately 3,400 daily active users across Android and iOS. Took the platform from a single instance to horizontally scaled: Redis-backed publish/subscribe fan-out, cross-instance leader election, distributed locking, and failover with zero session loss. Maintains 3,332 automated tests under enforced coverage gates. Leads a 7-engineer team spanning client, server, and API.
 
 %% ─── Skills ─────────────────────────────────────────────────────────────
 \section*{Technical Skills}
@@ -69,9 +69,9 @@ Backend engineer specializing in real-time distributed systems, with 3.5 years o
   \item Solved matchmaking split-brain across N instances with Redis leader election. The elected leader forms matches from a shared global queue rather than each node's local slice, with atomic per-player claims that make double-seating impossible under overlapping leases.
   \item Built multi-instance failover with zero session loss. A draining node hands live games to its peers, which adopt them mid-session instead of dropping players. Validated by a two-instance end-to-end test suite running against real Redis.
   \item Engineered a server-authoritative protocol that eliminated race conditions caused by latency and message reordering, using monotonic sequencing, fingerprint-based deduplication on reconnect, and exponential backoff with jitter.
-  \item Built live operations infrastructure including graceful maintenance windows with coordinated shutdown, player draining, and admission gating, so deployments land without terminating in-flight sessions. Also built the competitive ranking and skill-based matchmaking systems end to end.
+  \item Built live operations infrastructure including graceful maintenance windows with coordinated shutdown, player draining, and admission gating, so deployments land without terminating in-flight sessions. Also built the competitive ranking and skill-based matchmaking systems.
   \item Grew the automated test suite to 3,332 passing tests with CI-enforced coverage floors of 80 percent lines, 85 percent functions, and 70 percent branches, including deterministic real-socket and multi-instance end-to-end harnesses.
-  \item Directed architecture, code review, and sprint planning across a 7-engineer team spanning client, server, and API.
+  \item Directed architecture, code review, and sprint planning across client, server, and API.
 \end{itemize}
 
 \vspace{4pt}
