@@ -1,0 +1,105 @@
+% ─────────────────────────────────────────────────────────────────────────
+% ATS-SAFE VARIANT — for job PORTALS (Greenhouse / Lever / Ashby / Workday).
+%
+% Why this exists: moderncv builds \cventry as a tabular-style layout, which
+% some resume parsers flatten incorrectly (dates merged into job titles, or
+% bullets dropped). This version is deliberately plain: single column, one
+% standard font, no tables, no glyph icons, no multi-column skills grid,
+% standard section names the parsers look for.
+%
+% Use the moderncv versions for humans (direct email, recruiters, your site).
+% Use THIS one when uploading into an application form.
+%
+% Content mirrors Backend_Realtime_Distributed.txt.
+% ─────────────────────────────────────────────────────────────────────────
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlist[itemize]{leftmargin=1.2em, itemsep=1pt, parsep=0pt, topsep=2pt, label=--}
+
+\titleformat{\section}{\large\bfseries}{}{0pt}{}[\vspace{-6pt}\rule{\linewidth}{0.6pt}]
+\titlespacing{\section}{0pt}{8pt}{4pt}
+
+\begin{document}
+
+%% ─── Contact (plain text, no icons — parsers read this reliably) ─────────
+\begin{center}
+{\LARGE\bfseries Amritanshu Kumar}\\[3pt]
+Email: kamshu00@gmail.com \quad Phone: +91 7903734532 \quad Location: Hyderabad, India (Remote)\\
+LinkedIn: linkedin.com/in/amritanshu-kumar- \quad GitHub: github.com/KAmshu07 \quad Portfolio: kamshu07.github.io/Portfolio/
+\end{center}
+
+\vspace{4pt}
+
+%% ─── Summary ────────────────────────────────────────────────────────────
+\section*{Professional Summary}
+Backend engineer specializing in real-time distributed systems, with 3.5 years of professional experience. Owns and operates a live multiplayer platform serving 41,000 registered and approximately 3,400 daily active users across Android and iOS, owning the TypeScript socket server and its REST API end to end. Took the platform from a single instance to horizontally scaled: Redis-backed publish/subscribe fan-out, cross-instance leader election, distributed locking, and failover with zero session loss. Maintains 3,332 automated tests under enforced coverage gates. Leads a 7-engineer team spanning client, server, and API.
+
+%% ─── Skills ─────────────────────────────────────────────────────────────
+\section*{Technical Skills}
+\textbf{Languages:} TypeScript, JavaScript, C\#, C++, Go, Python
+
+\textbf{Backend:} Node.js, Express, Socket.IO, WebSockets, REST APIs, MongoDB, Redis, ioredis, JWT authentication, Winston
+
+\textbf{Distributed Systems:} Horizontal scaling, Redis publish/subscribe, leader election, distributed locking, failover and draining, state synchronization, idempotency and deduplication, split-brain resolution, server-authoritative protocols
+
+\textbf{Cloud and DevOps:} Google Cloud Platform, Google App Engine, Docker, GitHub Actions, CI/CD, structured logging, live operations, maintenance windows
+
+\textbf{Testing:} Mocha, Chai, Sinon, c8 code coverage, end-to-end test harnesses, test-driven development
+
+\textbf{Other:} Unity, Unreal Engine, System Architecture, Real-Time Multiplayer, Technical Leadership, Code Review, Mentoring
+
+%% ─── Experience ─────────────────────────────────────────────────────────
+\section*{Professional Experience}
+
+\textbf{Team Lead, Backend Architecture} \hfill Dec 2024 -- Present\\
+\textbf{RootHoot Pvt Ltd} \hfill Remote, Hyderabad, India
+\begin{itemize}
+  \item Own the Node.js and TypeScript socket server and Express REST API for Pongz end to end, a live real-time multiplayer platform running on Google Cloud across Android and iOS.
+  \item Scaled the server horizontally from a single instance using a Redis publish/subscribe adapter for cross-instance event fan-out, per-instance identity, and room-routed delivery, so any node can reach a socket held by any other node.
+  \item Solved matchmaking split-brain across N instances with Redis leader election. The elected leader forms matches from a shared global queue rather than each node's local slice, with atomic per-player claims that make double-seating impossible under overlapping leases.
+  \item Built multi-instance failover with zero session loss. A draining node hands live games to its peers, which adopt them mid-session instead of dropping players. Validated by a two-instance end-to-end test suite running against real Redis.
+  \item Engineered a server-authoritative protocol that eliminated race conditions caused by latency and message reordering, using monotonic sequencing, fingerprint-based deduplication on reconnect, and exponential backoff with jitter.
+  \item Built live operations infrastructure including graceful maintenance windows with coordinated shutdown, player draining, and admission gating, so deployments land without terminating in-flight sessions. Also built the competitive ranking and skill-based matchmaking systems end to end.
+  \item Grew the automated test suite to 3,332 passing tests with CI-enforced coverage floors of 80 percent lines, 85 percent functions, and 70 percent branches, including deterministic real-socket and multi-instance end-to-end harnesses.
+  \item Directed architecture, code review, and sprint planning across a 7-engineer team spanning client, server, and API.
+\end{itemize}
+
+\vspace{4pt}
+\textbf{Software Engineer} \hfill Feb 2023 -- Oct 2024\\
+\textbf{DeftSoft} \hfill Mohali, Punjab, India
+\begin{itemize}
+  \item Shipped a product to more than 5 million downloads and a 4.6 star rating on Google Play. Iterated on production telemetry after launch to lift engagement by 30 percent.
+  \item Introduced test-driven development across the team to catch regressions before release, which improved ratings by 1.5 stars. Authored a 25-chapter technical course on software architecture.
+  \item Profiled and optimized hot paths for 25 percent higher throughput on low-end hardware, and built procedural tooling that cut content production time by 40 percent.
+  \item Mentored 3 junior engineers through code review, pair programming, and coding standards.
+\end{itemize}
+
+%% ─── Projects ───────────────────────────────────────────────────────────
+\section*{Selected Projects}
+\textbf{Nimirta Engine} -- 2D physics engine written from scratch in C++ and SFML. Impulse solver with warm starting, Baumgarte stabilization for high-velocity contacts, semi-implicit Euler integration, fixed timestep with spiral-of-death prevention, 3 collision algorithms, hand-written vector math. github.com/nimritagames/NimirtaEngine
+
+\vspace{2pt}
+\textbf{InstaReload} -- Hot-reload toolchain that cuts reload latency from 3-5 seconds to 7 milliseconds. Runtime IL patching via Roslyn for the common path covering 90 percent of edits, with MonoMod detours for structural changes. github.com/nimritagames/Insta\_Reload
+
+\vspace{2pt}
+\textbf{FlowUI} -- Open-source UI framework under the MIT license that eliminates UI boilerplate. CRTP builders, Roslyn source generation with partial classes, bidirectional O(1) lookups, and an 8-tab visual editor. github.com/nimritagames/Unity-FlowUI
+
+%% ─── Education ──────────────────────────────────────────────────────────
+\section*{Education}
+\textbf{Bachelor of Computer Application} \hfill Sep 2020 -- Jun 2023\\
+Lovely Professional University, Punjab, India
+
+\vspace{3pt}
+\textbf{Certifications:} Unity Certified Programmer; Unreal Engine Game Design and Development Specialization
+
+\end{document}

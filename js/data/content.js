@@ -4,15 +4,15 @@ export const interactables = [
         label: 'BIO',
         content: `<h2>The Short Version</h2>
 <p>Most engineers pick a layer and stay there. Client or server. Engine or tools. I build across all of them \u2014 and lead teams that do the same.</p>
-<p>Currently <strong class="highlight">Team Lead</strong> at RootHoot, running a production multiplayer game from Unity client through TypeScript game server to cloud deployment. Previously shipped a title to <strong class="highlight">5 million downloads</strong> at DeftSoft.</p>
+<p>Currently <strong class="highlight">Team Lead</strong> at RootHoot, running a production multiplayer game from Unity client through TypeScript game server to cloud deployment — I own the server and API architecture end to end. Previously shipped a title to <strong class="highlight">5 million downloads</strong> at DeftSoft.</p>
 <p>The castle to the east tells the full story of Pongz. The tower shows what happens when you start from absolute zero in C++.</p>
 <p><strong>Current:</strong> Team Lead \u2014 RootHoot Pvt Ltd (Remote)<br><strong>Previous:</strong> Game Developer \u2014 DeftSoft</p>`,
     },
     {
         label: 'SKILLS',
         content: `<h2>Three Disciplines, One Engineer</h2>
-<p><strong class="highlight">01 \u2014 Full-Stack Game Dev</strong><br>Client to server to deployment. The castle (Pongz) is the proof \u2014 14K players on infrastructure I built end-to-end.</p><br>
-<p><strong class="highlight">02 \u2014 Backend & Multiplayer</strong><br>Node.js, Socket.IO, Express, MongoDB, Docker. Real-time systems that handle 2,800 daily players without flinching.</p><br>
+<p><strong class="highlight">01 \u2014 Full-Stack Game Dev</strong><br>Client to server to deployment. The castle (Pongz) is the proof \u2014 41K registered players on infrastructure I built end-to-end.</p><br>
+<p><strong class="highlight">02 \u2014 Backend & Distributed Systems</strong><br>Node.js, Socket.IO, Express, MongoDB, Redis. Scaled the server horizontally from a single box \u2014 Redis pub/sub fan-out, leader election, distributed locking, and failover that hands live games to peer nodes without dropping a session. 3,332 tests behind it.</p><br>
 <p><strong class="highlight">03 \u2014 Engine & Systems</strong><br>C++ engine from first principles. 8 reusable Unity systems. An open-source UI framework. The monastery has the full collection.</p>`,
     },
     {
@@ -26,7 +26,7 @@ export const interactables = [
     <span class="t-engine">Unreal</span><span class="t-infra">Node.js</span>
     <span class="t-infra">Express</span><span class="t-infra">MongoDB</span>
     <span class="t-infra">Redis</span><span class="t-infra">Socket.IO</span>
-    <span class="t-devops">Docker</span><span class="t-devops">Cloud Run</span>
+    <span class="t-devops">Docker</span><span class="t-devops">App Engine</span>
     <span class="t-devops">GitHub Actions</span>
 </div>
 <p style="font-size:10px;color:#6a5a4a;margin-top:10px;">C# and TypeScript power the castle. C++ built the engine tower. The forge runs on Roslyn and MonoMod. Follow the wind east to see them in action.</p>`,
@@ -34,15 +34,18 @@ export const interactables = [
     {
         label: 'PONGZ',
         content: `<span class="popup-badge">FLAGSHIP \u2014 EARLY ACCESS</span>
-<h2>14,000 Players and Counting</h2>
-<p>This is the full picture. Unity client. TypeScript game server. Express REST API. MongoDB. Docker on Cloud Run. I lead the stack, wrote 55% of the code, and manage a team of seven.</p>
-<p class="popup-metrics">14K+ Players &bull; 2,800+ DAU &bull; 62K+ Matches</p>
+<h2>41,000 Players and Counting</h2>
+<p>This is the full picture. Unity client. TypeScript game server. Express REST API. MongoDB. Redis. Google App Engine. I own the architecture across all of it and lead the seven engineers building on top of it.</p>
+<p class="popup-metrics">41K+ Registered &bull; ~3.4K DAU &bull; 62K+ Matches &bull; 3,332 Tests</p>
 <ul>
-    <li>Socket framework with reconnection \u2014 the same architecture powering the forge's hot reload pipeline</li>
+    <li>Horizontally scaled from one instance to N \u2014 Redis pub/sub fan-out, leader election over a shared global queue, distributed locking</li>
+    <li>Failover that loses nothing \u2014 a draining node hands its live games to peers, which adopt them mid-session</li>
+    <li>Socket framework with reconnection \u2014 monotonic sequencing, fingerprint dedup, backoff with jitter</li>
     <li>34-tier ranked matchmaking \u2014 7,400+ ranked players competing</li>
     <li>AFK detection with bot stand-ins \u2014 no idle hands in this kingdom</li>
     <li>The 8 reusable systems in the monastery? Built for this project, then extracted for everyone.</li>
 </ul>
+<p class="story-cue">Press <strong>[F]</strong> for how the socket framework, the reconnection model and the ranked ladder were actually reasoned out.</p>
 <div class="popup-pills"><span>Unity 6</span><span>TypeScript</span><span>Socket.IO</span><span>Express</span><span>MongoDB</span><span>Docker</span></div>
 <div class="popup-links">
     <a href="https://play.google.com/store/apps/details?id=com.pixelstackstudios.pongz" target="_blank" class="popup-link">Play Store &rarr;</a>
@@ -53,8 +56,9 @@ export const interactables = [
         label: 'ALNAHSHA',
         content: `<h2>Five Million Downloads</h2>
 <p>Before leading a team, before building servers and engines \u2014 there was this. An endless runner that reached <strong class="highlight">5M+ downloads</strong> and <strong class="highlight">4.6 stars</strong> on Google Play.</p>
-<p>This is where the engineering discipline started. Player-driven iteration improved engagement 30%. The skills that scaled Pongz to 14K players? They were forged here.</p>
+<p>This is where the engineering discipline started. Player-driven iteration improved engagement 30%. The skills that scaled Pongz to 41K players? They were forged here.</p>
 <p>The lessons from this project became a <strong class="highlight">25-chapter technical course</strong> on game architecture \u2014 not a tutorial, a textbook.</p>
+<p class="story-cue">Press <strong>[F]</strong> for what 5 million users actually taught me.</p>
 <div class="popup-pills"><span>Unity</span><span>C#</span><span>Google Play</span></div>
 <div class="popup-links">
     <a href="https://play.google.com/store/apps/details?id=com.moderndoctors.alnahsharun" target="_blank" class="popup-link">Play Store &rarr;</a>
@@ -68,6 +72,7 @@ export const interactables = [
 <p>No Unity. No Unreal. No framework. Just C++, SFML, and the question: <em>what actually happens between your code and the screen?</em></p>
 <p>Custom 2D game engine built from first principles. Physics simulation. ECS architecture. AI opponents across 3 difficulty levels.</p>
 <p>This is the project that makes the InstaReload forge make sense \u2014 you don't build an IL-level hot reload tool unless you understand engines at the metal.</p>
+<p class="story-cue">Press <strong>[F]</strong> for the architecture decisions \u2014 ECS from scratch, and why stacking is the hard part of physics.</p>
 <div class="popup-pills"><span>C++</span><span>SFML</span><span>ECS</span><span>Physics</span></div>
 <a href="https://github.com/nimritagames/NimirtaEngine" target="_blank" class="popup-link">GitHub &rarr;</a>`,
     },
@@ -101,22 +106,23 @@ export const interactables = [
     <li>IL-level method patching via MonoMod runtime detours</li>
     <li>Blocks Unity's compilation pipeline to prevent race conditions</li>
 </ul>
-<p>The C++ engine tower shows <em>why</em> I think at the engine level. Press <strong>[F]</strong> to read the full development story \u2014 three failed attempts before the breakthrough.</p>
+<p>The C++ engine tower shows <em>why</em> I think at the engine level.</p>
+<p class="story-cue">Press <strong>[F]</strong> for the full development story \u2014 three failed attempts before the breakthrough.</p>
 <div class="popup-pills"><span>C#</span><span>Roslyn</span><span>MonoMod</span><span>Mono.Cecil</span><span>IL Patching</span></div>
 <a href="https://github.com/nimritagames/Insta_Reload" target="_blank" class="popup-link">GitHub &rarr;</a>`,
     },
     {
         label: 'CONTACT',
         content: `<h2>You've Seen the Kingdom</h2>
-<p>14,000 players. 5 million downloads. A game engine from scratch. A hot reload tool that beats Unity at its own game. 8 reusable systems, an open-source framework, and a 25-chapter course.</p>
-<p><strong class="highlight">One engineer. Three years.</strong></p>
-<p>The question was how one person builds all of this. Now you know. The next question is: what could I build with yours?</p>
+<p>41,000 players. 5 million downloads. A game engine from scratch. A hot reload tool that beats Unity at its own game. 8 reusable systems, an open-source framework, and a 25-chapter course.</p>
+<p><strong class="highlight">Three years. Nothing built twice.</strong></p>
+<p>Every project here left something behind that the next one stood on — the socket framework, the 8 systems, FlowUI. That is the real answer to how one person covers this much ground. The next question is what to point it at, and who to build it with.</p>
 <div class="contact-grid">
     <a href="mailto:kamshu00@gmail.com" class="contact-card"><small>EMAIL</small><span>kamshu00@gmail.com</span></a>
     <a href="https://www.linkedin.com/in/amritanshu-kumar-/" target="_blank" class="contact-card"><small>LINKEDIN</small><span>amritanshu-kumar</span></a>
     <a href="https://github.com/KAmshu07" target="_blank" class="contact-card"><small>GITHUB</small><span>KAmshu07</span></a>
     <a href="tel:+917903734532" class="contact-card"><small>PHONE</small><span>+91 7903734532</span></a>
-    <a href="Amritanshu_Kumar_Resume.pdf" target="_blank" download class="contact-card"><small>RESUME</small><span>Download PDF &darr; <span style="font-size:9px;color:#9a8a7a;margin-left:8px">[E] view here</span></span></a>
+    <a href="Amritanshu_Kumar_Resume.pdf" target="_blank" download class="contact-card"><small>RESUME</small><span>Download PDF &darr; <span class="story-cue" style="font-size:9px;color:#9a8a7a;margin-left:8px">[E] view here</span></span></a>
 </div>`,
     },
 ];

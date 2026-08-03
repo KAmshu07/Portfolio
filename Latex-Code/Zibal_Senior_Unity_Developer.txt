@@ -1,0 +1,112 @@
+\documentclass[10pt, a4paper]{moderncv}
+
+% Font and Encoding
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Style and Color
+\moderncvstyle{banking}
+\moderncvcolor{black}
+
+% Page Layout
+\usepackage[scale=0.95, top=0.6cm, bottom=0.6cm, left=1.25cm, right=1.25cm]{geometry}
+
+% Spacing Control
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=1pt, parsep=0pt, topsep=3pt, leftmargin=1.5em}
+\setlength{\parskip}{0pt}
+% moderncv >= 2.6 no longer defines \sectionSpacing; guard so this compiles on
+% both older Overleaf TeXLive and current MiKTeX.
+\ifdefined\sectionSpacing\else\newlength{\sectionSpacing}\fi
+\setlength{\sectionSpacing}{5pt}
+
+% Personal Information
+\name{Amritanshu}{Kumar}
+\phone{+91 7903734532}
+\email{kamshu00@gmail.com}
+\homepage{kamshu07.github.io/Portfolio/}
+\social[linkedin]{linkedin.com/in/amritanshu-kumar-}
+\social[github]{Kamshu07}
+
+\begin{document}
+
+\makecvtitle
+\vspace{-1.8em}
+
+%% ─── Professional Summary ────────────────────────────────────────────
+\section{Professional Summary}
+\cvitem{}{%
+Unity architect with \textbf{3.5 years} building scalable systems end to end — real-time multiplayer, physics simulation, performance-critical gameplay — and leading the teams that ship them. Directs a 7-engineer team on a live title with \textbf{41K registered / \textasciitilde3.4K daily active} players. Built a custom C++ physics engine from scratch. \textbf{5M+ downloads} shipped. Deep hands-on experience with state machines, event-driven architecture, and debugging complex production issues under pressure.%
+}
+
+\vspace{0.2em}
+
+%% ─── Professional Experience ─────────────────────────────────────────
+\section{Professional Experience}
+
+\cventry{Dec 2024 -- Present}{Team Lead}{RootHoot Pvt Ltd}{Remote, Hyderabad}{}{%
+\begin{itemize}
+    \item Lead a 7-engineer team on Pongz, a live multiplayer Unity title with \textbf{41K registered / \textasciitilde3.4K daily active} players. Own the architecture across gameplay systems, networking, and API.
+    \item Architected the game's scalable Unity architecture around state machines, event-driven dispatch, and data-driven design. Replaced scattered boolean flags with a hierarchical state controller (8 phases, 14+ substates) — single source of truth for gameplay, UI, and networking.
+    \item Engineered a server-authoritative multiplayer protocol that eliminated race conditions from latency and message reordering — monotonic turn sequencing, fingerprint-based dedup on reconnect, and exponential backoff with jitter.
+    \item Built the connection layer with state-machine-enforced lifecycle management, typed event dispatch, offline queue with TTL expiry, and adaptive connectivity probing — optimized for stable real-time performance across variable network conditions.
+    \item Designed a three-stage AFK system to handle player drops mid-match — warning, server-tracked idle, then AI-driven bot substitution. Full state resync on return without disrupting the other three players.
+    \item Extracted 8 core Unity systems into shared team infrastructure — Event Bus, State Machine, Save, Pause, Logging, UI, Loading, Popup — with separated event/message buses, WeakReference lifecycle management, and atomic-write persistence.
+    \item Directed architecture, code reviews, and sprint planning while staying hands-on in the codebase. Led features from design through implementation to delivery.
+\end{itemize}
+}
+
+\vspace{0.2em}
+
+\cventry{Feb 2023 -- Oct 2024}{Game Developer}{DeftSoft}{Mohali, Punjab}{}{%
+\begin{itemize}
+    \item Shipped a Unity title to \textbf{5M+ downloads} and \textbf{4.6 stars} on Google Play. Iterated on player data post-launch to push engagement up \textbf{30\%}.
+    \item Optimized CPU and rendering performance to hit \textbf{25\%} higher FPS on low-end devices using Unity Profiler and Frame Debugger. Built procedural generation tools with data-driven design — cut level-design time by \textbf{40\%}.
+    \item Introduced TDD across the team to catch regressions before release — ratings improved \textbf{1.5 stars} as a direct result. Authored a \textbf{25-chapter} technical course on game architecture and design patterns.
+    \item Mentored 3 junior developers — code reviews, pair programming, and coding standards.
+\end{itemize}
+}
+
+\vspace{0.2em}
+
+%% ─── Selected Projects ──────────────────────────────────────────────
+\section{Selected Projects}
+
+\cvitem{\textbf{Nimirta Engine}}{%
+Custom 2D physics engine, C++/SFML — impulse solver with warm starting, Baumgarte correction for stable high-velocity contacts, semi-implicit Euler, fixed timestep with spiral-of-death prevention, 3 collision algorithms, 8 material types, hand-written vector math, 3-tier AI system.%
+}
+
+\vspace{0.1em}
+
+\cvitem{\textbf{InstaReload}}{%
+Unity hot-reload tool that cuts domain reload from 3--5s to \textbf{7ms}, removing the main bottleneck in the edit-test loop. Deep Unity internals: Roslyn for IL patching on debug edits (90\% of cases), MonoMod detours for structural changes.%
+}
+
+\vspace{0.1em}
+
+\cvitem{\textbf{FlowUI}}{%
+Open-source Unity UI framework (MIT) that eliminates UI boilerplate — CRTP builders, Roslyn codegen with partial classes, bidirectional O(1) lookups, and an 8-tab visual editor. Fully documented.%
+}
+
+\vspace{0.2em}
+
+%% ─── Technical Skills ───────────────────────────────────────────────
+\section{Technical Skills}
+\cvitem{}{%
+\begin{itemize}[itemsep=0pt, topsep=1pt]
+    \item \textbf{Languages \& Engines:} C\#, C++, TypeScript, Go, Python \textbar{} Unity (primary), Unreal, Custom C++ Engine
+    \item \textbf{Unity Expertise:} Physics, State Machines, Event-Driven Architecture, Scriptable Objects, Prefab Architecture, Coroutines, Object Pooling, Profiler
+    \item \textbf{Patterns:} SOLID, State Machine, Observer, Factory, Strategy, ECS, Data-Driven Design
+    \item \textbf{Multiplayer:} Server-Authoritative Protocol, State Synchronization, Socket.IO, Reconnect/Resync
+    \item \textbf{Backend:} Node.js, Express, MongoDB, Redis, Docker, Google Cloud (App Engine), Firebase
+\end{itemize}
+}
+
+\vspace{0.2em}
+
+%% ─── Education & Certifications ─────────────────────────────────────
+\section{Education \& Certifications}
+\cvitem{}{\textbf{Bachelor of Computer Application}, Lovely Professional University, Punjab, India \textbar{} Sep 2020 -- Jun 2023\newline\textbf{Certifications:} Unity Certified Programmer \textbar{} Unreal Engine Game Design \& Development Specialization}
+
+\end{document}

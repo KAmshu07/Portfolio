@@ -3,23 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Amritanshu Kumar — Game Engineer who ships end-to-end. Play through my portfolio.">
-    <title>Amritanshu Kumar | Game Engineer</title>
-    <meta property="og:title" content="Amritanshu Kumar | Game Engineer">
-    <meta property="og:description" content="Game Engineer who ships end-to-end. Explore my portfolio as a playable top-down village.">
+    <meta name="description" content="Amritanshu Kumar — game and systems engineer. Real-time multiplayer infrastructure, a C++ engine from scratch, 5M+ downloads shipped. Play through my portfolio.">
+    <title>Amritanshu Kumar | Game &amp; Systems Engineer</title>
+    <meta property="og:title" content="Amritanshu Kumar | Game &amp; Systems Engineer">
+    <meta property="og:description" content="Real-time multiplayer infrastructure, a C++ engine from scratch, 5M+ downloads shipped. Explore my portfolio as a playable top-down village.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="Assets/og-preview.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta name="twitter:image" content="Assets/og-preview.png">
     <link rel="icon" type="image/png" href="Assets/favicon.png">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Amritanshu Kumar | Game Engineer">
-    <meta name="twitter:description" content="Game Engineer who ships end-to-end. Explore my portfolio as a playable top-down village.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Amritanshu Kumar | Game &amp; Systems Engineer">
+    <meta name="twitter:description" content="Real-time multiplayer infrastructure, a C++ engine from scratch, 5M+ downloads shipped. Explore my portfolio as a playable top-down village.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="preload" as="image" href="Assets/Ritik_Char/Idle/player_idle_down.png">
-    <link rel="preload" as="image" href="Assets/Tiny Swords (Free Pack)/Terrain/Tileset/Tilemap_color1.png">
-    <link rel="preload" as="image" href="Assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/Castle.png">
+    <!-- media gate matches styles/mobile.css — the phone build never renders these sprites -->
+    <link rel="preload" as="image" media="(min-width: 769px)" href="Assets/Ritik_Char/Idle/player_idle_down.png">
+    <link rel="preload" as="image" media="(min-width: 769px)" href="Assets/Tiny Swords (Free Pack)/Terrain/Tileset/Tilemap_color1.png">
+    <link rel="preload" as="image" media="(min-width: 769px)" href="Assets/Tiny Swords (Free Pack)/Buildings/Blue Buildings/Castle.png">
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/hud.css">
     <link rel="stylesheet" href="styles/intro.css">
@@ -34,7 +37,7 @@
     <div class="hud">
         <div class="hud-left">
             <span class="hud-name">Amritanshu Kumar</span>
-            <span class="hud-title">Game Engineer</span>
+            <span class="hud-title">Game &amp; Systems Engineer</span>
         </div>
         <div class="hud-right">
             <button class="hud-mute" id="muteBtn" aria-label="Toggle sound">🔇</button>
@@ -63,25 +66,27 @@
     <div class="scroll-overlay hidden" id="scrollOverlay">
         <div class="scroll-content">
             <h2 class="scroll-title">Amritanshu Kumar</h2>
-            <p class="scroll-subtitle">Game Systems Engineer</p>
+            <p class="scroll-subtitle">Game &amp; Systems Engineer</p>
             <div class="scroll-divider"></div>
             <div class="scroll-section">
                 <h3>Summary</h3>
-                <p class="scroll-summary">Ships full-stack game systems — client, server, API, infrastructure. Primary contributor on a live multiplayer title serving <strong>14K+ players</strong>. Built C++ physics engine and Unity hot-reload tool (<strong>7ms</strong> IL patching) from first principles. <strong>5M+ downloads</strong> shipped.</p>
+                <p class="scroll-summary">Ships full-stack game systems — client, server, API, infrastructure. Owns the server and API architecture on a live multiplayer title serving <strong>41K+ players</strong> across Android and iOS. Built C++ physics engine and Unity hot-reload tool (<strong>7ms</strong> IL patching) from first principles. <strong>5M+ downloads</strong> shipped.</p>
             </div>
             <div class="scroll-section">
                 <h3>Experience</h3>
                 <div class="scroll-entry">
                     <strong>Team Lead</strong> — RootHoot Pvt Ltd<br>
-                    <small>Remote, Hyderabad &bull; Oct 2024 – Present</small>
+                    <small>Remote, Hyderabad &bull; Dec 2024 – Present</small>
                     <ul>
-                        <li>Lead Pongz (multiplayer Mahjong, 7-engineer team) serving <strong>2,800+ daily sessions</strong>. Own ~55% of the 400K-line codebase spanning client, server, and API</li>
+                        <li>Lead Pongz (multiplayer Mahjong, 7-engineer team) — <strong>41K registered</strong> / <strong>~3.4K daily active</strong> players across Android and iOS. Own the server and API architecture end to end</li>
+                        <li>Scaled the game server horizontally from a single instance — Redis pub/sub fan-out, leader election over a shared global queue (fixing matchmaking split-brain), distributed locking, and failover that hands live games to peer nodes on drain with <strong>zero session loss</strong></li>
                         <li>Architected socket framework — enforced connection state machine, typed event dispatch, TTL-expiring offline message queue, parallel-probe connectivity with adaptive polling</li>
                         <li>Designed server-authoritative protocol resolving race conditions from latency and message reordering — monotonic turn sequencing, fingerprint-based deduplication on reconnect, exponential-backoff with jitter</li>
                         <li>Built three-stage AFK system — warning → server-tracked idle → bot substitution mid-match. Full state resync on player return without interrupting remaining three</li>
                         <li>Engineered hierarchical state controller — 8 phases, 14+ substates — replacing boolean flags with typed queries as single source of truth for gameplay, UI, networking</li>
                         <li>Extracted 8 reusable Unity systems (Event Bus, State Machine, Save, Pause, Logging, UI, Loading, Popup) — split event/message bus, WeakReference lifecycle, atomic-write persistence, bit-flag pause — adopted team-wide</li>
-                        <li>Led 7 engineers — architecture, code reviews, sprint planning — while remaining primary code contributor</li>
+                        <li>Grew the test suite to <strong>3,332 passing tests</strong> with CI-enforced coverage floors (80% lines / 85% functions)</li>
+                        <li>Led 7 engineers — architecture, code reviews, sprint planning across client, server, and API</li>
                     </ul>
                 </div>
                 <div class="scroll-entry">
@@ -118,7 +123,7 @@
                 <h3>Technical Skills</h3>
                 <p class="scroll-skills"><strong>Languages:</strong> C# • TypeScript • C++ • Go • Python</p>
                 <p class="scroll-skills"><strong>Engines:</strong> Unity • Unreal Engine • Custom (C++)</p>
-                <p class="scroll-skills"><strong>Backend:</strong> Node.js • Express • MongoDB • Redis • Socket.IO • Docker • Cloud Run • Firebase</p>
+                <p class="scroll-skills"><strong>Backend:</strong> Node.js • Express • MongoDB • Redis • Socket.IO • Docker • Google Cloud (App Engine) • Firebase</p>
                 <p class="scroll-skills"><strong>Specializations:</strong> System Architecture • Real-Time Multiplayer • Physics Simulation • State Synchronization • TDD • ECS</p>
             </div>
             <div class="scroll-section">
@@ -145,12 +150,13 @@
     <div class="intro" id="intro">
         <div class="intro-content">
             <h1 class="intro-title">Amritanshu Kumar</h1>
-            <p class="intro-sub">14,000 players. 5 million downloads. A game engine from scratch.</p>
+            <p class="intro-sub">41,000 players. 5 million downloads. A game engine from scratch.</p>
             <div class="intro-divider"></div>
             <p class="intro-hint">Three years. Ten projects. One question:<br>How does one engineer build all of this?</p>
             <div class="intro-controls">
                 <span>[WASD] Walk</span>
                 <span>[SPACE] Guide the wind</span>
+                <span>[F] Read the build story</span>
             </div>
             <button class="intro-start" id="introStart" aria-label="Start the portfolio game">Enter the Kingdom</button>
             <a href="Amritanshu_Kumar_Resume.pdf" target="_blank" download class="intro-skip" aria-label="Download resume PDF">or download my resume directly</a>
@@ -164,18 +170,21 @@
         </div>
     </div>
 
-    <!-- Mobile Warning -->
-    <div class="mobile-warning" id="mobileWarning">
-        <div class="mobile-warning-content">
-            <h2>Best on Desktop</h2>
-            <p>This portfolio is a playable game that needs a keyboard.</p>
+    <!-- Mobile Portfolio — sections injected from data/content.js by ui/MobileView.js -->
+    <div class="mobile-view" id="mobileView">
+        <header class="mobile-header">
+            <h1>Amritanshu Kumar</h1>
+            <p class="mobile-role">Game &amp; Systems Engineer</p>
+            <p class="mobile-tagline">41,000 players. 5 million downloads. A game engine from scratch.</p>
             <a href="Amritanshu_Kumar_Resume.pdf" target="_blank" download class="mobile-resume-btn">Download Resume</a>
             <div class="mobile-links">
                 <a href="mailto:kamshu00@gmail.com">Email</a>
                 <a href="https://www.linkedin.com/in/amritanshu-kumar-/" target="_blank">LinkedIn</a>
                 <a href="https://github.com/KAmshu07" target="_blank">GitHub</a>
             </div>
-        </div>
+            <p class="mobile-note">On a desktop this page is a village you walk through. Same chapters below.</p>
+        </header>
+        <div class="mobile-sections" id="mobileSections"></div>
     </div>
 
     <script type="module" src="js/main.js"></script>

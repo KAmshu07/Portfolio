@@ -1,0 +1,112 @@
+\documentclass[10pt, a4paper]{moderncv}
+
+% Font and Encoding
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Style and Color
+\moderncvstyle{banking}
+\moderncvcolor{black}
+
+% Page Layout
+\usepackage[scale=0.95, top=0.6cm, bottom=0.6cm, left=1.25cm, right=1.25cm]{geometry}
+
+% Spacing Control
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=1pt, parsep=0pt, topsep=3pt, leftmargin=1.5em}
+\setlength{\parskip}{0pt}
+% moderncv >= 2.6 no longer defines \sectionSpacing; guard so this compiles on
+% both older Overleaf TeXLive and current MiKTeX.
+\ifdefined\sectionSpacing\else\newlength{\sectionSpacing}\fi
+\setlength{\sectionSpacing}{5pt}
+
+% Personal Information
+\name{Amritanshu}{Kumar}
+\phone{+91 7903734532}
+\email{kamshu00@gmail.com}
+\homepage{kamshu07.github.io/Portfolio/}
+\social[linkedin]{linkedin.com/in/amritanshu-kumar-}
+\social[github]{Kamshu07}
+
+\begin{document}
+
+\makecvtitle
+\vspace{-1.8em}
+
+%% ─── Professional Summary ────────────────────────────────────────────
+\section{Professional Summary}
+\cvitem{}{%
+Backend engineer specializing in \textbf{real-time distributed systems}. Owns and operates a live multiplayer platform serving \textbf{41K registered / \textasciitilde3.4K daily active} users — owning the TypeScript socket server and its REST API end to end. Took the platform from single-instance to horizontally scaled: Redis-backed pub/sub fan-out, cross-instance leader election, distributed locking, and failover with zero session loss. \textbf{3,332 tests} under enforced coverage gates. Leads a 7-engineer team spanning client, server, and API.%
+}
+
+\vspace{0.2em}
+
+%% ─── Professional Experience ─────────────────────────────────────────
+\section{Professional Experience}
+
+\cventry{Dec 2024 -- Present}{Team Lead \textbar{} Backend Architecture}{RootHoot Pvt Ltd}{Remote, Hyderabad}{}{%
+\begin{itemize}
+    \item Own the Node.js/TypeScript socket server and Express REST API for Pongz end to end — a live real-time multiplayer platform on Google Cloud, shipping on Android and iOS.
+    \item \textbf{Scaled the server horizontally from a single instance.} Redis pub/sub adapter for cross-instance event fan-out, per-instance identity, and room-routed delivery so any node can reach a socket held by any other.
+    \item \textbf{Solved matchmaking split-brain across N instances} with Redis leader election — the elected leader forms matches from a shared global queue instead of each node's local slice, with atomic per-player claims to make double-seating impossible under overlapping leases.
+    \item \textbf{Built multi-instance failover with zero session loss} — a draining node hands live games to its peers, which adopt them mid-session rather than dropping players. Validated by a real-Redis two-instance E2E suite.
+    \item Engineered a \textbf{server-authoritative protocol} that eliminated race conditions from latency and message reordering — monotonic sequencing, fingerprint-based dedup on reconnect, and exponential backoff with jitter.
+    \item Built \textbf{live-ops infrastructure} — graceful maintenance windows with coordinated shutdown, player draining, and admission gating so deploys land without killing in-flight sessions — plus the \textbf{competitive ranking and skill-based matchmaking} systems end to end (rating points, tier progression, pool formation with rank-step widening under low concurrency).
+    \item Grew the suite to \textbf{3,332 passing tests} with CI-enforced coverage floors (80\% lines / 85\% functions / 70\% branches), including deterministic real-socket and multi-instance E2E harnesses.
+    \item Directed architecture, code review, and sprint planning across a \textbf{7-engineer team} spanning client, server, and API.
+\end{itemize}
+}
+
+\vspace{0.2em}
+
+\cventry{Feb 2023 -- Oct 2024}{Software Engineer}{DeftSoft}{Mohali, Punjab}{}{%
+\begin{itemize}
+    \item Shipped a product to \textbf{5M+ downloads} / \textbf{4.6 stars} on Google Play; post-launch telemetry iteration lifted engagement \textbf{30\%}.
+    \item Introduced \textbf{TDD} across the team to catch regressions before release — ratings improved \textbf{1.5 stars} as a direct result. Authored a \textbf{25-chapter} technical course on software architecture.
+    \item Profiled and optimized hot paths for \textbf{25\%} higher throughput on low-end hardware. Mentored 3 junior engineers — code review, pair programming, and coding standards.
+\end{itemize}
+}
+
+\vspace{0.2em}
+
+%% ─── Selected Projects ──────────────────────────────────────────────
+\section{Selected Projects}
+
+\cvitem{\textbf{Nimirta Engine}}{%
+2D physics engine from first principles, \textbf{C++}/SFML — impulse solver with warm starting, Baumgarte stabilization for high-velocity contacts, semi-implicit Euler integration, fixed timestep with spiral-of-death prevention, 3 collision algorithms, hand-written vector math.%
+}
+
+\vspace{0.1em}
+
+\cvitem{\textbf{InstaReload}}{%
+Hot-reload toolchain cutting reload latency from 3--5s to \textbf{7ms}. Runtime \textbf{IL patching} via Roslyn for the common path (90\% of edits), MonoMod detours for structural changes.%
+}
+
+\vspace{0.1em}
+
+\cvitem{\textbf{FlowUI}}{%
+Open-source framework (MIT) eliminating UI boilerplate — CRTP builders, \textbf{Roslyn source generation} with partial classes, bidirectional O(1) lookups, 8-tab visual editor. Fully documented.%
+}
+
+\vspace{0.2em}
+
+%% ─── Technical Skills ───────────────────────────────────────────────
+\section{Technical Skills}
+\cvitem{}{%
+\begin{itemize}[itemsep=0pt, topsep=1pt]
+    \item \textbf{Languages:} TypeScript, C\#, C++, Go, Python
+    \item \textbf{Backend:} Node.js, Express, Socket.IO, MongoDB, Redis (ioredis), JWT, Winston
+    \item \textbf{Distributed Systems:} Horizontal scaling, Redis pub/sub, leader election, distributed locking, failover \& draining, state synchronization, idempotency \& dedup, split-brain resolution
+    \item \textbf{Cloud \& Ops:} Google Cloud (App Engine), Docker, GitHub Actions, structured logging, live-ops
+    \item \textbf{Testing:} Mocha, Chai, Sinon, c8 coverage gates, deterministic E2E harnesses, TDD
+\end{itemize}
+}
+
+\vspace{0.2em}
+
+%% ─── Education & Certifications ─────────────────────────────────────
+\section{Education \& Certifications}
+\cvitem{}{\textbf{Bachelor of Computer Application}, Lovely Professional University, Punjab, India \textbar{} Sep 2020 -- Jun 2023\newline\textbf{Certifications:} Unity Certified Programmer \textbar{} Unreal Engine Game Design \& Development Specialization}
+
+\end{document}
