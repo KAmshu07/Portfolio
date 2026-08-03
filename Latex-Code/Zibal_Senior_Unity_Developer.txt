@@ -28,6 +28,7 @@
 \homepage{kamshu07.github.io/Portfolio/}
 \social[linkedin]{linkedin.com/in/amritanshu-kumar-}
 \social[github]{Kamshu07}
+\extrainfo{Raipur, India \textbar{} Open to remote}
 
 \begin{document}
 
@@ -45,7 +46,7 @@ Unity architect with \textbf{3.5 years} building scalable systems end to end —
 %% ─── Professional Experience ─────────────────────────────────────────
 \section{Professional Experience}
 
-\cventry{Dec 2024 -- Present}{Team Lead}{RootHoot Pvt Ltd}{Remote, Hyderabad}{}{%
+\cventry{Dec 2024 -- Present}{Team Lead}{RootHoot Pvt Ltd (mobile gaming studio)}{Remote, Hyderabad}{}{%
 \begin{itemize}
     \item Own the architecture across gameplay systems, networking, and API for Pongz, a live multiplayer Unity title shipping on Android and iOS.
     \item Architected the game's scalable Unity architecture around state machines, event-driven dispatch, and data-driven design. Replaced scattered boolean flags with a hierarchical state controller (8 phases, 14+ substates) — single source of truth for gameplay, UI, and networking.

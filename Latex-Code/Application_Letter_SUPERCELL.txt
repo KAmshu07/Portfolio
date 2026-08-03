@@ -1,0 +1,16 @@
+Dear Supercell Hiring Team,
+
+I am applying for the Game Programmer, Clash Royale role because it sits exactly at the intersection I care about most: gameplay quality, live game engineering, and deep systems work. The opportunity to contribute across game logic, gameplay systems, engine tech, and UI on Clash Royale is genuinely exciting to me.
+
+I currently work as the primary technical contributor on a live multiplayer game, owning major parts of the client, server, and API stack. My work has included server-authoritative architecture, reconnect and deduplication flows, AFK and bot substitution systems, typed state-driven gameplay control, and reusable Unity infrastructure adopted team-wide. I enjoy solving the kinds of problems that only show up in real products: unstable edge cases, race conditions, bad assumptions in old systems, and the gap between “works locally” and “works reliably for players.”
+
+Earlier in my career, I contributed to a shipped mobile title with more than 5 million downloads, where I worked on gameplay iteration, performance optimization, and team tooling. That experience taught me to value both player-facing impact and engineering leverage. Good game programming is not just about writing features. It is about making better decisions faster, with code that can survive live development.
+
+I know this role places strong emphasis on C++, and while my main production experience has been in Unity and C#, I have built a custom 2D C++ engine from scratch, including physics, collision handling, fixed timestep simulation, and supporting engine systems. That work reflects the way I like to learn: by going down to fundamentals, understanding how the pieces actually work, and then using that knowledge to build better production systems.
+
+What I would bring to Supercell is ownership, systems thinking, and genuine care for game quality. I like taking responsibility, getting up to speed quickly in existing code, and building robust solutions that serve both the team and the players. Most of all, I want to work on games that players return to for years, where every engineering decision matters.
+
+Thank you for considering my application. I would love the opportunity to contribute to Clash Royale in Shanghai.
+
+Sincerely,
+Amritanshu Kumar

@@ -34,7 +34,7 @@
 %% ─── Contact (plain text, no icons — parsers read this reliably) ─────────
 \begin{center}
 {\LARGE\bfseries Amritanshu Kumar}\\[3pt]
-Email: kamshu00@gmail.com \quad Phone: +91 7903734532 \quad Location: Hyderabad, India (Remote)\\
+Email: kamshu00@gmail.com \quad Phone: +91 7903734532 \quad Location: Raipur, India (Open to remote)\\
 LinkedIn: linkedin.com/in/amritanshu-kumar- \quad GitHub: github.com/KAmshu07 \quad Portfolio: kamshu07.github.io/Portfolio/
 \end{center}
 
@@ -62,7 +62,7 @@ Backend engineer specializing in real-time distributed systems, with 3.5 years o
 \section*{Professional Experience}
 
 \textbf{Team Lead, Backend Architecture} \hfill Dec 2024 -- Present\\
-\textbf{RootHoot Pvt Ltd} \hfill Remote, Hyderabad, India
+\textbf{RootHoot Pvt Ltd} (mobile gaming studio) \hfill Remote, Hyderabad, India
 \begin{itemize}
   \item Own the Node.js and TypeScript socket server and Express REST API for Pongz end to end, a live real-time multiplayer platform running on Google Cloud across Android and iOS.
   \item Scaled the server horizontally from a single instance using a Redis publish/subscribe adapter for cross-instance event fan-out, per-instance identity, and room-routed delivery, so any node can reach a socket held by any other node.
@@ -75,7 +75,7 @@ Backend engineer specializing in real-time distributed systems, with 3.5 years o
 \end{itemize}
 
 \vspace{4pt}
-\textbf{Software Engineer} \hfill Feb 2023 -- Oct 2024\\
+\textbf{Game Developer} \hfill Feb 2023 -- Oct 2024\\
 \textbf{DeftSoft} \hfill Mohali, Punjab, India
 \begin{itemize}
   \item Shipped a product to more than 5 million downloads and a 4.6 star rating on Google Play. Iterated on production telemetry after launch to lift engagement by 30 percent.
@@ -99,7 +99,5 @@ Backend engineer specializing in real-time distributed systems, with 3.5 years o
 \textbf{Bachelor of Computer Application} \hfill Sep 2020 -- Jun 2023\\
 Lovely Professional University, Punjab, India
 
-\vspace{3pt}
-\textbf{Certifications:} Unity Certified Programmer; Unreal Engine Game Design and Development Specialization
 
 \end{document}

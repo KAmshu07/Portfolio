@@ -6,7 +6,7 @@ export const interactables = [
 <p>Most engineers pick a layer and stay there. Client or server. Engine or tools. I build across all of them \u2014 and lead teams that do the same.</p>
 <p>Currently <strong class="highlight">Team Lead</strong> at RootHoot, running a production multiplayer game from Unity client through TypeScript game server to cloud deployment — I own the server and API architecture end to end. Previously shipped a title to <strong class="highlight">5 million downloads</strong> at DeftSoft.</p>
 <p>The castle to the east tells the full story of Pongz. The tower shows what happens when you start from absolute zero in C++.</p>
-<p><strong>Current:</strong> Team Lead \u2014 RootHoot Pvt Ltd (Remote)<br><strong>Previous:</strong> Game Developer \u2014 DeftSoft</p>`,
+<p><strong>Current:</strong> Team Lead \u2014 RootHoot Pvt Ltd, mobile gaming studio (Remote)<br><strong>Previous:</strong> Game Developer \u2014 DeftSoft</p>`,
     },
     {
         label: 'SKILLS',
@@ -115,7 +115,7 @@ export const interactables = [
         label: 'CONTACT',
         content: `<h2>You've Seen the Kingdom</h2>
 <p>41,000 players. 5 million downloads. A game engine from scratch. A hot reload tool that beats Unity at its own game. 8 reusable systems, an open-source framework, and a 25-chapter course.</p>
-<p><strong class="highlight">Three years. Nothing built twice.</strong></p>
+<p><strong class="highlight">Three and a half years. Nothing built twice.</strong></p>
 <p>Every project here left something behind that the next one stood on — the socket framework, the 8 systems, FlowUI. That is the real answer to how one person covers this much ground. The next question is what to point it at, and who to build it with.</p>
 <div class="contact-grid">
     <a href="mailto:kamshu00@gmail.com" class="contact-card"><small>EMAIL</small><span>kamshu00@gmail.com</span></a>

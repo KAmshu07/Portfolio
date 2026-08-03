@@ -28,6 +28,7 @@
 \homepage{kamshu07.github.io/Portfolio/}
 \social[linkedin]{linkedin.com/in/amritanshu-kumar-}
 \social[github]{Kamshu07}
+\extrainfo{Raipur, India \textbar{} Open to remote}
 
 \begin{document}
 
@@ -37,7 +38,7 @@
 %% ─── Professional Summary ────────────────────────────────────────────
 \section{Professional Summary}
 \cvitem{}{%
-Builds game systems end to end — engine internals, real-time multiplayer, distributed backend — and leads the teams that ship them. Directs a 7-engineer team on a live title with \textbf{41K registered / \textasciitilde3.4K daily active} players, owning the server and API architecture. Built a C++ physics engine and a Unity hot-reload tool (\textbf{7ms} IL patching) from scratch. \textbf{5M+ downloads} shipped.%
+\textbf{3.5 years} building game systems end to end — engine internals, real-time multiplayer, distributed backend — and leading the teams that ship them. Directs a 7-engineer team on a live title with \textbf{41K registered / \textasciitilde3.4K daily active} players, owning the server and API architecture. Built a C++ physics engine and a Unity hot-reload tool (\textbf{7ms} IL patching) from scratch. \textbf{5M+ downloads} shipped.%
 }
 
 \vspace{0.2em}
@@ -45,7 +46,7 @@ Builds game systems end to end — engine internals, real-time multiplayer, dist
 %% ─── Professional Experience ─────────────────────────────────────────
 \section{Professional Experience}
 
-\cventry{Dec 2024 -- Present}{Team Lead}{RootHoot Pvt Ltd}{Remote, Hyderabad}{}{%
+\cventry{Dec 2024 -- Present}{Team Lead}{RootHoot Pvt Ltd (mobile gaming studio)}{Remote, Hyderabad}{}{%
 \begin{itemize}
     \item Own the server-side architecture end to end for Pongz, a live multiplayer Mahjong title shipping on Android and iOS — TypeScript game server, Express REST API, and cloud infrastructure.
     \item \textbf{Scaled the game server horizontally from a single instance} — Redis pub/sub adapter for cross-instance event fan-out, leader election to form matches from a shared global queue (fixing matchmaking split-brain), distributed locking, and failover that hands live games to peer nodes on drain with zero session loss.

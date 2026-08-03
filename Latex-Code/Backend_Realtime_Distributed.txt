@@ -28,6 +28,7 @@
 \homepage{kamshu07.github.io/Portfolio/}
 \social[linkedin]{linkedin.com/in/amritanshu-kumar-}
 \social[github]{Kamshu07}
+\extrainfo{Raipur, India \textbar{} Open to remote}
 
 \begin{document}
 
@@ -37,7 +38,7 @@
 %% ─── Professional Summary ────────────────────────────────────────────
 \section{Professional Summary}
 \cvitem{}{%
-Backend engineer specializing in \textbf{real-time distributed systems}. Owns and operates a live multiplayer platform serving \textbf{41K registered / \textasciitilde3.4K daily active} users on Android and iOS. Took the platform from single-instance to horizontally scaled: Redis-backed pub/sub fan-out, cross-instance leader election, distributed locking, and failover with zero session loss. \textbf{3,332 tests} under enforced coverage gates. Leads a 7-engineer team spanning client, server, and API.%
+Backend engineer with \textbf{3.5 years} specializing in \textbf{real-time distributed systems}. Owns and operates a live multiplayer platform serving \textbf{41K registered / \textasciitilde3.4K daily active} users on Android and iOS. Took the platform from single-instance to horizontally scaled: Redis-backed pub/sub fan-out, cross-instance leader election, distributed locking, and failover with zero session loss. \textbf{3,332 tests} under enforced coverage gates. Leads a 7-engineer team spanning client, server, and API.%
 }
 
 \vspace{0.2em}
@@ -45,7 +46,7 @@ Backend engineer specializing in \textbf{real-time distributed systems}. Owns an
 %% ─── Professional Experience ─────────────────────────────────────────
 \section{Professional Experience}
 
-\cventry{Dec 2024 -- Present}{Team Lead \textbar{} Backend Architecture}{RootHoot Pvt Ltd}{Remote, Hyderabad}{}{%
+\cventry{Dec 2024 -- Present}{Team Lead \textbar{} Backend Architecture}{RootHoot Pvt Ltd (mobile gaming studio)}{Remote, Hyderabad}{}{%
 \begin{itemize}
     \item Own the Node.js/TypeScript socket server and Express REST API for Pongz end to end — a live real-time multiplayer platform on Google Cloud, shipping on Android and iOS.
     \item \textbf{Scaled the server horizontally from a single instance.} Redis pub/sub adapter for cross-instance event fan-out, per-instance identity, and room-routed delivery so any node can reach a socket held by any other.
@@ -60,7 +61,7 @@ Backend engineer specializing in \textbf{real-time distributed systems}. Owns an
 
 \vspace{0.2em}
 
-\cventry{Feb 2023 -- Oct 2024}{Software Engineer}{DeftSoft}{Mohali, Punjab}{}{%
+\cventry{Feb 2023 -- Oct 2024}{Game Developer}{DeftSoft}{Mohali, Punjab}{}{%
 \begin{itemize}
     \item Shipped a product to \textbf{5M+ downloads} / \textbf{4.6 stars} on Google Play; post-launch telemetry iteration lifted engagement \textbf{30\%}.
     \item Introduced \textbf{TDD} across the team to catch regressions before release — ratings improved \textbf{1.5 stars} as a direct result. Authored a \textbf{25-chapter} technical course on software architecture.
@@ -106,7 +107,7 @@ Open-source framework (MIT) eliminating UI boilerplate — CRTP builders, \textb
 \vspace{0.2em}
 
 %% ─── Education & Certifications ─────────────────────────────────────
-\section{Education \& Certifications}
-\cvitem{}{\textbf{Bachelor of Computer Application}, Lovely Professional University, Punjab, India \textbar{} Sep 2020 -- Jun 2023\newline\textbf{Certifications:} Unity Certified Programmer \textbar{} Unreal Engine Game Design \& Development Specialization}
+\section{Education}
+\cvitem{}{\textbf{Bachelor of Computer Application}, Lovely Professional University, Punjab, India \textbar{} Sep 2020 -- Jun 2023}
 
 \end{document}
