@@ -82,8 +82,8 @@ Unity hot-reload tool that cuts domain reload from 3--5s to \textbf{7ms}, removi
 
 \vspace{0.1em}
 
-\cvitem{\textbf{Nimirta Engine}}{%
-Custom 2D engine, C++/SFML — impulse solver with warm starting, Baumgarte correction for stable high-velocity contacts, semi-implicit Euler, fixed timestep with spiral-of-death prevention, 3 collision algorithms, 8 materials, hand-written vector math, 3-tier AI.%
+\cvitem{\textbf{Nimrita Engine}}{%
+Real-time collaborative 3D scene editor in \textbf{C++} — Figma-style multi-user editing for 3D worlds, designed so an AI agent is a first-class user. Everything is a command: GUI, keybinds, headless REPL and HTTP control plane share one surface, which doubles as the replication unit for referee-arbitrated sessions with distributed undo.%
 }
 
 \vspace{0.1em}

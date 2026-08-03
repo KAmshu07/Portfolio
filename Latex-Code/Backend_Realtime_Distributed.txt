@@ -74,8 +74,8 @@ Backend engineer with \textbf{3.5 years} specializing in \textbf{real-time distr
 %% ─── Selected Projects ──────────────────────────────────────────────
 \section{Selected Projects}
 
-\cvitem{\textbf{Nimirta Engine}}{%
-2D physics engine from first principles, \textbf{C++}/SFML — impulse solver with warm starting, Baumgarte stabilization for high-velocity contacts, semi-implicit Euler integration, fixed timestep with spiral-of-death prevention, 3 collision algorithms, hand-written vector math.%
+\cvitem{\textbf{Nimrita Engine}}{%
+Real-time collaborative 3D scene editor in \textbf{C++}, built so an AI agent is a first-class user alongside humans. One introspectable command surface drives the GUI, keybinds, a headless REPL and a token-authenticated HTTP control plane — and doubles as the replication unit: a referee server validates each edit as an atomic transaction, stamps it with a global sequence, and gap-replays from a ring buffer, so peers converge with distributed undo.%
 }
 
 \vspace{0.1em}

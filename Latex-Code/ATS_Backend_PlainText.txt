@@ -86,7 +86,7 @@ Backend engineer specializing in real-time distributed systems, with 3.5 years o
 
 %% ─── Projects ───────────────────────────────────────────────────────────
 \section*{Selected Projects}
-\textbf{Nimirta Engine} -- 2D physics engine written from scratch in C++ and SFML. Impulse solver with warm starting, Baumgarte stabilization for high-velocity contacts, semi-implicit Euler integration, fixed timestep with spiral-of-death prevention, 3 collision algorithms, hand-written vector math. github.com/nimritagames/NimirtaEngine
+\textbf{Nimrita Engine} -- Real-time collaborative 3D scene editor in C++, built so an AI agent is a first-class user alongside humans. One introspectable command surface drives the GUI, keybinds, a headless REPL and a token-authenticated HTTP control plane, and doubles as the replication unit: a referee server validates each edit as an atomic transaction, stamps it with a global sequence, and gap-replays from a ring buffer, so peers converge with distributed undo.
 
 \vspace{2pt}
 \textbf{InstaReload} -- Hot-reload toolchain that cuts reload latency from 3-5 seconds to 7 milliseconds. Runtime IL patching via Roslyn for the common path covering 90 percent of edits, with MonoMod detours for structural changes. github.com/nimritagames/Insta\_Reload

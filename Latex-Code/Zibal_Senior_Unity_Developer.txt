@@ -74,8 +74,8 @@ Unity architect with \textbf{3.5 years} building scalable systems end to end —
 %% ─── Selected Projects ──────────────────────────────────────────────
 \section{Selected Projects}
 
-\cvitem{\textbf{Nimirta Engine}}{%
-Custom 2D physics engine, C++/SFML — impulse solver with warm starting, Baumgarte correction for stable high-velocity contacts, semi-implicit Euler, fixed timestep with spiral-of-death prevention, 3 collision algorithms, 8 material types, hand-written vector math, 3-tier AI system.%
+\cvitem{\textbf{Nimrita Engine}}{%
+Real-time collaborative 3D scene editor in \textbf{C++} with a built-in editor. ECS scene system and PBR/IBL rendering pipeline; a single command surface shared by GUI, keybinds and a headless API, which also serves as the replication unit for referee-arbitrated multi-user editing with distributed undo.%
 }
 
 \vspace{0.1em}
